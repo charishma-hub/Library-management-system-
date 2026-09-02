@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Library Management System</h1>
+    <p>Smart Library Management Portal</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#books">Books</a>
+    <a href="#login">Login</a>
+    <a href="#dashboard">Dashboard</a>
+</nav>
+
+<main>
+
+<section id="home" class="welcome">
+    <h2>Welcome to Our Library</h2>
+    <p>
+        Manage books, students, borrowing, returns,
+        reservations and fines in one place.
+    </p>
+</section>
+
+<section id="login">
+    <h2>Login</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>👨‍💼 Admin</h3>
+            <p>Manage the complete library system.</p>
+            <button onclick="login('Admin')">Admin Login</button>
+        </div>
+
+        <div class="card">
+            <h3>👨‍🎓 Student</h3>
+            <p>Search, borrow and reserve books.</p>
+            <button onclick="login('Student')">Student Login</button>
+        </div>
+
+        <div class="card">
+            <h3>👩‍💼 Librarian</h3>
+            <p>Issue, return and manage books.</p>
+            <button onclick="login('Librarian')">Librarian Login</button>
+        </div>
+
+    </div>
+</section>
+
+<section id="books">
+    <h2>🔎 Search Books</h2>
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search by book name, author or ISBN"
+        onkeyup="searchBooks()"
+    >
+
+    <div id="bookList">
+
+        <div class="book">
+            <h3>Database Management Systems</h3>
+            <p>Author: Korth</p>
+            <p>ISBN: 123456</p>
+            <p>Status: <span class="available">Available</span></p>
+        </div>
+
+        <div class="book">
+            <h3>Java Programming</h3>
+            <p>Author: Herbert Schildt</p>
+            <p>ISBN: 234567</p>
+            <p>Status: <span class="available">Available</span></p>
+        </div>
+
+        <div class="book">
+            <h3>Computer Networks</h3>
+            <p>Author: Andrew S. Tanenbaum</p>
+            <p>ISBN: 345678</p>
+            <p>Status: <span class="issued">Issued</span></p>
+        </div>
+
+    </div>
+</section>
+
+<section id="dashboard">
+    <h2>📊 Dashboard</h2>
+
+    <div class="dashboard">
+
+        <div class="stat">
+            <h3>500</h3>
+            <p>Total Books</p>
+        </div>
+
+        <div class="stat">
+            <h3>320</h3>
+            <p>Available Books</p>
+        </div>
+
+        <div class="stat">
+            <h3>180</h3>
+            <p>Issued Books</p>
+        </div>
+
+        <div class="stat">
+            <h3>25</h3>
+            <p>Overdue Books</p>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Library Management System</p>
+</footer>
+
+<script src="index.js"></script>
+
+</body>
+</html>
