@@ -1,20 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notifications</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🔔 Notifications</h1>
+
+<div class="card">
+
+<h2>📅 Due Date Reminder</h2>
+
+<label>Book Name:</label>
+<input type="text" id="bookName" placeholder="Enter book name">
+
 <label>Due Date:</label>
 <input type="date" id="dueDate">
 
-<button onclick="showDueDate()">Set Due Date</button>
+<button type="button" onclick="checkDueDate()">
+Check Due Date
+</button>
 
 <p id="result"></p>
 
+</div>
+    <div class="card">
+
+<h2>⚠️ Overdue Check</h2>
+
+<p id="overdue"></p>
+
+</div>
+
 <script>
-function showDueDate() {
-    let date = document.getElementById("dueDate").value;
 
-    if (date === "") {
-        alert("Please enter due date");
-        return;
-    }
+function checkDueDate() {
 
-    document.getElementById("result").innerText =
-        "Book is due on " + date;
+let book = document.getElementById("bookName").value;
+let date = document.getElementById("dueDate").value;
+
+if (book === "" || date === "") {
+    alert("Please enter book name and due date");
+    return;
 }
+
+let today = new Date();
+let due = new Date(date);
+
+if (due < today) {
+    document.getElementById("result").innerText =
+        book + " is overdue!";
+} else {
+    document.getElementById("result").innerText =
+        book + " is due on " + date;
+}
+
+}
+
 </script>
+
+<br>
+
+<button onclick="window.location.href='student-dashboard.html'">
+Back to Dashboard
+</button>
+
+</body>
+</html>
