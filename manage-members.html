@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Members</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>👥 Manage Members</h1>
+</header>
+
+<div class="container">
+
+    <h2>Add Member</h2>
+
+    <input type="text" id="memberName" placeholder="Member Name">
+
+    <input type="text" id="memberId" placeholder="Student ID">
+
+    <input type="email" id="memberEmail" placeholder="Email">
+
+    <input type="text" id="memberPhone" placeholder="Phone Number">
+
+    <button onclick="addMember()">Add Member</button>
+
+    <h2>Member List</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="memberTable">
+
+            <tr>
+                <td>Charan Kumar</td>
+                <td>CSE001</td>
+                <td>charan@gmail.com</td>
+                <td>9876543210</td>
+                <td>
+                    <button onclick="this.parentElement.parentElement.remove()">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <button onclick="window.location.href='librarian-dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+function addMember() {
+
+    let name = document.getElementById("memberName").value.trim();
+    let id = document.getElementById("memberId").value.trim();
+    let email = document.getElementById("memberEmail").value.trim();
+    let phone = document.getElementById("memberPhone").value.trim();
+
+    if (name === "" || id === "" || email === "" || phone === "") {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    let table = document.getElementById("memberTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = name;
+    row.insertCell(1).innerHTML = id;
+    row.insertCell(2).innerHTML = email;
+    row.insertCell(3).innerHTML = phone;
+
+    row.insertCell(4).innerHTML =
+        '<button onclick="this.parentElement.parentElement.remove()">Delete</button>';
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberId").value = "";
+    document.getElementById("memberEmail").value = "";
+    document.getElementById("memberPhone").value = "";
+
+    alert("Member added successfully!");
+}
+</script>
+
+</body>
+</html>
