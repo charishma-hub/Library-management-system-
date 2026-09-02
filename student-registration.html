@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .register-box {
+            width: 90%;
+            max-width: 500px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Student Registration</h1>
+</header>
+
+<div class="register-box">
+
+    <h2>Create Student Account</h2>
+
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label>Student ID</label>
+    <input type="text" id="studentId" placeholder="Enter student ID">
+
+    <label>Course</label>
+    <input type="text" id="course" placeholder="Enter course">
+
+    <label>Department</label>
+    <input type="text" id="department" placeholder="Enter department">
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter email">
+
+    <label>Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter phone number">
+
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Create username">
+
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Create password">
+
+    <button onclick="registerStudent()">
+        Register
+    </button>
+
+    <button class="back"
+        onclick="window.location.href='student-login.html'">
+        Back to Login
+    </button>
+
+</div>
+
+<script>
+function registerStudent() {
+
+    let name = document.getElementById("name").value;
+    let studentId = document.getElementById("studentId").value;
+    let course = document.getElementById("course").value;
+    let department = document.getElementById("department").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (
+        name === "" ||
+        studentId === "" ||
+        course === "" ||
+        department === "" ||
+        email === "" ||
+        phone === "" ||
+        username === "" ||
+        password === ""
+    ) {
+        alert("Please fill all details.");
+        return;
+    }
+
+    localStorage.setItem("studentName", name);
+    localStorage.setItem("studentId", studentId);
+    localStorage.setItem("course", course);
+    localStorage.setItem("department", department);
+    localStorage.setItem("email", email);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("studentUsername", username);
+    localStorage.setItem("studentPassword", password);
+
+    alert("Registration successful! Please login.");
+
+    window.location.href = "student-login.html";
+}
+</script>
+
+</body>
+</html>
