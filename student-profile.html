@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #savedProfile {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #eef5ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>👤 Student Profile</h1>
+</header>
+
+<div class="profile">
+
+    <h2>Enter Student Information</h2>
+
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label>Student ID</label>
+    <input type="text" id="studentId" placeholder="Enter student ID">
+
+    <label>Course</label>
+    <input type="text" id="course" placeholder="Enter course">
+
+    <label>Year</label>
+    <select id="year">
+        <option value="">Select Year</option>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>4th Year</option>
+    </select>
+
+    <label>Department</label>
+    <input type="text" id="department" placeholder="Enter department">
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter email">
+
+    <label>Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter phone number">
+
+    <button onclick="saveProfile()">Save Profile</button>
+
+    <div id="savedProfile"></div>
+
+    <button onclick="window.location.href='student-dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+function saveProfile() {
+
+    let name = document.getElementById("name").value;
+    let studentId = document.getElementById("studentId").value;
+    let course = document.getElementById("course").value;
+    let year = document.getElementById("year").value;
+    let department = document.getElementById("department").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+
+    if (
+        name === "" ||
+        studentId === "" ||
+        course === "" ||
+        year === "" ||
+        department === "" ||
+        email === "" ||
+        phone === ""
+    ) {
+        alert("Please fill all student information.");
+        return;
+    }
+
+    localStorage.setItem("studentName", name);
+    localStorage.setItem("studentId", studentId);
+    localStorage.setItem("course", course);
+    localStorage.setItem("year", year);
+    localStorage.setItem("department", department);
+    localStorage.setItem("email", email);
+    localStorage.setItem("phone", phone);
+
+    document.getElementById("savedProfile").style.display = "block";
+
+    document.getElementById("savedProfile").innerHTML =
+        "<h2>Profile Saved Successfully ✅</h2>" +
+        "<p><b>Name:</b> " + name + "</p>" +
+        "<p><b>Student ID:</b> " + studentId + "</p>" +
+        "<p><b>Course:</b> " + course + "</p>" +
+        "<p><b>Year:</b> " + year + "</p>" +
+        "<p><b>Department:</b> " + department + "</p>" +
+        "<p><b>Email:</b> " + email + "</p>" +
+        "<p><b>Phone:</b> " + phone + "</p>";
+
+    alert("Student profile saved!");
+}
+</script>
+
+</body>
+</html>
