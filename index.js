@@ -1,5 +1,13 @@
 function login(role) {
-    alert("Welcome! You selected " + role + " Login.");
+    if (role === "Student") {
+        window.location.href = "student-login.html";
+    } 
+    else if (role === "Admin") {
+        window.location.href = "admin-login.html";
+    } 
+    else if (role === "Librarian") {
+        window.location.href = "librarian-login.html";
+    }
 }
 
 function searchBooks() {
