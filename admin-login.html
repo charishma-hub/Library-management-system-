@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e3a5f;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 98%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            margin-top: 18px;
+            color: #1e3a5f;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>👨‍💼 Admin Login</h1>
+
+    <input type="text" id="username" placeholder="Admin Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="adminLogin()">Login</button>
+
+    <a href="index.html">← Back to Home</a>
+
+</div>
+
+<script>
+function adminLogin() {
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username === "" || password === "") {
+        alert("Please enter username and password.");
+        return;
+    }
+
+    alert("Admin login successful!");
+
+    window.location.href = "admin-dashboard.html";
+}
+</script>
+
+</body>
+</html>
