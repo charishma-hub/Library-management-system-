@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Settings</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .setting {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            padding: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 18px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .back {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>System Settings</h1>
+</header>
+
+<div class="container">
+
+    <div class="setting">
+        <label>Library Name</label>
+        <input type="text" id="libraryName"
+               value="College Library">
+    </div>
+
+    <div class="setting">
+        <label>Maximum Books a Student Can Borrow</label>
+        <input type="number" id="maxBooks" value="3">
+    </div>
+
+    <div class="setting">
+        <label>Fine Per Day (₹)</label>
+        <input type="number" id="fine" value="10">
+    </div>
+
+    <div class="setting">
+        <label>Library Status</label>
+        <select id="status">
+            <option>Open</option>
+            <option>Closed</option>
+        </select>
+    </div>
+
+    <button onclick="saveSettings()">Save Settings</button>
+
+    <br>
+
+    <button class="back"
+        onclick="window.location.href='admin-dashboard.html'">
+        Back to Admin Dashboard
+    </button>
+
+</div>
+
+<script>
+function saveSettings() {
+
+    let libraryName = document.getElementById("libraryName").value;
+    let maxBooks = document.getElementById("maxBooks").value;
+    let fine = document.getElementById("fine").value;
+    let status = document.getElementById("status").value;
+
+    if (libraryName === "" || maxBooks === "" || fine === "") {
+        alert("Please fill all settings.");
+        return;
+    }
+
+    alert(
+        "Settings saved successfully!\n\n" +
+        "Library: " + libraryName +
+        "\nMaximum Books: " + maxBooks +
+        "\nFine Per Day: ₹" + fine +
+        "\nStatus: " + status
+    );
+}
+</script>
+
+</body>
+</html>
