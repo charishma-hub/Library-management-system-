@@ -84,17 +84,28 @@
     <script>
         function studentLogin() {
 
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
 
-            if (username === "" || password === "") {
-                alert("Please enter username and password.");
-                return;
-            }
+    let savedUsername = localStorage.getItem("studentUsername");
+    let savedPassword = localStorage.getItem("studentPassword");
 
-            alert("Student login successful!");
+    if (username === "" || password === "") {
+        alert("Please enter username and password.");
+        return;
+    }
 
-            window.location.href = "student-dashboard.html";
+    if (username === savedUsername && password === savedPassword) {
+
+        alert("Student login successful!");
+
+        window.location.href = "student-dashboard.html";
+
+    } else {
+
+        alert("Invalid username or password.");
+
+    }
         }
     </script>
 
