@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Reservations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>📖 Manage Reservations</h1>
+</header>
+
+<div class="container">
+
+    <h2>Book Reservation</h2>
+
+    <input type="text" id="studentId" placeholder="Student ID">
+
+    <input type="text" id="bookId" placeholder="Book ID / ISBN">
+
+    <input type="date" id="reservationDate">
+
+    <button onclick="addReservation()">Reserve Book</button>
+
+    <h2>Reservation List</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Book ID / ISBN</th>
+                <th>Reservation Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="reservationTable">
+
+            <tr>
+                <td>CSE001</td>
+                <td>123456</td>
+                <td>02-09-2026</td>
+                <td>Waiting</td>
+                <td>
+                    <button onclick="this.parentElement.parentElement.remove()">
+                        Cancel
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <button onclick="window.location.href='librarian-dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+function addReservation() {
+
+    let studentId =
+        document.getElementById("studentId").value.trim();
+
+    let bookId =
+        document.getElementById("bookId").value.trim();
+
+    let date =
+        document.getElementById("reservationDate").value;
+
+    if (studentId === "" || bookId === "" || date === "") {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    let table =
+        document.getElementById("reservationTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = studentId;
+    row.insertCell(1).innerHTML = bookId;
+    row.insertCell(2).innerHTML = date;
+    row.insertCell(3).innerHTML = "Waiting";
+
+    row.insertCell(4).innerHTML =
+        '<button onclick="this.parentElement.parentElement.remove()">Cancel</button>';
+
+    document.getElementById("studentId").value = "";
+    document.getElementById("bookId").value = "";
+    document.getElementById("reservationDate").value = "";
+
+    alert("Book reserved successfully!");
+}
+</script>
+
+</body>
+</html>
