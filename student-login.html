@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e3a5f;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 98%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        a {
+            display: block;
+            margin-top: 18px;
+            color: #1e3a5f;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h1>🎓 Student Login</h1>
+
+        <input type="text" id="username" placeholder="Student Username">
+
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="studentLogin()">Login</button>
+
+        <a href="#">New Student? Register</a>
+
+        <a href="index.html">← Back to Home</a>
+
+    </div>
+
+    <script>
+        function studentLogin() {
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                alert("Please enter username and password.");
+                return;
+            }
+
+            alert("Student login successful!");
+
+            window.location.href = "student-dashboard.html";
+        }
+    </script>
+
+</body>
+  </html>
