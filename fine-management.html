@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fine Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>💰 Fine Management</h1>
+</header>
+
+<div class="container">
+
+    <h2>Add Fine</h2>
+
+    <input type="text" id="studentId" placeholder="Student ID">
+
+    <input type="text" id="bookId" placeholder="Book ID / ISBN">
+
+    <input type="number" id="amount" placeholder="Fine Amount (₹)">
+
+    <select id="reason">
+        <option value="">Select Fine Reason</option>
+        <option value="Late Return">Late Return</option>
+        <option value="Lost Book">Lost Book</option>
+        <option value="Damaged Book">Damaged Book</option>
+    </select>
+
+    <button onclick="addFine()">Add Fine</button>
+
+    <h2>Fine Records</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Book ID / ISBN</th>
+                <th>Amount</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="fineTable">
+
+            <tr>
+                <td>CSE001</td>
+                <td>123456</td>
+                <td>₹20</td>
+                <td>Late Return</td>
+                <td>Pending</td>
+                <td>
+                    <button onclick="payFine(this)">
+                        Mark Paid
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <button onclick="window.location.href='librarian-dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+
+function addFine() {
+
+    let studentId =
+        document.getElementById("studentId").value.trim();
+
+    let bookId =
+        document.getElementById("bookId").value.trim();
+
+    let amount =
+        document.getElementById("amount").value;
+
+    let reason =
+        document.getElementById("reason").value;
+
+    if (studentId === "" ||
+        bookId === "" ||
+        amount === "" ||
+        reason === "") {
+
+        alert("Please fill all fields.");
+        return;
+    }
+
+    let table =
+        document.getElementById("fineTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = studentId;
+    row.insertCell(1).innerHTML = bookId;
+    row.insertCell(2).innerHTML = "₹" + amount;
+    row.insertCell(3).innerHTML = reason;
+    row.insertCell(4).innerHTML = "Pending";
+
+    row.insertCell(5).innerHTML =
+        '<button onclick="payFine(this)">Mark Paid</button>';
+
+    document.getElementById("studentId").value = "";
+    document.getElementById("bookId").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("reason").value = "";
+
+    alert("Fine added successfully!");
+}
+
+function payFine(button) {
+
+    let row = button.parentElement.parentElement;
+
+    row.cells[4].innerHTML = "Paid";
+
+    button.remove();
+
+    alert("Fine marked as paid!");
+}
+
+</script>
+
+</body>
+</html>
