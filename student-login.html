@@ -81,10 +81,11 @@
 
     </div>
 
-    <script>
-        function studentLogin() {
+    
+        <script>
+function studentLogin() {
 
-    let username = document.getElementById("username").value;
+    let username = document.getElementById("username").value.trim();
     let password = document.getElementById("password").value;
 
     let savedUsername = localStorage.getItem("studentUsername");
@@ -95,19 +96,20 @@
         return;
     }
 
-    if (username === savedUsername && password === savedPassword) {
-
-        alert("Student login successful!");
-
-        window.location.href = "student-dashboard.html";
-
-    } else {
-
-        alert("Invalid username or password.");
-
+    if (savedUsername === null || savedPassword === null) {
+        alert("No student account found. Please register first.");
+        return;
     }
-        }
-    </script>
+
+    if (username === savedUsername && password === savedPassword) {
+        alert("Student login successful!");
+        window.location.href = "student-dashboard.html";
+    } else {
+        alert("Invalid username or password!");
+    }
+}
+</script>
+    
 
 </body>
   </html>
