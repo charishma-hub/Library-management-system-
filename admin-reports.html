@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports & Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #1e3a5f;
+            font-size: 30px;
+        }
+
+        .card p {
+            font-size: 18px;
+        }
+
+        .report {
+            background: white;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 18px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Reports & Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>500</h2>
+            <p>Total Books</p>
+        </div>
+
+        <div class="card">
+            <h2>350</h2>
+            <p>Available Books</p>
+        </div>
+
+        <div class="card">
+            <h2>150</h2>
+            <p>Issued Books</p>
+        </div>
+
+        <div class="card">
+            <h2>250</h2>
+            <p>Active Students</p>
+        </div>
+
+        <div class="card">
+            <h2>20</h2>
+            <p>Overdue Books</p>
+        </div>
+
+        <div class="card">
+            <h2>₹2,500</h2>
+            <p>Total Fines</p>
+        </div>
+
+    </div>
+
+    <div class="report">
+        <h2>Library Reports</h2>
+
+        <p>📚 Most Borrowed Book: Database Management Systems</p>
+        <p>👨‍🎓 Active Members: 250</p>
+        <p>📕 Currently Issued: 150</p>
+        <p>⏰ Overdue Books: 20</p>
+        <p>💰 Total Fine Collected: ₹2,500</p>
+
+        <button onclick="window.print()">
+            Print Report
+        </button>
+
+        <br>
+
+        <button onclick="window.location.href='admin-dashboard.html'">
+            Back to Admin Dashboard
+        </button>
+    </div>
+
+</div>
+
+</body>
+</html>
