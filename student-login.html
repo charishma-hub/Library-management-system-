@@ -1,115 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f4f7fb;
             margin: 0;
         }
 
-        .login-box {
-            background: white;
-            width: 320px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
             text-align: center;
         }
 
-        h1 {
-            color: #1e3a5f;
+        .login-box {
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         input {
-            width: 90%;
+            width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            box-sizing: border-box;
         }
 
         button {
-            width: 98%;
+            width: 100%;
             padding: 12px;
-            margin-top: 15px;
+            margin-top: 10px;
             background: #1e3a5f;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
-        }
-
-        button:hover {
-            opacity: 0.85;
         }
 
         a {
             display: block;
-            margin-top: 18px;
-            color: #1e3a5f;
-            text-decoration: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back {
+            background: #555;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="login-box">
+<header>
+    <h1>📚 Student Login</h1>
+</header>
 
-        <h1>🎓 Student Login</h1>
+<div class="login-box">
 
-        <input type="text" id="username" placeholder="Student Username">
+    <h2>Login</h2>
 
-        <input type="password" id="password" placeholder="Password">
+    <input type="text"
+           id="username"
+           placeholder="Enter Username">
 
-        <button onclick="studentLogin()">Login</button>
+    <input type="password"
+           id="password"
+           placeholder="Enter Password">
 
-        <a href="student-registration.html">
-    New Student? Register
-        </a>
+    <button type="button" onclick="studentLogin()">
+        Login
+    </button>
 
-        <a href="index.html">← Back to Home</a>
+    <a href="student-registration.html">
+        New Student? Register
+    </a>
 
-    </div>
+    <button type="button"
+            class="back"
+            onclick="window.location.href='index.html'">
+        Back to Home
+    </button>
 
-    
-        <script>
+</div>
+
+<script>
+
 function studentLogin() {
 
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value;
+    let username =
+        document.getElementById("username").value.trim();
 
-    let savedUsername = localStorage.getItem("studentUsername");
-    let savedPassword = localStorage.getItem("studentPassword");
+    let password =
+        document.getElementById("password").value;
+
+    let savedUsername =
+        localStorage.getItem("studentUsername");
+
+    let savedPassword =
+        localStorage.getItem("studentPassword");
+
 
     if (username === "" || password === "") {
+
         alert("Please enter username and password.");
+
         return;
     }
+
 
     if (savedUsername === null || savedPassword === null) {
-        alert("No student account found. Please register first.");
+
+        alert("Please register a student account first.");
+
         return;
     }
 
-    if (username === savedUsername && password === savedPassword) {
-        alert("Student login successful!");
-        window.location.href = "student-dashboard.html";
+
+    if (username === savedUsername &&
+        password === savedPassword) {
+
+        alert("Login successful!");
+
+        window.location.href =
+            "student-dashboard.html";
+
     } else {
-        alert("Invalid username or password!");
+
+        alert("❌ Invalid username or password!");
+
     }
 }
+
 </script>
-    
 
 </body>
-  </html>
+</html>
