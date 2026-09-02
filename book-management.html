@@ -41,7 +41,7 @@
                 <th>Publisher</th>
                 <th>Copies</th>
                 <th>Status</th>
-                <th>Action</th>
+        <th>Action</th>
             </tr>
         </thead>
 
@@ -56,9 +56,7 @@
                 <td>5</td>
                 <td>Available</td>
                 <td>
-                    <button onclick="this.parentElement.parentElement.remove()">
-                        Delete
-                    </button>
+                    
                 </td>
             </tr>
 
@@ -74,6 +72,8 @@
 </div>
 
 <script>
+
+
 
 function addBook() {
 
@@ -109,6 +109,7 @@ function addBook() {
     row.insertCell(6).innerHTML = "Available";
 
     row.insertCell(7).innerHTML =
+        '<button onclick="updateBook(this)">Update</button> ' +
         '<button onclick="this.parentElement.parentElement.remove()">Delete</button>';
 
     document.getElementById("bookName").value = "";
@@ -121,7 +122,42 @@ function addBook() {
     alert("Book added successfully!");
 }
 
+
+function updateBook(button) {
+
+    let row = button.parentElement.parentElement;
+
+    let name = prompt("Enter Book Name:", row.cells[0].innerText);
+    if (name === null) return;
+
+    let author = prompt("Enter Author:", row.cells[1].innerText);
+    if (author === null) return;
+
+    let isbn = prompt("Enter ISBN:", row.cells[2].innerText);
+    if (isbn === null) return;
+
+    let category = prompt("Enter Category:", row.cells[3].innerText);
+    if (category === null) return;
+
+    let publisher = prompt("Enter Publisher:", row.cells[4].innerText);
+    if (publisher === null) return;
+
+    let copies = prompt("Enter Number of Copies:", row.cells[5].innerText);
+    if (copies === null) return;
+
+    row.cells[0].innerText = name;
+    row.cells[1].innerText = author;
+    row.cells[2].innerText = isbn;
+    row.cells[3].innerText = category;
+    row.cells[4].innerText = publisher;
+    row.cells[5].innerText = copies;
+
+    alert("Book updated successfully!");
+}
+
 </script>
+
+
 
 </body>
   </html>
