@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Renew Books</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back {
+            background: #555;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef5ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔄 Renew Books</h1>
+</header>
+
+<div class="container">
+
+    <h2>Renew Borrowed Book</h2>
+
+    <label>Student ID</label>
+    <input type="text" id="studentId"
+           placeholder="Enter Student ID">
+
+    <label>Book ID / ISBN</label>
+    <input type="text" id="bookId"
+           placeholder="Enter Book ID or ISBN">
+
+    <label>Current Due Date</label>
+    <input type="date" id="currentDueDate">
+
+    <label>New Due Date</label>
+    <input type="date" id="newDueDate">
+
+    <button onclick="renewBook()">
+        Renew Book
+    </button>
+
+    <div id="result"></div>
+
+    <br>
+
+    <button class="back"
+        onclick="window.location.href='librarian-dashboard.html'">
+        Back to Librarian Dashboard
+    </button>
+
+</div>
+
+<script>
+
+function renewBook() {
+
+    let studentId =
+        document.getElementById("studentId").value;
+
+    let bookId =
+        document.getElementById("bookId").value;
+
+    let currentDueDate =
+        document.getElementById("currentDueDate").value;
+
+    let newDueDate =
+        document.getElementById("newDueDate").value;
+
+    if (
+        studentId === "" ||
+        bookId === "" ||
+        currentDueDate === "" ||
+        newDueDate === ""
+    ) {
+        alert("Please fill all details.");
+        return;
+    }
+
+    if (newDueDate <= currentDueDate) {
+        alert("New due date must be after the current due date.");
+        return;
+    }
+
+    let result =
+        document.getElementById("result");
+
+    result.style.display = "block";
+
+    result.innerHTML =
+        "<strong>Book Renewed Successfully! ✅</strong><br><br>" +
+        "Student ID: " + studentId + "<br>" +
+        "Book ID / ISBN: " + bookId + "<br>" +
+        "Old Due Date: " + currentDueDate + "<br>" +
+        "New Due Date: " + newDueDate;
+}
+
+</script>
+
+</body>
+</html>
