@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Management</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<h1>📚 Book Management</h1>
+
+<form>
+<input id="name" placeholder="Book Name">
+<input id="author" placeholder="Author">
+<input id="isbn" placeholder="ISBN">
+<input id="category" placeholder="Category">
+<input id="publisher" placeholder="Publisher">
+<input id="copies" type="number" placeholder="Copies">
+
+<button type="button" onclick="addBook()">Add Book</button>
+</form>
+
+<table border="1">
+<thead>
+<tr>
+<th>Book</th>
+<th>Author</th>
+<th>ISBN</th>
+<th>Category</th>
+<th>Publisher</th>
+<th>Copies</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="bookTable">
+<tr>
+<td>Database Management Systems</td>
+<td>Korth</td>
+<td>123456</td>
+<td>Computer Science</td>
+<td>McGraw Hill</td>
+<td>5</td>
+<td>
+<button type="button" onclick="updateBook(this)">Update</button>
+<button type="button" onclick="deleteBook(this)">Delete</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<script>
+function addBook() {
+
+let name = document.getElementById("name").value;
+let author = document.getElementById("author").value;
+let isbn = document.getElementById("isbn").value;
+let category = document.getElementById("category").value;
+let publisher = document.getElementById("publisher").value;
+let copies = document.getElementById("copies").value;
+
+if(name==="" || author==="" || isbn==="" || category==="" || publisher==="" || copies===""){
+alert("Please fill all fields");
+return;
+}
+
+let row = document.getElementById("bookTable").insertRow();
+
+row.innerHTML =
+"<td>"+name+"</td>"+
+"<td>"+author+"</td>"+
+"<td>"+isbn+"</td>"+
+"<td>"+category+"</td>"+
+"<td>"+publisher+"</td>"+
+"<td>"+copies+"</td>"+
+"<td><button onclick='updateBook(this)'>Update</button> <button onclick='deleteBook(this)'>Delete</button></td>";
+
+alert("Book added successfully!");
+}
+
+function deleteBook(button){
+button.parentElement.parentElement.remove();
+}
+
+function updateBook(button){
+
+let row = button.parentElement.parentElement;
+
+let name = prompt("Enter Book Name",row.cells[0].innerText);
+if(name===null)return;
+
+row.cells[0].innerText=name;
+
+alert("Book updated successfully!");
+}
+</script>
+
+</body>
+</html>
