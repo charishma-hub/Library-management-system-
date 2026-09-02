@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .logout {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .logout button {
+            background: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Student Dashboard</h1>
+    <p>Library Management System</p>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome, Student! 👋</h2>
+        <p>Manage your library activities from here.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>👤 Student Profile</h3>
+            <p>View your profile information.</p>
+            <button onclick="showMessage('Student Profile')">
+                Open
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>🔎 Search Books</h3>
+            <p>Search for books in the library.</p>
+            <button onclick="showMessage('Search Books')">
+                Search
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📚 Book Availability</h3>
+            <p>Check whether a book is available.</p>
+            <button onclick="showMessage('Book Availability')">
+                Check
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📖 Borrowed Books</h3>
+            <p>View books currently borrowed.</p>
+            <button onclick="showMessage('Borrowed Books')">
+                View
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📅 Due Dates</h3>
+            <p>Check your book due dates.</p>
+            <button onclick="showMessage('Due Dates')">
+                View
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>💰 Fine Details</h3>
+            <p>Check your pending fines.</p>
+            <button onclick="showMessage('Fine Details')">
+                View
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📜 Borrowing History</h3>
+            <p>View your previous borrowing records.</p>
+            <button onclick="showMessage('Borrowing History')">
+                View
+            </button>
+        </div>
+
+    </div>
+
+    <div class="logout">
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
+<script>
+
+function showMessage(section) {
+    alert(section + " section will open here.");
+}
+
+function logout() {
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
