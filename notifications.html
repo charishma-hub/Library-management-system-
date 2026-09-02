@@ -1,0 +1,20 @@
+<label>Due Date:</label>
+<input type="date" id="dueDate">
+
+<button onclick="showDueDate()">Set Due Date</button>
+
+<p id="result"></p>
+
+<script>
+function showDueDate() {
+    let date = document.getElementById("dueDate").value;
+
+    if (date === "") {
+        alert("Please enter due date");
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "Book is due on " + date;
+}
+</script>
