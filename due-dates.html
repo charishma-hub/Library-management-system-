@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Due Dates</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        .book {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .due {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #1e3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📅 Due Dates</h1>
+    <p>Check the due dates of your borrowed books</p>
+</header>
+
+<div class="container">
+
+    <div class="book">
+        <h2>Database Management Systems</h2>
+        <p>Issue Date: 25 August 2026</p>
+        <p>Due Date: <span class="due">08 September 2026</span></p>
+    </div>
+
+    <div class="book">
+        <h2>Java Programming</h2>
+        <p>Issue Date: 28 August 2026</p>
+        <p>Due Date: <span class="due">11 September 2026</span></p>
+    </div>
+
+    <a class="back" href="student-dashboard.html">
+        ← Back to Student Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
