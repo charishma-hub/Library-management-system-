@@ -75,21 +75,28 @@
 </div>
 
 <script>
+
+
 function librarianLogin() {
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+let username = document.getElementById("username").value;
+let password = document.getElementById("password").value;
 
-    if (username === "" || password === "") {
-        alert("Please enter username and password.");
-        return;
-    }
+if (username === "librarian" && password === "lib123") {
 
-    alert("Librarian login successful!");
+alert("Login successful!");
+window.location.href = "librarian-dashboard.html";
 
-    window.location.href = "librarian-dashboard.html";
+} else {
+
+alert("❌ Invalid username or password!");
+
 }
+
+}
+
 </script>
+
 
 </body>
 </html>
