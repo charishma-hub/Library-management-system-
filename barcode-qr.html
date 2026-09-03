@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barcode / QR</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>📱 Barcode / QR Scanner</h1>
+
+<div class="card">
+
+<h2>Scan Book</h2>
+
+<input type="text" id="bookId"
+placeholder="Enter Book ID / ISBN">
+
+<button type="button" onclick="scanBook()">
+Scan Book
+</button>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+function scanBook() {
+
+let id = document.getElementById("bookId").value;
+
+if (id === "") {
+alert("Please enter Book ID / ISBN");
+return;
+}
+
+document.getElementById("result").innerText =
+"Book found with ID / ISBN: " + id;
+
+}
+
+</script>
+
+<br>
+
+<button onclick="window.location.href='librarian-dashboard.html'">
+Back to Librarian Dashboard
+</button>
+
+</body>
+</html>
