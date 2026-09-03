@@ -18,6 +18,7 @@
         id="searchBox"
         placeholder="Search by book name, author or ISBN"
     >
+    
 
     <button type="button" onclick="searchBooks()">
         Search
@@ -83,40 +84,22 @@ function loadBooks() {
         row.insertCell(3).innerText = status;
     });
 }
-
-
 function searchBooks() {
 
-    let search = document
-        .getElementById("searchBox")
-        .value
-        .trim()
-        .toLowerCase();
+    let search = document.getElementById("searchBox").value.toLowerCase();
 
     let rows = document.querySelectorAll("#bookTable tr");
 
-    let found = false;
-
     rows.forEach(function(row) {
 
-        let text = row.innerText.toLowerCase();
-
-        if (text.includes(search)) {
+        if (row.innerText.toLowerCase().includes(search)) {
             row.style.display = "";
-            found = true;
         } else {
             row.style.display = "none";
         }
+
     });
-
-    if (found) {
-        document.getElementById("noBooks").innerText = "";
-    } else {
-        document.getElementById("noBooks").innerText =
-            "No books found.";
-    }
 }
-
 
 function showAllBooks() {
 
