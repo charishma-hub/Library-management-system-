@@ -124,6 +124,24 @@ function loadBooks() {
 }
 
 loadBooks();
+    function searchBooks() {
+
+    let input = document.getElementById("searchBox").value.toLowerCase();
+
+    let rows = document.querySelectorAll("#bookTable tr");
+
+    rows.forEach(function(row) {
+
+        let text = row.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+
+    });
+    }
 </script>
 </body>
 </html>
