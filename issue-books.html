@@ -95,35 +95,38 @@
 <script>
 function issueBook() {
 
-    let studentId = document.getElementById("studentId").value;
-    let bookId = document.getElementById("bookId").value;
-    let issueDate = document.getElementById("issueDate").value;
-    let dueDate = document.getElementById("dueDate").value;
+    let studentId = document.getElementById("studentId").value.trim();
+    let bookId = document.getElementById("bookId").value.trim();
 
-    if (studentId === "" ||
-        bookId === "" ||
-        issueDate === "" ||
-        dueDate === "") {
-
-        alert("Please fill all details.");
+    if (studentId === "" || bookId === "") {
+        alert("Please enter Student ID and Book ID / ISBN.");
         return;
     }
 
-    if (dueDate < issueDate) {
-        alert("Due date cannot be before issue date.");
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    let book = books.find(function(b) {
+        return b.isbn === bookId;
+    });
+
+    if (!book) {
+        alert("Book not found!");
         return;
     }
 
-    let result = document.getElementById("result");
+    if (Number(book.copies) <= 0) {
+        alert("Book is not available!");
+        return;
+    }
 
-    result.style.display = "block";
+    book.copies = Number(book.copies) - 1;
 
-    result.innerHTML =
-        "<strong>Book Issued Successfully!</strong><br><br>" +
-        "Student ID: " + studentId + "<br>" +
-        "Book ID / ISBN: " + bookId + "<br>" +
-        "Issue Date: " + issueDate + "<br>" +
-        "Due Date: " + dueDate;
+    localStorage.setItem("books", JSON.stringify(books));
+
+    alert("Book issued successfully!");
+
+    document.getElementById("result").innerText =
+        "Book " + book.name + " issued to Student ID: " + studentId;
 }
 </script>
 
