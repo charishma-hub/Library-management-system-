@@ -1,65 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Book Management</title>
-<link rel="stylesheet" href="style.css">
+    <title>Book Management</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>📚 Book Management</h1>
 
-<form>
-<input id="name" placeholder="Book Name">
-<input id="author" placeholder="Author">
-<input id="isbn" placeholder="ISBN">
-<input id="category" placeholder="Category">
-<input id="publisher" placeholder="Publisher">
-<input id="copies" type="number" placeholder="Copies">
+<div class="card">
 
-<button type="button" onclick="addBook()">Add Book</button>
-</form>
+    <h2>Add Book</h2>
 
-<table border="1">
-<thead>
-<tr>
-<th>Book</th>
-<th>Author</th>
-<th>ISBN</th>
-<th>Category</th>
-<th>Publisher</th>
-<th>Copies</th>
-<th>Action</th>
-</tr>
-</thead>
+    <input type="text" id="bookName" placeholder="Book Name">
+    <input type="text" id="author" placeholder="Author">
+    <input type="text" id="isbn" placeholder="ISBN">
+    <input type="text" id="category" placeholder="Category">
+    <input type="text" id="publisher" placeholder="Publisher">
+    <input type="number" id="copies" placeholder="Copies">
 
-<tbody id="bookTable">
-<tr>
-<td>Database Management Systems</td>
-<td>Korth</td>
-<td>123456</td>
-<td>Computer Science</td>
-<td>McGraw Hill</td>
-<td>5</td>
-<td>
-<button type="button" onclick="updateBook(this)">Update</button>
-<button type="button" onclick="deleteBook(this)">Delete</button>
-</td>
-</tr>
-</tbody>
-</table>
+    <button type="button" onclick="addBook()">Add Book</button>
+
+</div>
+
+<div class="card">
+
+    <h2>Books</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Category</th>
+                <th>Publisher</th>
+                <th>Copies</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="bookTable">
+        </tbody>
+    </table>
+
+</div>
+
+<br>
+
+<button type="button"
+onclick="window.location.href='librarian-dashboard.html'">
+Back to Librarian Dashboard
+</button>
+
 
 <script>
-function addBook() {
-    let name = document.getElementById("bookName").value;
-    let author = document.getElementById("author").value;
-    let isbn = document.getElementById("isbn").value;
-    let category = document.getElementById("category").value;
-    let publisher = document.getElementById("publisher").value;
-    let copies = document.getElementById("copies").value;
 
-    if (name === "" || author === "" || isbn === "" ||
-        category === "" || publisher === "" || copies === "") {
+function addBook() {
+
+    let name = document.getElementById("bookName").value.trim();
+    let author = document.getElementById("author").value.trim();
+    let isbn = document.getElementById("isbn").value.trim();
+    let category = document.getElementById("category").value.trim();
+    let publisher = document.getElementById("publisher").value.trim();
+    let copies = document.getElementById("copies").value.trim();
+
+    if (
+        name === "" ||
+        author === "" ||
+        isbn === "" ||
+        category === "" ||
+        publisher === "" ||
+        copies === ""
+    ) {
         alert("Please fill all fields.");
         return;
     }
@@ -85,55 +99,53 @@ function addBook() {
     document.getElementById("category").value = "";
     document.getElementById("publisher").value = "";
     document.getElementById("copies").value = "";
+
+    displayBooks();
 }
 
-function deleteBook(button){
-button.parentElement.parentElement.remove();
-}
 
-function updateBook(button){
-
-let row = button.parentElement.parentElement;
-
-let name = prompt("Enter Book Name",row.cells[0].innerText);
-if(name===null)return;
-
-row.cells[0].innerText=name;
-
-alert("Book updated successfully!");
-}
-</script>
-    <script>
-function addBook() {
-    let name = document.getElementById("bookName").value;
-    let author = document.getElementById("author").value;
-    let isbn = document.getElementById("isbn").value;
-    let category = document.getElementById("category").value;
-    let publisher = document.getElementById("publisher").value;
-    let copies = document.getElementById("copies").value;
-
-    if (name === "" || author === "" || isbn === "" ||
-        category === "" || publisher === "" || copies === "") {
-        alert("Please fill all fields.");
-        return;
-    }
+function displayBooks() {
 
     let books = JSON.parse(localStorage.getItem("books")) || [];
 
-    books.push({
-        name: name,
-        author: author,
-        isbn: isbn,
-        category: category,
-        publisher: publisher,
-        copies: copies
+    let table = document.getElementById("bookTable");
+
+    table.innerHTML = "";
+
+    books.forEach(function(book, index) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = book.name;
+        row.insertCell(1).innerText = book.author;
+        row.insertCell(2).innerText = book.isbn;
+        row.insertCell(3).innerText = book.category;
+        row.insertCell(4).innerText = book.publisher;
+        row.insertCell(5).innerText = book.copies;
+
+        let action = row.insertCell(6);
+
+        action.innerHTML =
+            '<button onclick="deleteBook(' + index + ')">Delete</button>';
     });
+}
+
+
+function deleteBook(index) {
+
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    books.splice(index, 1);
 
     localStorage.setItem("books", JSON.stringify(books));
 
-    alert("Book added successfully!");
+    displayBooks();
 }
-    </script>
+
+
+displayBooks();
+
+</script>
 
 </body>
 </html>
