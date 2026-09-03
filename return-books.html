@@ -104,49 +104,34 @@
 
 function returnBook() {
 
-    let studentId =
-        document.getElementById("studentId").value;
+    let studentId = document.getElementById("studentId").value.trim();
+    let bookId = document.getElementById("bookId").value.trim();
 
-    let bookId =
-        document.getElementById("bookId").value;
-
-    let returnDate =
-        document.getElementById("returnDate").value;
-
-    let condition =
-        document.getElementById("condition").value;
-
-    if (
-        studentId === "" ||
-        bookId === "" ||
-        returnDate === "" ||
-        condition === ""
-    ) {
-        alert("Please fill all details.");
+    if (studentId === "" || bookId === "") {
+        alert("Please enter Student ID and Book ID / ISBN.");
         return;
     }
 
-    let result =
-        document.getElementById("result");
+    let books = JSON.parse(localStorage.getItem("books")) || [];
 
-    result.style.display = "block";
+    let book = books.find(function(b) {
+        return b.isbn === bookId;
+    });
 
-    result.innerHTML =
-        "<strong>Book Returned Successfully! ✅</strong><br><br>" +
-        "Student ID: " + studentId + "<br>" +
-        "Book ID / ISBN: " + bookId + "<br>" +
-        "Return Date: " + returnDate + "<br>" +
-        "Condition: " + condition;
-
-    if (condition === "Damaged") {
-        result.innerHTML +=
-            "<br><br>⚠️ Damage fine may be applicable.";
+    if (!book) {
+        alert("Book not found!");
+        return;
     }
 
-    if (condition === "Lost") {
-        result.innerHTML +=
-            "<br><br>⚠️ Lost book fine may be applicable.";
-    }
+    book.copies = Number(book.copies) + 1;
+
+    localStorage.setItem("books", JSON.stringify(books));
+
+    alert("Book returned successfully!");
+
+    document.getElementById("result").innerText =
+        "Book " + book.name +
+        " returned by Student ID: " + studentId;
 }
 
 </script>
