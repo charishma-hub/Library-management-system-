@@ -105,7 +105,33 @@ alert("Book updated successfully!");
 </script>
     <script>
 function addBook() {
-    alert("Add Book button is working!");
+    let name = document.getElementById("bookName").value;
+    let author = document.getElementById("author").value;
+    let isbn = document.getElementById("isbn").value;
+    let category = document.getElementById("category").value;
+    let publisher = document.getElementById("publisher").value;
+    let copies = document.getElementById("copies").value;
+
+    if (name === "" || author === "" || isbn === "" ||
+        category === "" || publisher === "" || copies === "") {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    books.push({
+        name: name,
+        author: author,
+        isbn: isbn,
+        category: category,
+        publisher: publisher,
+        copies: copies
+    });
+
+    localStorage.setItem("books", JSON.stringify(books));
+
+    alert("Book added successfully!");
 }
     </script>
 
