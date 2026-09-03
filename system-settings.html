@@ -1,131 +1,80 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html>
 <head>
-    <title>System Settings</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-        }
-
-        header {
-            background: #1e3a5f;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 700px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .setting {
-            margin: 20px 0;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input, select {
-            padding: 10px;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        button {
-            padding: 10px 18px;
-            background: #1e3a5f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .back {
-            background: #555;
-        }
-    </style>
+<title>System Settings</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>System Settings</h1>
-</header>
+<h1>⚙️ System Settings</h1>
 
-<div class="container">
+<div class="card">
 
-    <div class="setting">
-        <label>Library Name</label>
-        <input type="text" id="libraryName"
-               value="College Library">
-    </div>
+<label>Library Name</label>
+<input type="text" id="libraryName"
+value="My Library">
 
-    <div class="setting">
-        <label>Maximum Books a Student Can Borrow</label>
-        <input type="number" id="maxBooks" value="3">
-    </div>
+<label>Maximum Books a Student Can Borrow</label>
+<input type="number" id="maxBooks"
+value="3">
 
-    <div class="setting">
-        <label>Fine Per Day (₹)</label>
-        <input type="number" id="fine" value="10">
-    </div>
+<label>Fine Per Day (₹)</label>
+<input type="number" id="fine"
+value="10">
 
-    <div class="setting">
-        <label>Library Status</label>
-        <select id="status">
-            <option>Open</option>
-            <option>Closed</option>
-        </select>
-    </div>
+<label>Library Status</label>
+<select id="status">
+<option value="Open">Open</option>
+<option value="Closed">Closed</option>
+</select>
 
-    <button onclick="saveSettings()">Save Settings</button>
+<br><br>
 
-    <br>
+<button type="button" onclick="saveSettings()">
+Save Settings
+</button>
 
-    <button class="back"
-        onclick="window.location.href='admin-dashboard.html'">
-        Back to Admin Dashboard
-    </button>
+<p id="message"></p>
 
 </div>
 
 <script>
+
 function saveSettings() {
 
-    let libraryName = document.getElementById("libraryName").value;
-    let maxBooks = document.getElementById("maxBooks").value;
-    let fine = document.getElementById("fine").value;
-    let status = document.getElementById("status").value;
+localStorage.setItem(
+"libraryName",
+document.getElementById("libraryName").value
+);
 
-    if (libraryName === "" || maxBooks === "" || fine === "") {
-        alert("Please fill all settings.");
-        return;
-    }
+localStorage.setItem(
+"maxBooks",
+document.getElementById("maxBooks").value
+);
 
-    alert(
-        "Settings saved successfully!\n\n" +
-        "Library: " + libraryName +
-        "\nMaximum Books: " + maxBooks +
-        "\nFine Per Day: ₹" + fine +
-        "\nStatus: " + status
-    );
+localStorage.setItem(
+"fine",
+document.getElementById("fine").value
+);
+
+localStorage.setItem(
+"libraryStatus",
+document.getElementById("status").value
+);
+
+document.getElementById("message").innerText =
+"✅ Settings saved successfully!";
+
 }
+
 </script>
 
+<br>
+
+<button onclick="window.location.href='admin-dashboard.html'">
+Back to Admin Dashboard
+</button>
+
 </body>
-</html>
+</html>         
