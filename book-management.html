@@ -18,15 +18,17 @@
     <input type="text" id="isbn" placeholder="ISBN">
     <input type="text" id="category" placeholder="Category">
     <input type="text" id="publisher" placeholder="Publisher">
-    <input type="number" id="copies" placeholder="Copies">
+    <input type="number" id="copies" placeholder="Number of Copies">
 
     <button type="button" onclick="addBook()">Add Book</button>
+
+    <p id="message"></p>
 
 </div>
 
 <div class="card">
 
-    <h2>Books</h2>
+    <h2>Book List</h2>
 
     <table border="1" width="100%">
         <thead>
@@ -41,8 +43,7 @@
             </tr>
         </thead>
 
-        <tbody id="bookTable">
-        </tbody>
+        <tbody id="bookTable"></tbody>
     </table>
 
 </div>
@@ -51,7 +52,7 @@
 
 <button type="button"
 onclick="window.location.href='librarian-dashboard.html'">
-Back to Librarian Dashboard
+    Back to Librarian Dashboard
 </button>
 
 
@@ -66,14 +67,9 @@ function addBook() {
     let publisher = document.getElementById("publisher").value.trim();
     let copies = document.getElementById("copies").value.trim();
 
-    if (
-        name === "" ||
-        author === "" ||
-        isbn === "" ||
-        category === "" ||
-        publisher === "" ||
-        copies === ""
-    ) {
+    if (name === "" || author === "" || isbn === "" ||
+        category === "" || publisher === "" || copies === "") {
+
         alert("Please fill all fields.");
         return;
     }
@@ -125,8 +121,15 @@ function displayBooks() {
 
         let action = row.insertCell(6);
 
-        action.innerHTML =
-            '<button onclick="deleteBook(' + index + ')">Delete</button>';
+        let button = document.createElement("button");
+
+        button.innerText = "Delete";
+
+        button.onclick = function() {
+            deleteBook(index);
+        };
+
+        action.appendChild(button);
     });
 }
 
