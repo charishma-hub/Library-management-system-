@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Digital Library</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>📚 Digital Library</h1>
+
+<input type="text" id="search" placeholder="Search e-books" onkeyup="searchBooks()">
+
+<div id="books">
+
+<div class="card">
+<h2>Database Management Systems</h2>
+<p>Author: Korth</p>
+<p>Format: PDF</p>
+<button onclick="openBook('Database Management Systems')">
+Open Book
+</button>
+</div>
+
+<div class="card">
+<h2>Java Programming</h2>
+<p>Author: Herbert Schildt</p>
+<p>Format: PDF</p>
+<button onclick="openBook('Java Programming')">
+Open Book
+</button>
+</div>
+
+<div class="card">
+<h2>Computer Networks</h2>
+<p>Author: Andrew S. Tanenbaum</p>
+<p>Format: PDF</p>
+<button onclick="openBook('Computer Networks')">
+Open Book
+</button>
+</div>
+
+</div>
+
+<p id="message"></p>
+
+<script>
+
+function openBook(book) {
+    document.getElementById("message").innerText =
+        book + " selected. PDF can be added here.";
+}
+
+function searchBooks() {
+
+    let input = document.getElementById("search").value.toLowerCase();
+    let books = document.querySelectorAll("#books .card");
+
+    books.forEach(function(book) {
+
+        if (book.innerText.toLowerCase().includes(input)) {
+            book.style.display = "block";
+        } else {
+            book.style.display = "none";
+        }
+
+    });
+}
+
+</script>
+
+<br>
+
+<button onclick="window.location.href='student-dashboard.html'">
+Back to Student Dashboard
+</button>
+
+</body>
+  </html>
