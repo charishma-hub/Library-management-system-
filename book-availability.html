@@ -13,18 +13,13 @@
 
     <h2>Search Books</h2>
 
-    <input
-        type="text"
-        id="searchBox"
-        placeholder="Search by book name, author or ISBN"
-    >
-    
+    <input type="text"
+           id="searchBox"
+           placeholder="Enter book name, author, ISBN, category or publisher">
 
     <button type="button" onclick="searchBooks()">🔍 Search</button>
 
-    <button type="button" onclick="showAllBooks()">
-        Show All
-    </button>
+    <button type="button" onclick="showAllBooks()">Show All</button>
 
 </div>
 
@@ -33,16 +28,21 @@
     <h2>Books</h2>
 
     <table border="1" width="100%">
+
         <thead>
             <tr>
                 <th>Book Name</th>
                 <th>Author</th>
                 <th>ISBN</th>
+                <th>Category</th>
+                <th>Publisher</th>
+                <th>Copies</th>
                 <th>Status</th>
             </tr>
         </thead>
 
         <tbody id="bookTable"></tbody>
+
     </table>
 
     <p id="noBooks"></p>
@@ -74,30 +74,59 @@ function loadBooks() {
         row.insertCell(0).innerText = book.name;
         row.insertCell(1).innerText = book.author;
         row.insertCell(2).innerText = book.isbn;
+        row.insertCell(3).innerText = book.category;
+        row.insertCell(4).innerText = book.publisher;
+        row.insertCell(5).innerText = book.copies;
 
         let status = Number(book.copies) > 0
             ? "Available"
             : "Issued";
 
-        row.insertCell(3).innerText = status;
+        row.insertCell(6).innerText = status;
     });
 }
+
+
 function searchBooks() {
 
-    let search = document.getElementById("searchBox").value.toLowerCase();
+    let search = document
+        .getElementById("searchBox")
+        .value
+        .trim()
+        .toLowerCase();
 
     let rows = document.querySelectorAll("#bookTable tr");
 
+    let found = false;
+
     rows.forEach(function(row) {
 
-        if (row.innerText.toLowerCase().includes(search)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
+        let text = row.innerText.toLowerCase();
 
+        if (text.includes(search)) {
+
+            row.style.display = "";
+            found = true;
+
+        } else {
+
+            row.style.display = "none";
+
+        }
     });
+
+    if (found) {
+
+        document.getElementById("noBooks").innerText = "";
+
+    } else {
+
+        document.getElementById("noBooks").innerText =
+            "❌ No books found.";
+
+    }
 }
+
 
 function showAllBooks() {
 
@@ -106,7 +135,9 @@ function showAllBooks() {
     let rows = document.querySelectorAll("#bookTable tr");
 
     rows.forEach(function(row) {
+
         row.style.display = "";
+
     });
 
     document.getElementById("noBooks").innerText = "";
