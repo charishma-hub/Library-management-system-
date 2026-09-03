@@ -73,22 +73,34 @@
 
 </div>
 
+
 <script>
+
 function adminLogin() {
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+let username =
+document.getElementById("username").value;
 
-    if (username === "" || password === "") {
-        alert("Please enter username and password.");
-        return;
-    }
+let password =
+document.getElementById("password").value;
 
-    alert("Admin login successful!");
+if (username === "admin" && password === "admin123") {
 
-    window.location.href = "admin-dashboard.html";
+alert("Login successful!");
+
+window.location.href =
+"admin-dashboard.html";
+
+} else {
+
+alert("❌ Invalid username or password!");
+
 }
+
+}
+
 </script>
+
 
 </body>
 </html>
