@@ -51,31 +51,40 @@
 
 <script>
 function addBook() {
+    let name = document.getElementById("bookName").value;
+    let author = document.getElementById("author").value;
+    let isbn = document.getElementById("isbn").value;
+    let category = document.getElementById("category").value;
+    let publisher = document.getElementById("publisher").value;
+    let copies = document.getElementById("copies").value;
 
-let name = document.getElementById("name").value;
-let author = document.getElementById("author").value;
-let isbn = document.getElementById("isbn").value;
-let category = document.getElementById("category").value;
-let publisher = document.getElementById("publisher").value;
-let copies = document.getElementById("copies").value;
+    if (name === "" || author === "" || isbn === "" ||
+        category === "" || publisher === "" || copies === "") {
+        alert("Please fill all fields.");
+        return;
+    }
 
-if(name==="" || author==="" || isbn==="" || category==="" || publisher==="" || copies===""){
-alert("Please fill all fields");
-return;
-}
+    let books = JSON.parse(localStorage.getItem("books")) || [];
 
-let row = document.getElementById("bookTable").insertRow();
+    books.push({
+        name: name,
+        author: author,
+        isbn: isbn,
+        category: category,
+        publisher: publisher,
+        copies: copies
+    });
 
-row.innerHTML =
-"<td>"+name+"</td>"+
-"<td>"+author+"</td>"+
-"<td>"+isbn+"</td>"+
-"<td>"+category+"</td>"+
-"<td>"+publisher+"</td>"+
-"<td>"+copies+"</td>"+
-"<td><button onclick='updateBook(this)'>Update</button> <button onclick='deleteBook(this)'>Delete</button></td>";
+    localStorage.setItem("books", JSON.stringify(books));
 
-alert("Book added successfully!");
+    alert("Book added successfully!");
+
+    document.getElementById("bookName").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("isbn").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("publisher").value = "";
+    document.getElementById("copies").value = "";
 }
 
 function deleteBook(button){
