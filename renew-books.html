@@ -98,47 +98,32 @@
 </div>
 
 <script>
-
 function renewBook() {
 
-    let studentId =
-        document.getElementById("studentId").value;
+    let studentId = document.getElementById("studentId").value.trim();
+    let bookId = document.getElementById("bookId").value.trim();
+    let currentDueDate = document.getElementById("currentDueDate").value;
+    let newDueDate = document.getElementById("newDueDate").value;
 
-    let bookId =
-        document.getElementById("bookId").value;
+    if (studentId === "" || bookId === "" ||
+        currentDueDate === "" || newDueDate === "") {
 
-    let currentDueDate =
-        document.getElementById("currentDueDate").value;
-
-    let newDueDate =
-        document.getElementById("newDueDate").value;
-
-    if (
-        studentId === "" ||
-        bookId === "" ||
-        currentDueDate === "" ||
-        newDueDate === ""
-    ) {
-        alert("Please fill all details.");
+        alert("Please fill all fields.");
         return;
     }
 
-    if (newDueDate <= currentDueDate) {
-        alert("New due date must be after the current due date.");
+    if (new Date(newDueDate) <= new Date(currentDueDate)) {
+
+        alert("New due date must be after current due date.");
         return;
     }
 
-    let result =
-        document.getElementById("result");
+    alert("Book renewed successfully!");
 
-    result.style.display = "block";
-
-    result.innerHTML =
-        "<strong>Book Renewed Successfully! ✅</strong><br><br>" +
-        "Student ID: " + studentId + "<br>" +
-        "Book ID / ISBN: " + bookId + "<br>" +
-        "Old Due Date: " + currentDueDate + "<br>" +
-        "New Due Date: " + newDueDate;
+    document.getElementById("result").innerText =
+        "Book " + bookId +
+        " renewed for Student ID: " + studentId +
+        ". New due date: " + newDueDate;
 }
 
 </script>
