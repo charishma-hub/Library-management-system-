@@ -99,6 +99,8 @@ onkeyup="searchBooks()">
 
 </div>
 <script>
+
+
 function loadBooks() {
 
     let books = JSON.parse(localStorage.getItem("books")) || [];
@@ -115,28 +117,39 @@ function loadBooks() {
         row.insertCell(1).innerText = book.author;
         row.insertCell(2).innerText = book.isbn;
 
-        let status = book.copies > 0
-            ? "Available"
-            : "Issued";
+        let status = book.copies > 0 ? "Available" : "Issued";
 
         row.insertCell(3).innerText = status;
     });
 }
 
-loadBooks();
-    function searchBooks() {
-    let input = document.getElementById("searchBox").value.toLowerCase();
+
+function searchBooks() {
+
+    let search = document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase();
 
     let rows = document.querySelectorAll("#bookTable tr");
 
     rows.forEach(function(row) {
-        if (row.innerText.toLowerCase().includes(input)) {
+
+        let bookText = row.innerText.toLowerCase();
+
+        if (bookText.includes(search)) {
             row.style.display = "";
         } else {
             row.style.display = "none";
         }
+
     });
-    }
+}
+
+
+loadBooks();
+
 </script>
+
 </body>
 </html>
