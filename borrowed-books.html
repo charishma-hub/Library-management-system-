@@ -80,6 +80,35 @@
     </a>
 
 </div>
+    <script>
+
+let issuedBooks =
+    JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+let studentId =
+    localStorage.getItem("studentId");
+
+let borrowedBooks = issuedBooks.filter(function(book) {
+    return book.studentId === studentId;
+});
+
+let table = document.getElementById("borrowedTable");
+
+if (table) {
+    table.innerHTML = "";
+
+    borrowedBooks.forEach(function(book) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = book.bookName;
+        row.insertCell(1).innerText = book.bookId;
+        row.insertCell(2).innerText = book.issueDate;
+        row.insertCell(3).innerText = book.dueDate;
+    });
+}
+
+    </script>
 
 </body>
 </html>
