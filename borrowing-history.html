@@ -1,93 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrowing History</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-        }
-
-        header {
-            background: #1e3a5f;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px;
-        }
-
-        .record {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .returned {
-            color: green;
-            font-weight: bold;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 18px;
-            background: #1e3a5f;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>📜 Borrowing History</h1>
-    <p>Your previous library borrowing records</p>
-</header>
+<h1>📖 Borrowing History</h1>
 
-<div class="container">
+<div class="card">
 
-    <div class="record">
-        <h2>Computer Networks</h2>
-        <p>Author: Andrew S. Tanenbaum</p>
-        <p>Issue Date: 10 August 2026</p>
-        <p>Return Date: 20 August 2026</p>
-        <p>Status: <span class="returned">Returned</span></p>
-    </div>
+    <h2>My Borrowing History</h2>
 
-    <div class="record">
-        <h2>Operating System Concepts</h2>
-        <p>Author: Abraham Silberschatz</p>
-        <p>Issue Date: 01 August 2026</p>
-        <p>Return Date: 12 August 2026</p>
-        <p>Status: <span class="returned">Returned</span></p>
-    </div>
+    <table border="1" width="100%">
 
-    <div class="record">
-        <h2>Data Structures</h2>
-        <p>Author: Mark Allen Weiss</p>
-        <p>Issue Date: 15 July 2026</p>
-        <p>Return Date: 25 July 2026</p>
-        <p>Status: <span class="returned">Returned</span></p>
-    </div>
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Book ID / ISBN</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+            </tr>
+        </thead>
 
-    <a class="back" href="student-dashboard.html">
-        ← Back to Student Dashboard
-    </a>
+        <tbody id="historyTable">
+        </tbody>
+
+    </table>
+
+    <p id="message"></p>
 
 </div>
+
+<br>
+
+<button type="button"
+onclick="window.location.href='student-dashboard.html'">
+    Back to Student Dashboard
+</button>
+
+<script>
+
+function loadHistory() {
+
+    let history =
+        JSON.parse(localStorage.getItem("borrowingHistory")) || [];
+
+    let studentId =
+        localStorage.getItem("studentId");
+
+    let table =
+        document.getElementById("historyTable");
+
+    let message =
+        document.getElementById("message");
+
+    table.innerHTML = "";
+
+    if (!studentId) {
+        message.innerText =
+            "Please register/login as a student first.";
+        return;
+    }
+
+    let myHistory = history.filter(function(book) {
+        return book.studentId === studentId;
+    });
+
+    if (myHistory.length === 0) {
+        message.innerText =
+            "No borrowing history found.";
+        return;
+    }
+
+    myHistory.forEach(function(book) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText =
+            book.bookName;
+
+        row.insertCell(1).innerText =
+            book.bookId;
+
+        row.insertCell(2).innerText =
+            book.issueDate;
+
+        row.insertCell(3).innerText =
+            book.returnDate;
+    });
+}
+
+loadHistory();
+
+</script>
 
 </body>
 </html>
