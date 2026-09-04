@@ -74,59 +74,89 @@
 
 function addFine() {
 
-    let studentId =
-        document.getElementById("studentId").value.trim();
+    let studentId = document.getElementById("studentId").value.trim();
+    let bookId = document.getElementById("bookId").value.trim();
+    let amount = document.getElementById("amount").value.trim();
+    let reason = document.getElementById("reason").value;
 
-    let bookId =
-        document.getElementById("bookId").value.trim();
-
-    let amount =
-        document.getElementById("amount").value;
-
-    let reason =
-        document.getElementById("reason").value;
-
-    if (studentId === "" ||
-        bookId === "" ||
-        amount === "" ||
-        reason === "") {
+    if (studentId === "" || bookId === "" ||
+        amount === "" || reason === "") {
 
         alert("Please fill all fields.");
         return;
     }
 
-    let table =
-        document.getElementById("fineTable");
+    let fines = JSON.parse(localStorage.getItem("fines")) || [];
 
-    let row = table.insertRow();
+    fines.push({
+        studentId: studentId,
+        bookId: bookId,
+        amount: amount,
+        reason: reason,
+        status: "Pending"
+    });
 
-    row.insertCell(0).innerHTML = studentId;
-    row.insertCell(1).innerHTML = bookId;
-    row.insertCell(2).innerHTML = "₹" + amount;
-    row.insertCell(3).innerHTML = reason;
-    row.insertCell(4).innerHTML = "Pending";
-
-    row.insertCell(5).innerHTML =
-        '<button onclick="payFine(this)">Mark Paid</button>';
-
-    document.getElementById("studentId").value = "";
-    document.getElementById("bookId").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("reason").value = "";
+    localStorage.setItem("fines", JSON.stringify(fines));
 
     alert("Fine added successfully!");
+
+    displayFines();
 }
 
-function payFine(button) {
 
-    let row = button.parentElement.parentElement;
+function displayFines() {
 
-    row.cells[4].innerHTML = "Paid";
+    let fines = JSON.parse(localStorage.getItem("fines")) || [];
 
-    button.remove();
+    let table = document.getElementById("fineTable");
 
-    alert("Fine marked as paid!");
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    fines.forEach(function(fine, index) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = fine.studentId;
+        row.insertCell(1).innerText = fine.bookId;
+        row.insertCell(2).innerText = "₹" + fine.amount;
+        row.insertCell(3).innerText = fine.reason;
+        row.insertCell(4).innerText = fine.status;
+
+        let action = row.insertCell(5);
+
+        if (fine.status === "Pending") {
+
+            let button = document.createElement("button");
+
+            button.innerText = "Mark Paid";
+
+            button.onclick = function() {
+                markPaid(index);
+            };
+
+            action.appendChild(button);
+        }
+    });
 }
+
+
+function markPaid(index) {
+
+    let fines = JSON.parse(localStorage.getItem("fines")) || [];
+
+    fines[index].status = "Paid";
+
+    localStorage.setItem("fines", JSON.stringify(fines));
+
+    displayFines();
+
+    alert("Fine marked as paid.");
+}
+
+
+displayFines();
 
 </script>
 
