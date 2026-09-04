@@ -84,6 +84,52 @@
     </a>
 
 </div>
+<script>
+function loadFines() {
 
+    let fines =
+        JSON.parse(localStorage.getItem("fines")) || [];
+
+    let studentId =
+        localStorage.getItem("studentId");
+
+    let table =
+        document.getElementById("fineTable");
+
+    let message =
+        document.getElementById("message");
+
+    table.innerHTML = "";
+
+    if (!studentId) {
+        message.innerText =
+            "Please register/login as a student first.";
+        return;
+    }
+
+    let myFines = fines.filter(function(fine) {
+        return fine.studentId === studentId;
+    });
+
+    if (myFines.length === 0) {
+        message.innerText = "No fines found.";
+        return;
+    }
+
+    myFines.forEach(function(fine) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = fine.bookId;
+        row.insertCell(1).innerText = "₹" + fine.amount;
+        row.insertCell(2).innerText = fine.reason;
+        row.insertCell(3).innerText = fine.status;
+        row.insertCell(4).innerText =
+            fine.paymentDate || "-";
+    });
+}
+
+loadFines();
+        </script>
 </body>
 </html>
