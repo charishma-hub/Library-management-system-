@@ -70,7 +70,7 @@ function showReport() {
     let overdueBooks = 0;
 
     books.forEach(function(book) {
-        totalBooks += Number(book.copies);
+        totalBooks += Number(book.totalCopies || book.copies);
         availableBooks += Number(book.copies);
     });
 
