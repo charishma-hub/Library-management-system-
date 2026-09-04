@@ -222,6 +222,30 @@ let yearlyElement =
 if (yearlyElement) {
     yearlyElement.innerHTML =
         yearlyReport || "No yearly records yet.";
+    let chartCanvas =
+    document.getElementById("borrowingChart");
+
+if (chartCanvas) {
+
+    let labels = [];
+    let data = [];
+
+    for (let year in yearlyBorrowing) {
+        labels.push(year);
+        data.push(yearlyBorrowing[year]);
+    }
+
+    new Chart(chartCanvas, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Books Borrowed",
+                data: data
+            }]
+        }
+    });
+}
 }
 
 </script>
