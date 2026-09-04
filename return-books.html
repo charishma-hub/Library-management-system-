@@ -123,17 +123,35 @@ function returnBook() {
         return;
     }
 
+    // Increase available copies
     book.copies = Number(book.copies) + 1;
 
     localStorage.setItem("books", JSON.stringify(books));
 
+    // Remove the returned book from issued books
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let index = issuedBooks.findIndex(function(item) {
+        return item.studentId === studentId &&
+               item.bookId === bookId;
+    });
+
+    if (index !== -1) {
+        issuedBooks.splice(index, 1);
+    }
+
+    localStorage.setItem(
+        "issuedBooks",
+        JSON.stringify(issuedBooks)
+    );
+
     alert("Book returned successfully!");
 
     document.getElementById("result").innerText =
-        "Book " + book.name +
+        "📚 " + book.name +
         " returned by Student ID: " + studentId;
 }
-
 </script>
 
 </body>
