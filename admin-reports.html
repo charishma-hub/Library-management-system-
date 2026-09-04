@@ -44,6 +44,8 @@
     <h2>📈 Current Report</h2>
 
     <div id="report"></div>
+    <h3>📚 Most Borrowed Books</h3>
+<div id="mostBorrowed"></div>
 
 </div>
 
@@ -106,6 +108,26 @@ function showReport() {
         "<br>👨‍🎓 Active Students: " + students.length +
         "<br>⚠️ Overdue Books: " + overdueBooks +
         "<br>💰 Total Fines: ₹" + totalFines;
+    let borrowCount = {};
+
+issuedBooks.forEach(function(book) {
+    if (borrowCount[book.bookName]) {
+        borrowCount[book.bookName]++;
+    } else {
+        borrowCount[book.bookName] = 1;
+    }
+});
+
+let mostBorrowed = "";
+
+for (let bookName in borrowCount) {
+    mostBorrowed +=
+        "📖 " + bookName +
+        " — Borrowed " + borrowCount[bookName] + " time(s)<br>";
+}
+
+document.getElementById("mostBorrowed").innerHTML =
+    mostBorrowed || "No borrowing records yet.";
 }
 
 </script>
