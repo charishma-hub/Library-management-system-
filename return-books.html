@@ -139,6 +139,21 @@ function returnBook() {
 
     if (index !== -1) {
         issuedBooks.splice(index, 1);
+        let borrowingHistory =
+    JSON.parse(localStorage.getItem("borrowingHistory")) || [];
+
+borrowingHistory.push({
+    studentId: studentId,
+    bookId: bookId,
+    bookName: book.name,
+    issueDate: issuedBooks[index].issueDate,
+    returnDate: new Date().toISOString().split("T")[0]
+});
+
+localStorage.setItem(
+    "borrowingHistory",
+    JSON.stringify(borrowingHistory)
+);
     }
 
     localStorage.setItem(
