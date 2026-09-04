@@ -30,8 +30,16 @@
 <label>Total Fines (₹)</label>
 <input type="number" id="fines" value="2500">
 
-<button type="button" onclick="showReport()">
-Update Report
+<button type="button" onclick="
+document.getElementById('report').innerHTML =
+'📚 Total Books: ' + document.getElementById('totalBooks').value +
+'<br>✅ Available Books: ' + document.getElementById('available').value +
+'<br>📖 Issued Books: ' + document.getElementById('issued').value +
+'<br>👨‍🎓 Active Students: ' + document.getElementById('students').value +
+'<br>⚠️ Overdue Books: ' + document.getElementById('overdue').value +
+'<br>💰 Total Fines: ₹' + document.getElementById('fines').value;
+">
+    Update Report
 </button>
 
 </div>
