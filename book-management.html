@@ -154,6 +154,50 @@ function deleteBook(index) {
 
     displayBooks();
 }
+    function updateBook(index) {
+
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    let book = books[index];
+
+    let newName = prompt("Enter new book name:", book.name);
+    if (newName === null) return;
+
+    let newAuthor = prompt("Enter new author:", book.author);
+    if (newAuthor === null) return;
+
+    let newCategory = prompt("Enter new category:", book.category);
+    if (newCategory === null) return;
+
+    let newPublisher = prompt("Enter new publisher:", book.publisher);
+    if (newPublisher === null) return;
+
+    let newCopies = prompt("Enter number of copies:", book.copies);
+    if (newCopies === null) return;
+
+    if (newName.trim() === "" || newAuthor.trim() === "" ||
+        newCategory.trim() === "" || newPublisher.trim() === "" ||
+        newCopies.trim() === "") {
+        alert("All fields are required.");
+        return;
+    }
+
+    book.name = newName.trim();
+    book.author = newAuthor.trim();
+    book.category = newCategory.trim();
+    book.publisher = newPublisher.trim();
+    book.copies = Number(newCopies);
+
+    if (!book.totalCopies) {
+        book.totalCopies = Number(newCopies);
+    }
+
+    localStorage.setItem("books", JSON.stringify(books));
+
+    alert("Book updated successfully!");
+
+    displayBooks();
+    }
 
 
 displayBooks();
