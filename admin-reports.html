@@ -60,44 +60,52 @@ onclick="window.location.href='admin-dashboard.html'">
 function showReport() {
 
     let books = JSON.parse(localStorage.getItem("books")) || [];
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let issuedBooks = JSON.parse(localStorage.getItem("issuedBooks")) || [];
+    let fines = JSON.parse(localStorage.getItem("fines")) || [];
 
     let totalBooks = 0;
     let availableBooks = 0;
+    let totalFines = 0;
+    let overdueBooks = 0;
 
     books.forEach(function(book) {
         totalBooks += Number(book.copies);
         availableBooks += Number(book.copies);
     });
 
-    let issuedBooks =
-        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+    let today = new Date();
 
-    let fines =
-        JSON.parse(localStorage.getItem("fines")) || [];
+    issuedBooks.forEach(function(book) {
 
-    let totalFines = 0;
+        if (book.dueDate) {
+
+            let dueDate = new Date(book.dueDate);
+
+            if (dueDate < today) {
+                overdueBooks++;
+            }
+        }
+    });
 
     fines.forEach(function(fine) {
         totalFines += Number(fine.amount);
     });
-    let students =
-    JSON.parse(localStorage.getItem("students")) || [];
-
-let activeStudents = students.length;
 
     document.getElementById("totalBooks").value = totalBooks;
     document.getElementById("available").value = availableBooks;
     document.getElementById("issued").value = issuedBooks.length;
+    document.getElementById("students").value = students.length;
+    document.getElementById("overdue").value = overdueBooks;
     document.getElementById("fines").value = totalFines;
-    document.getElementById("students").value = activeStudents;
-    
 
     document.getElementById("report").innerHTML =
-    "📚 Total Books: " + totalBooks +
-    "<br>✅ Available Books: " + availableBooks +
-    "<br>📖 Issued Books: " + issuedBooks.length +
-    "<br>👨‍🎓 Active Students: " + students.length +
-    "<br>💰 Total Fines: ₹" + totalFines;
+        "📚 Total Books: " + totalBooks +
+        "<br>✅ Available Books: " + availableBooks +
+        "<br>📖 Issued Books: " + issuedBooks.length +
+        "<br>👨‍🎓 Active Students: " + students.length +
+        "<br>⚠️ Overdue Books: " + overdueBooks +
+        "<br>💰 Total Fines: ₹" + totalFines;
 }
 
 </script>
