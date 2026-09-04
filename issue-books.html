@@ -119,15 +119,33 @@ function issueBook() {
         return;
     }
 
+    // Reduce available copies
     book.copies = Number(book.copies) - 1;
 
     localStorage.setItem("books", JSON.stringify(books));
 
+    // Save issued book
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    issuedBooks.push({
+        studentId: studentId,
+        bookId: bookId,
+        bookName: book.name,
+        issueDate: new Date().toISOString().split("T")[0]
+    });
+
+    localStorage.setItem(
+        "issuedBooks",
+        JSON.stringify(issuedBooks)
+    );
+
     alert("Book issued successfully!");
 
     document.getElementById("result").innerText =
-        "Book " + book.name + " issued to Student ID: " + studentId;
-}
+        "📖 " + book.name +
+        " issued to Student ID: " + studentId;
+        }
 </script>
 
 </body>
