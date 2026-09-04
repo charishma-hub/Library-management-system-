@@ -162,6 +162,40 @@ function cancelReservation(index) {
 }
 
 displayReservations();
+    function checkReservationAvailability() {
+
+    let reservations =
+        JSON.parse(localStorage.getItem("reservations")) || [];
+
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    reservations.forEach(function(reservation) {
+
+        let book = books.find(function(b) {
+            return b.isbn === reservation.bookId;
+        });
+
+        if (book && Number(book.copies) > 0 &&
+            reservation.status === "Waiting") {
+
+            reservation.status = "📢 Available";
+
+            alert(
+                "📢 " + reservation.bookName +
+                " is now available for Student ID: " +
+                reservation.studentId
+            );
+        }
+    });
+
+    localStorage.setItem(
+        "reservations",
+        JSON.stringify(reservations)
+    );
+}
+
+checkReservationAvailability();
 
 
 </script>
