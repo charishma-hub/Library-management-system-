@@ -131,6 +131,15 @@ function displayBooks() {
         };
 
         action.appendChild(button);
+        let updateButton = document.createElement("button");
+
+updateButton.innerText = "Update";
+
+updateButton.onclick = function() {
+    updateBook(index);
+};
+
+action.appendChild(updateButton);
     });
 }
 
