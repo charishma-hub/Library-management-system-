@@ -57,7 +57,7 @@ onclick="window.location.href='admin-dashboard.html'">
 
 <script>
 
-function showReport() {
+document.getElementById("updateBtn").addEventListener("click", function() {
 
     let total = document.getElementById("totalBooks").value;
     let available = document.getElementById("available").value;
@@ -73,7 +73,8 @@ function showReport() {
         "<br>👨‍🎓 Active Students: " + students +
         "<br>⚠️ Overdue Books: " + overdue +
         "<br>💰 Total Fines: ₹" + fines;
-}
+
+});
 
 </script>
 
