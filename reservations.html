@@ -94,12 +94,15 @@ function reserveBook() {
         JSON.parse(localStorage.getItem("reservations")) || [];
 
     reservations.push({
-        studentId: studentId,
-        bookId: bookId,
-        bookName: book.name,
-        date: reservationDate,
-        status: "Waiting"
-    });
+    studentId: studentId,
+    bookId: bookId,
+    bookName: book.name,
+    date: reservationDate,
+    status: "Waiting",
+    queuePosition: reservations.filter(function(r) {
+        return r.bookId === bookId;
+    }).length + 1
+});
 
     localStorage.setItem(
         "reservations",
