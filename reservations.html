@@ -62,41 +62,114 @@
 </div>
 
 <script>
-function addReservation() {
 
-    let studentId =
-        document.getElementById("studentId").value.trim();
 
-    let bookId =
-        document.getElementById("bookId").value.trim();
+function reserveBook() {
 
-    let date =
-        document.getElementById("reservationDate").value;
+    let studentId = document.getElementById("studentId").value.trim();
+    let bookId = document.getElementById("bookId").value.trim();
+    let reservationDate = document.getElementById("reservationDate").value;
 
-    if (studentId === "" || bookId === "" || date === "") {
+    if (studentId === "" || bookId === "" || reservationDate === "") {
         alert("Please fill all fields.");
         return;
     }
 
-    let table =
-        document.getElementById("reservationTable");
+    let books = JSON.parse(localStorage.getItem("books")) || [];
 
-    let row = table.insertRow();
+    let book = books.find(function(b) {
+        return b.isbn === bookId;
+    });
 
-    row.insertCell(0).innerHTML = studentId;
-    row.insertCell(1).innerHTML = bookId;
-    row.insertCell(2).innerHTML = date;
-    row.insertCell(3).innerHTML = "Waiting";
+    if (!book) {
+        alert("Book not found!");
+        return;
+    }
 
-    row.insertCell(4).innerHTML =
-        '<button onclick="this.parentElement.parentElement.remove()">Cancel</button>';
+    if (Number(book.copies) > 0) {
+        alert("Book is available. You can issue it directly.");
+        return;
+    }
 
-    document.getElementById("studentId").value = "";
-    document.getElementById("bookId").value = "";
-    document.getElementById("reservationDate").value = "";
+    let reservations =
+        JSON.parse(localStorage.getItem("reservations")) || [];
+
+    reservations.push({
+        studentId: studentId,
+        bookId: bookId,
+        bookName: book.name,
+        date: reservationDate,
+        status: "Waiting"
+    });
+
+    localStorage.setItem(
+        "reservations",
+        JSON.stringify(reservations)
+    );
 
     alert("Book reserved successfully!");
+
+    displayReservations();
 }
+
+
+function displayReservations() {
+
+    let reservations =
+        JSON.parse(localStorage.getItem("reservations")) || [];
+
+    let table = document.getElementById("reservationTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    reservations.forEach(function(reservation, index) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = reservation.studentId;
+        row.insertCell(1).innerText = reservation.bookName;
+        row.insertCell(2).innerText = reservation.bookId;
+        row.insertCell(3).innerText = reservation.date;
+        row.insertCell(4).innerText = reservation.status;
+
+        let action = row.insertCell(5);
+
+        let button = document.createElement("button");
+
+        button.innerText = "Cancel";
+
+        button.onclick = function() {
+            cancelReservation(index);
+        };
+
+        action.appendChild(button);
+    });
+}
+
+
+function cancelReservation(index) {
+
+    let reservations =
+        JSON.parse(localStorage.getItem("reservations")) || [];
+
+    reservations.splice(index, 1);
+
+    localStorage.setItem(
+        "reservations",
+        JSON.stringify(reservations)
+    );
+
+    displayReservations();
+
+    alert("Reservation cancelled.");
+}
+
+
+displayReservations();
+
+
 </script>
 
 </body>
