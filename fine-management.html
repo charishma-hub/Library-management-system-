@@ -148,6 +148,8 @@ function markPaid(index) {
     let fines = JSON.parse(localStorage.getItem("fines")) || [];
 
     fines[index].status = "Paid";
+    fines[index].paymentDate =
+    new Date().toISOString().split("T")[0];
 
     localStorage.setItem("fines", JSON.stringify(fines));
 
