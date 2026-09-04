@@ -113,15 +113,34 @@ function renewBook() {
     }
 
     if (new Date(newDueDate) <= new Date(currentDueDate)) {
-
         alert("New due date must be after current due date.");
         return;
     }
 
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let book = issuedBooks.find(function(item) {
+        return item.studentId === studentId &&
+               item.bookId === bookId;
+    });
+
+    if (!book) {
+        alert("Issued book record not found!");
+        return;
+    }
+
+    book.dueDate = newDueDate;
+
+    localStorage.setItem(
+        "issuedBooks",
+        JSON.stringify(issuedBooks)
+    );
+
     alert("Book renewed successfully!");
 
     document.getElementById("result").innerText =
-        "Book " + bookId +
+        "📚 Book " + bookId +
         " renewed for Student ID: " + studentId +
         ". New due date: " + newDueDate;
 }
