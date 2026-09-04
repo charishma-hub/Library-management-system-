@@ -96,8 +96,9 @@ function addFine() {
         reason: reason,
         status: "Pending"
     });
-
     localStorage.setItem("fines", JSON.stringify(fines));
+
+    
 
     alert("Fine added successfully!");
 
