@@ -82,7 +82,8 @@ function addBook() {
         isbn: isbn,
         category: category,
         publisher: publisher,
-        copies: copies
+        totalCopies: Number(copies),
+copies: Number(copies)
     });
 
     localStorage.setItem("books", JSON.stringify(books));
