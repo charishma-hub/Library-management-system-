@@ -171,6 +171,23 @@ function saveProfile() {
 
     alert("Student profile saved!");
 }
+    document.getElementById("name").value =
+    localStorage.getItem("studentName") || "";
+
+document.getElementById("studentId").value =
+    localStorage.getItem("studentId") || "";
+
+document.getElementById("course").value =
+    localStorage.getItem("course") || "";
+
+document.getElementById("department").value =
+    localStorage.getItem("department") || "";
+
+document.getElementById("email").value =
+    localStorage.getItem("email") || "";
+
+document.getElementById("phone").value =
+    localStorage.getItem("phone") || "";
 </script>
 
 </body>
