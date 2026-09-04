@@ -120,27 +120,55 @@
 </div>
 
 <script>
-function searchBooks() {
-
-    let searchText =
-        document.getElementById("search").value.toLowerCase();
+  function loadBooks() {
 
     let books =
-        document.querySelectorAll(".book");
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    let table =
+        document.getElementById("bookTable");
+
+    table.innerHTML = "";
 
     books.forEach(function(book) {
 
-        let bookText =
-            book.innerText.toLowerCase();
+        let row = table.insertRow();
 
-        if (bookText.includes(searchText)) {
-            book.style.display = "block";
-        } else {
-            book.style.display = "none";
-        }
-
+        row.insertCell(0).innerText = book.name;
+        row.insertCell(1).innerText = book.author;
+        row.insertCell(2).innerText = book.isbn;
+        row.insertCell(3).innerText = book.category;
+        row.insertCell(4).innerText = book.publisher;
+        row.insertCell(5).innerText =
+            Number(book.copies) > 0
+                ? "Available"
+                : "Issued";
     });
 }
+
+function searchBooks() {
+
+    let search =
+        document.getElementById("searchBox")
+        .value.trim().toLowerCase();
+
+    let rows =
+        document.getElementById("bookTable")
+        .getElementsByTagName("tr");
+
+    rows = Array.from(rows);
+
+    rows.forEach(function(row) {
+
+        let text =
+            row.innerText.toLowerCase();
+
+        row.style.display =
+            text.includes(search) ? "" : "none";
+    });
+}
+
+loadBooks();  
 </script>
 
 </body>
