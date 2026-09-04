@@ -120,6 +120,19 @@ function addLibrarian() {
     let table = document.getElementById("librarianList");
 
     let row = table.insertRow();
+    let librarians =
+    JSON.parse(localStorage.getItem("librarians")) || [];
+
+librarians.push({
+    name: name,
+    email: email,
+    phone: phone
+});
+
+localStorage.setItem(
+    "librarians",
+    JSON.stringify(librarians)
+);
 
     row.insertCell(0).innerHTML = name;
     row.insertCell(1).innerHTML = email;
