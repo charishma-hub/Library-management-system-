@@ -97,9 +97,18 @@ function issueBook() {
 
     let studentId = document.getElementById("studentId").value.trim();
     let bookId = document.getElementById("bookId").value.trim();
+    let issueDate = document.getElementById("issueDate").value;
+    let dueDate = document.getElementById("dueDate").value;
 
-    if (studentId === "" || bookId === "") {
-        alert("Please enter Student ID and Book ID / ISBN.");
+    if (studentId === "" || bookId === "" ||
+        issueDate === "" || dueDate === "") {
+
+        alert("Please fill all fields.");
+        return;
+    }
+
+    if (new Date(dueDate) <= new Date(issueDate)) {
+        alert("Due date must be after issue date.");
         return;
     }
 
@@ -119,12 +128,10 @@ function issueBook() {
         return;
     }
 
-    // Reduce available copies
     book.copies = Number(book.copies) - 1;
 
     localStorage.setItem("books", JSON.stringify(books));
 
-    // Save issued book
     let issuedBooks =
         JSON.parse(localStorage.getItem("issuedBooks")) || [];
 
@@ -132,7 +139,8 @@ function issueBook() {
         studentId: studentId,
         bookId: bookId,
         bookName: book.name,
-        issueDate: new Date().toISOString().split("T")[0]
+        issueDate: issueDate,
+        dueDate: dueDate
     });
 
     localStorage.setItem(
@@ -144,8 +152,9 @@ function issueBook() {
 
     document.getElementById("result").innerText =
         "📖 " + book.name +
-        " issued to Student ID: " + studentId;
-        }
+        " issued to Student ID: " + studentId +
+        ". Due date: " + dueDate;
+}
 </script>
 
 </body>
