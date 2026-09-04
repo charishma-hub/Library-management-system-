@@ -130,6 +130,10 @@ for (let bookName in borrowCount) {
 
 document.getElementById("mostBorrowed").innerHTML =
     mostBorrowed || "No borrowing records yet.";
+    let activeMembers = students.length;
+
+document.getElementById("activeMembers").innerText =
+    "👥 Active Members: " + activeMembers;
 }
 
 </script>
