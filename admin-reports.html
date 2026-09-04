@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Reports</title>
-<link rel="stylesheet" href="style.css">
+    <title>Admin Reports</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>📊 Reports & Analytics</h1>
+<h1>📊 Admin Reports & Dashboard</h1>
 
 <div class="card">
-<h2>Library Statistics</h2>
 
-<label>Total Books</label>
-<input type="number" id="total" value="500">
+    <h2>Library Statistics</h2>
 
-<label>Available Books</label>
-<input type="number" id="available" value="350">
+    <label>Total Books</label>
+    <input type="number" id="totalBooks" value="500">
 
-<label>Issued Books</label>
-<input type="number" id="issued" value="150">
+    <label>Available Books</label>
+    <input type="number" id="available" value="350">
 
-<label>Active Students</label>
-<input type="number" id="students" value="250">
+    <label>Issued Books</label>
+    <input type="number" id="issued" value="150">
 
-<label>Overdue Books</label>
-<input type="number" id="overdue" value="20">
+    <label>Active Students</label>
+    <input type="number" id="students" value="250">
 
-<label>Total Fines (₹)</label>
-<input type="number" id="fines" value="2500">
+    <label>Overdue Books</label>
+    <input type="number" id="overdue" value="20">
 
-<button type="button" onclick="
-document.getElementById('report').innerHTML =
-'📚 Total Books: ' + document.getElementById('totalBooks').value +
-'<br>✅ Available Books: ' + document.getElementById('available').value +
-'<br>📖 Issued Books: ' + document.getElementById('issued').value +
-'<br>👨‍🎓 Active Students: ' + document.getElementById('students').value +
-'<br>⚠️ Overdue Books: ' + document.getElementById('overdue').value +
-'<br>💰 Total Fines: ₹' + document.getElementById('fines').value;
-">
-    Update Report
-</button>
+    <label>Total Fines (₹)</label>
+    <input type="number" id="fines" value="2500">
+
+    <br><br>
+
+    <button type="button" onclick="showReport()">
+        Update Report
+    </button>
 
 </div>
 
 <div class="card">
-<h2>📈 Current Report</h2>
 
-<p id="report"></p>
+    <h2>📈 Current Report</h2>
+
+    <div id="report"></div>
 
 </div>
-
-<script>
-
-
-function showReport() {
-
-    let inputs = document.querySelectorAll('input[type="number"]');
-
-    let totalBooks = inputs[0].value;
-    let availableBooks = inputs[1].value;
-    let issuedBooks = inputs[2].value;
-    let activeStudents = inputs[3].value;
-    let overdueBooks = inputs[4].value;
-    let totalFines = inputs[5].value;
-
-    document.getElementById("report").innerHTML =
-        "📚 Total Books: " + totalBooks +
-        "<br>✅ Available Books: " + availableBooks +
-        "<br>📖 Issued Books: " + issuedBooks +
-        "<br>👨‍🎓 Active Students: " + activeStudents +
-        "<br>⚠️ Overdue Books: " + overdueBooks +
-        "<br>💰 Total Fines: ₹" + totalFines;
-}
-
-
-
-</script>
 
 <br>
 
-<button onclick="window.location.href='admin-dashboard.html'">
-Back to Admin Dashboard
+<button type="button"
+onclick="window.location.href='admin-dashboard.html'">
+    Back to Admin Dashboard
 </button>
 
+
+<script>
+
+function showReport() {
+
+    let total = document.getElementById("totalBooks").value;
+    let available = document.getElementById("available").value;
+    let issued = document.getElementById("issued").value;
+    let students = document.getElementById("students").value;
+    let overdue = document.getElementById("overdue").value;
+    let fines = document.getElementById("fines").value;
+
+    document.getElementById("report").innerHTML =
+        "📚 Total Books: " + total +
+        "<br>✅ Available Books: " + available +
+        "<br>📖 Issued Books: " + issued +
+        "<br>👨‍🎓 Active Students: " + students +
+        "<br>⚠️ Overdue Books: " + overdue +
+        "<br>💰 Total Fines: ₹" + fines;
+}
+
+</script>
+
 </body>
-</html>        
+</html>      
