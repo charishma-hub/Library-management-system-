@@ -45,16 +45,16 @@ Update Report
 
 <script>
 
-function updateReport() {
+function showReport() {
 
     let totalBooks = document.getElementById("totalBooks").value;
-    let availableBooks = document.getElementById("availableBooks").value;
-    let issuedBooks = document.getElementById("issuedBooks").value;
-    let activeStudents = document.getElementById("activeStudents").value;
-    let overdueBooks = document.getElementById("overdueBooks").value;
-    let totalFines = document.getElementById("totalFines").value;
+    let availableBooks = document.getElementById("available").value;
+    let issuedBooks = document.getElementById("issued").value;
+    let activeStudents = document.getElementById("students").value;
+    let overdueBooks = document.getElementById("overdue").value;
+    let totalFines = document.getElementById("fines").value;
 
-    document.getElementById("reportResult").innerHTML =
+    document.getElementById("report").innerHTML =
         "📚 Total Books: " + totalBooks +
         "<br>✅ Available Books: " + availableBooks +
         "<br>📖 Issued Books: " + issuedBooks +
