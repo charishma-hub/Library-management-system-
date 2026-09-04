@@ -194,14 +194,24 @@ View Notifications
 </div>
 
 <script>
+    let issuedBooks =
+    JSON.parse(localStorage.getItem("issuedBooks")) || [];
 
-function showMessage(section) {
-    alert(section + " section will open here.");
-}
+let studentId =
+    localStorage.getItem("studentId");
 
-function logout() {
-    window.location.href = "index.html";
-}
+let myBooks = issuedBooks.filter(function(book) {
+    return book.studentId === studentId;
+});
+
+let borrowedCount =
+    document.getElementById("borrowedCount");
+
+if (borrowedCount) {
+    borrowedCount.innerText = myBooks.length;
+    }
+
+
 
 </script>
 
