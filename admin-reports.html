@@ -45,25 +45,23 @@ Update Report
 
 <script>
 
-function showReport() {
+function updateReport() {
 
-let total = document.getElementById("total").value;
-let available = document.getElementById("available").value;
-let issued = document.getElementById("issued").value;
-let students = document.getElementById("students").value;
-let overdue = document.getElementById("overdue").value;
-let fines = document.getElementById("fines").value;
+    let totalBooks = document.getElementById("totalBooks").value;
+    let availableBooks = document.getElementById("availableBooks").value;
+    let issuedBooks = document.getElementById("issuedBooks").value;
+    let activeStudents = document.getElementById("activeStudents").value;
+    let overdueBooks = document.getElementById("overdueBooks").value;
+    let totalFines = document.getElementById("totalFines").value;
 
-document.getElementById("report").innerHTML =
-"Total Books: " + total + "<br>" +
-"Available Books: " + available + "<br>" +
-"Issued Books: " + issued + "<br>" +
-"Active Students: " + students + "<br>" +
-"Overdue Books: " + overdue + "<br>" +
-"Total Fines: ₹" + fines;
-
+    document.getElementById("reportResult").innerHTML =
+        "📚 Total Books: " + totalBooks +
+        "<br>✅ Available Books: " + availableBooks +
+        "<br>📖 Issued Books: " + issuedBooks +
+        "<br>👨‍🎓 Active Students: " + activeStudents +
+        "<br>⚠️ Overdue Books: " + overdueBooks +
+        "<br>💰 Total Fines: ₹" + totalFines;
 }
-
 </script>
 
 <br>
