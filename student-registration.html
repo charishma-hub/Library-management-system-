@@ -103,29 +103,24 @@
 <script>
 function registerStudent() {
 
-    let name = document.getElementById("name").value;
-    let studentId = document.getElementById("studentId").value;
-    let course = document.getElementById("course").value;
-    let department = document.getElementById("department").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let username = document.getElementById("username").value;
+    let name = document.getElementById("name").value.trim();
+    let studentId = document.getElementById("studentId").value.trim();
+    let course = document.getElementById("course").value.trim();
+    let department = document.getElementById("department").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let username = document.getElementById("username").value.trim();
     let password = document.getElementById("password").value;
 
-    if (
-        name === "" ||
-        studentId === "" ||
-        course === "" ||
-        department === "" ||
-        email === "" ||
-        phone === "" ||
-        username === "" ||
-        password === ""
-    ) {
-        alert("Please fill all details.");
+    if (name === "" || studentId === "" || course === "" ||
+        department === "" || email === "" || phone === "" ||
+        username === "" || password === "") {
+
+        alert("Please fill all fields.");
         return;
     }
 
+    // Save login details
     localStorage.setItem("studentName", name);
     localStorage.setItem("studentId", studentId);
     localStorage.setItem("course", course);
@@ -135,7 +130,25 @@ function registerStudent() {
     localStorage.setItem("studentUsername", username);
     localStorage.setItem("studentPassword", password);
 
-    alert("Registration successful! Please login.");
+    // Save student in student list
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+    students.push({
+        name: name,
+        studentId: studentId,
+        course: course,
+        department: department,
+        email: email,
+        phone: phone
+    });
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+
+    alert("Student registered successfully!");
 
     window.location.href = "student-login.html";
 }
