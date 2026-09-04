@@ -113,6 +113,16 @@ function showReport() {
         "<br>⚠️ Overdue Books: " + overdueBooks +
         "<br>💰 Total Fines: ₹" + totalFines;
     let borrowCount = {};
+    let history =
+    JSON.parse(localStorage.getItem("borrowingHistory")) || [];
+
+history.forEach(function(book) {
+    if (borrowCount[book.bookName]) {
+        borrowCount[book.bookName]++;
+    } else {
+        borrowCount[book.bookName] = 1;
+    }
+});
 
 issuedBooks.forEach(function(book) {
     if (borrowCount[book.bookName]) {
