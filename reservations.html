@@ -127,10 +127,11 @@ function displayReservations() {
         let row = table.insertRow();
 
         row.insertCell(0).innerText = reservation.studentId;
-        row.insertCell(1).innerText = reservation.bookName;
-        row.insertCell(2).innerText = reservation.bookId;
-        row.insertCell(3).innerText = reservation.date;
-        row.insertCell(4).innerText = reservation.status;
+        row.insertCell(1).innerText = reservation.queuePosition;
+        row.insertCell(2).innerText = reservation.bookName;
+        row.insertCell(3).innerText = reservation.bookId;
+        row.insertCell(4).innerText = reservation.date;
+        row.insertCell(5).innerText = reservation.status;
 
         let action = row.insertCell(5);
 
