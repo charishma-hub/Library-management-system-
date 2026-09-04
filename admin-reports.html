@@ -80,11 +80,17 @@ function showReport() {
     fines.forEach(function(fine) {
         totalFines += Number(fine.amount);
     });
+    let students =
+    JSON.parse(localStorage.getItem("students")) || [];
+
+let activeStudents = students.length;
 
     document.getElementById("totalBooks").value = totalBooks;
     document.getElementById("available").value = availableBooks;
     document.getElementById("issued").value = issuedBooks.length;
     document.getElementById("fines").value = totalFines;
+    document.getElementById("students").value = activeStudents;
+    
 
     document.getElementById("report").innerHTML =
         "📚 Total Books: " + totalBooks +
