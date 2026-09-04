@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html>
 <head>
     <title>Admin Reports</title>
     <link rel="stylesheet" href="style.css">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -15,22 +16,22 @@
     <h2>Library Statistics</h2>
 
     <label>Total Books</label>
-    <input type="number" id="totalBooks" value="500">
+    <input type="text" id="totalBooks" readonly>
 
     <label>Available Books</label>
-    <input type="number" id="available" value="350">
+    <input type="text" id="available" readonly>
 
     <label>Issued Books</label>
-    <input type="number" id="issued" value="150">
+    <input type="text" id="issued" readonly>
 
     <label>Active Students</label>
-    <input type="number" id="students" value="250">
+    <input type="text" id="students" readonly>
 
     <label>Overdue Books</label>
-    <input type="number" id="overdue" value="20">
+    <input type="text" id="overdue" readonly>
 
     <label>Total Fines (₹)</label>
-    <input type="number" id="fines" value="2500">
+    <input type="text" id="fines" readonly>
 
     <br><br>
 
@@ -40,23 +41,31 @@
 
 </div>
 
+
 <div class="card">
 
     <h2>📈 Current Report</h2>
 
     <div id="report"></div>
+
     <h3>📚 Most Borrowed Books</h3>
-<div id="mostBorrowed"></div>
+    <div id="mostBorrowed"></div>
+
     <h3>👥 Active Members</h3>
-<div id="activeMembers"></div>
-    <h3>📅 Borrowing Report</h3>
-<div id="borrowingReport"></div>
+    <div id="activeMembers"></div>
+
+    <h3>📅 Monthly Borrowing Report</h3>
+    <div id="borrowingReport"></div>
+
     <h3>📆 Yearly Borrowing Report</h3>
-<div id="yearlyBorrowing"></div>
+    <div id="yearlyBorrowing"></div>
+
+    <br>
+
     <canvas id="borrowingChart"></canvas>
-    
 
 </div>
+
 
 <br>
 
@@ -68,22 +77,47 @@ onclick="window.location.href='admin-dashboard.html'">
 
 <script>
 
+let borrowingChart = null;
+
+
 function showReport() {
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
-    let students = JSON.parse(localStorage.getItem("students")) || [];
-    let issuedBooks = JSON.parse(localStorage.getItem("issuedBooks")) || [];
-    let fines = JSON.parse(localStorage.getItem("fines")) || [];
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let fines =
+        JSON.parse(localStorage.getItem("fines")) || [];
+
+    let history =
+        JSON.parse(localStorage.getItem("borrowingHistory")) || [];
+
 
     let totalBooks = 0;
     let availableBooks = 0;
     let totalFines = 0;
     let overdueBooks = 0;
 
+
+    /* TOTAL AND AVAILABLE BOOKS */
+
     books.forEach(function(book) {
-        totalBooks += Number(book.totalCopies || book.copies);
-        availableBooks += Number(book.copies);
+
+        totalBooks +=
+            Number(book.totalCopies || book.copies);
+
+        availableBooks +=
+            Number(book.copies);
+
     });
+
+
+    /* OVERDUE BOOKS */
 
     let today = new Date();
 
@@ -91,165 +125,351 @@ function showReport() {
 
         if (book.dueDate) {
 
-            let dueDate = new Date(book.dueDate);
+            let dueDate =
+                new Date(book.dueDate);
 
             if (dueDate < today) {
                 overdueBooks++;
             }
+
         }
+
     });
+
+
+    /* TOTAL FINES */
 
     fines.forEach(function(fine) {
-        totalFines += Number(fine.amount);
+
+        totalFines +=
+            Number(fine.amount) || 0;
+
     });
 
-    document.getElementById("totalBooks").value = totalBooks;
-    document.getElementById("available").value = availableBooks;
-    document.getElementById("issued").value = issuedBooks.length;
-    document.getElementById("students").value = students.length;
-    document.getElementById("overdue").value = overdueBooks;
-    document.getElementById("fines").value = totalFines;
+
+    /* STATISTICS */
+
+    document.getElementById("totalBooks").value =
+        totalBooks;
+
+    document.getElementById("available").value =
+        availableBooks;
+
+    document.getElementById("issued").value =
+        issuedBooks.length;
+
+    document.getElementById("students").value =
+        students.length;
+
+    document.getElementById("overdue").value =
+        overdueBooks;
+
+    document.getElementById("fines").value =
+        totalFines;
+
+
+    /* CURRENT REPORT */
 
     document.getElementById("report").innerHTML =
+
         "📚 Total Books: " + totalBooks +
-        "<br>✅ Available Books: " + availableBooks +
-        "<br>📖 Issued Books: " + issuedBooks.length +
-        "<br>👨‍🎓 Active Students: " + students.length +
-        "<br>⚠️ Overdue Books: " + overdueBooks +
-        "<br>💰 Total Fines: ₹" + totalFines;
+
+        "<br>✅ Available Books: " +
+        availableBooks +
+
+        "<br>📖 Issued Books: " +
+        issuedBooks.length +
+
+        "<br>👨‍🎓 Active Students: " +
+        students.length +
+
+        "<br>⚠️ Overdue Books: " +
+        overdueBooks +
+
+        "<br>💰 Total Fines: ₹" +
+        totalFines;
+
+
+    /* MOST BORROWED BOOKS */
+
     let borrowCount = {};
-    let history =
-    JSON.parse(localStorage.getItem("borrowingHistory")) || [];
 
-history.forEach(function(book) {
-    if (borrowCount[book.bookName]) {
-        borrowCount[book.bookName]++;
-    } else {
-        borrowCount[book.bookName] = 1;
+
+    history.forEach(function(book) {
+
+        if (borrowCount[book.bookName]) {
+
+            borrowCount[book.bookName]++;
+
+        } else {
+
+            borrowCount[book.bookName] = 1;
+
+        }
+
+    });
+
+
+    issuedBooks.forEach(function(book) {
+
+        if (borrowCount[book.bookName]) {
+
+            borrowCount[book.bookName]++;
+
+        } else {
+
+            borrowCount[book.bookName] = 1;
+
+        }
+
+    });
+
+
+    let mostBorrowed = "";
+
+
+    for (let bookName in borrowCount) {
+
+        mostBorrowed +=
+            "📖 " + bookName +
+            " — Borrowed " +
+            borrowCount[bookName] +
+            " time(s)<br>";
+
     }
-});
 
-issuedBooks.forEach(function(book) {
-    if (borrowCount[book.bookName]) {
-        borrowCount[book.bookName]++;
-    } else {
-        borrowCount[book.bookName] = 1;
-    }
-});
 
-let mostBorrowed = "";
+    document.getElementById("mostBorrowed").innerHTML =
+        mostBorrowed ||
+        "No borrowing records yet.";
 
-for (let bookName in borrowCount) {
-    mostBorrowed +=
-        "📖 " + bookName +
-        " — Borrowed " + borrowCount[bookName] + " time(s)<br>";
-}
 
-document.getElementById("mostBorrowed").innerHTML =
-    mostBorrowed || "No borrowing records yet.";
-    let activeMembers = students.length;
+    /* ACTIVE MEMBERS */
 
-document.getElementById("activeMembers").innerText =
-    "👥 Active Members: " + activeMembers;
+    document.getElementById("activeMembers").innerText =
+        "👥 Active Members: " +
+        students.length;
+
+
+    /* MONTHLY REPORT */
+
     let monthlyBorrowing = {};
 
-issuedBooks.forEach(function(book) {
 
-    let date = new Date(book.issueDate);
+    history.forEach(function(book) {
 
-    let month = date.getFullYear() + "-" +
-        String(date.getMonth() + 1).padStart(2, "0");
+        if (!book.issueDate) return;
 
-    if (monthlyBorrowing[month]) {
-        monthlyBorrowing[month]++;
-    } else {
-        monthlyBorrowing[month] = 1;
+        let date =
+            new Date(book.issueDate);
+
+        let month =
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+
+        if (monthlyBorrowing[month]) {
+
+            monthlyBorrowing[month]++;
+
+        } else {
+
+            monthlyBorrowing[month] = 1;
+
+        }
+
+    });
+
+
+    issuedBooks.forEach(function(book) {
+
+        if (!book.issueDate) return;
+
+        let date =
+            new Date(book.issueDate);
+
+        let month =
+            date.getFullYear() +
+            "-" +
+            String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+
+        if (monthlyBorrowing[month]) {
+
+            monthlyBorrowing[month]++;
+
+        } else {
+
+            monthlyBorrowing[month] = 1;
+
+        }
+
+    });
+
+
+    let borrowingReport = "";
+
+
+    for (let month in monthlyBorrowing) {
+
+        borrowingReport +=
+            "📅 " + month +
+            " — " +
+            monthlyBorrowing[month] +
+            " book(s) borrowed<br>";
+
     }
-});
 
-let borrowingReport = "";
 
-for (let month in monthlyBorrowing) {
-    borrowingReport +=
-        "📅 " + month +
-        " — " + monthlyBorrowing[month] +
-        " book(s) borrowed<br>";
-}
+    document.getElementById("borrowingReport").innerHTML =
+        borrowingReport ||
+        "No borrowing records yet.";
 
-document.getElementById("borrowingReport").innerHTML =
-    borrowingReport || "No borrowing records yet."; 
-}
+
+    /* YEARLY REPORT */
+
     let yearlyBorrowing = {};
 
-history.forEach(function(book) {
 
-    let date = new Date(book.issueDate);
+    history.forEach(function(book) {
 
-    let year = date.getFullYear();
+        if (!book.issueDate) return;
 
-    if (yearlyBorrowing[year]) {
-        yearlyBorrowing[year]++;
-    } else {
-        yearlyBorrowing[year] = 1;
+        let date =
+            new Date(book.issueDate);
+
+        let year =
+            date.getFullYear();
+
+
+        if (yearlyBorrowing[year]) {
+
+            yearlyBorrowing[year]++;
+
+        } else {
+
+            yearlyBorrowing[year] = 1;
+
+        }
+
+    });
+
+
+    issuedBooks.forEach(function(book) {
+
+        if (!book.issueDate) return;
+
+        let date =
+            new Date(book.issueDate);
+
+        let year =
+            date.getFullYear();
+
+
+        if (yearlyBorrowing[year]) {
+
+            yearlyBorrowing[year]++;
+
+        } else {
+
+            yearlyBorrowing[year] = 1;
+
+        }
+
+    });
+
+
+    let yearlyReport = "";
+
+
+    for (let year in yearlyBorrowing) {
+
+        yearlyReport +=
+            "📅 " + year +
+            " — " +
+            yearlyBorrowing[year] +
+            " book(s) borrowed<br>";
+
     }
-});
 
-issuedBooks.forEach(function(book) {
 
-    let date = new Date(book.issueDate);
+    document.getElementById("yearlyBorrowing").innerHTML =
+        yearlyReport ||
+        "No yearly records yet.";
 
-    let year = date.getFullYear();
 
-    if (yearlyBorrowing[year]) {
-        yearlyBorrowing[year]++;
-    } else {
-        yearlyBorrowing[year] = 1;
-    }
-});
-
-let yearlyReport = "";
-
-for (let year in yearlyBorrowing) {
-
-    yearlyReport +=
-        "📅 " + year +
-        " — " + yearlyBorrowing[year] +
-        " book(s) borrowed<br>";
-}
-
-let yearlyElement =
-    document.getElementById("yearlyBorrowing");
-
-if (yearlyElement) {
-    yearlyElement.innerHTML =
-        yearlyReport || "No yearly records yet.";
-    let chartCanvas =
-    document.getElementById("borrowingChart");
-
-if (chartCanvas) {
+    /* CHART */
 
     let labels = [];
     let data = [];
 
+
     for (let year in yearlyBorrowing) {
+
         labels.push(year);
         data.push(yearlyBorrowing[year]);
+
     }
 
-    new Chart(chartCanvas, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Books Borrowed",
-                data: data
-            }]
-        }
-    });
+
+    if (borrowingChart) {
+        borrowingChart.destroy();
+    }
+
+
+    let canvas =
+        document.getElementById("borrowingChart");
+
+
+    if (canvas && labels.length > 0) {
+
+        borrowingChart = new Chart(canvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [{
+
+                    label: "Books Borrowed",
+
+                    data: data
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
 }
-}
+
+
+showReport();
 
 </script>
 
 </body>
-</html>      
+    </html>
