@@ -45,14 +45,17 @@ Update Report
 
 <script>
 
+
 function showReport() {
 
-    let totalBooks = document.getElementById("totalBooks").value;
-    let availableBooks = document.getElementById("available").value;
-    let issuedBooks = document.getElementById("issued").value;
-    let activeStudents = document.getElementById("students").value;
-    let overdueBooks = document.getElementById("overdue").value;
-    let totalFines = document.getElementById("fines").value;
+    let inputs = document.querySelectorAll('input[type="number"]');
+
+    let totalBooks = inputs[0].value;
+    let availableBooks = inputs[1].value;
+    let issuedBooks = inputs[2].value;
+    let activeStudents = inputs[3].value;
+    let overdueBooks = inputs[4].value;
+    let totalFines = inputs[5].value;
 
     document.getElementById("report").innerHTML =
         "📚 Total Books: " + totalBooks +
@@ -62,6 +65,9 @@ function showReport() {
         "<br>⚠️ Overdue Books: " + overdueBooks +
         "<br>💰 Total Fines: ₹" + totalFines;
 }
+
+
+
 </script>
 
 <br>
