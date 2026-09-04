@@ -79,6 +79,20 @@ function addMember() {
     let table = document.getElementById("memberTable");
 
     let row = table.insertRow();
+    let members =
+    JSON.parse(localStorage.getItem("members")) || [];
+
+members.push({
+    name: name,
+    studentId: studentId,
+    email: email,
+    phone: phone
+});
+
+localStorage.setItem(
+    "members",
+    JSON.stringify(members)
+);
 
     row.insertCell(0).innerHTML = name;
     row.insertCell(1).innerHTML = id;
