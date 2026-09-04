@@ -1,81 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Due Dates</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-        }
-
-        header {
-            background: #1e3a5f;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px;
-        }
-
-        .book {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .due {
-            color: #c62828;
-            font-weight: bold;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 18px;
-            background: #1e3a5f;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>📅 Due Dates</h1>
-    <p>Check the due dates of your borrowed books</p>
-</header>
+<h1>📅 Due Dates</h1>
 
-<div class="container">
+<div class="card">
 
-    <div class="book">
-        <h2>Database Management Systems</h2>
-        <p>Issue Date: 25 August 2026</p>
-        <p>Due Date: <span class="due">08 September 2026</span></p>
-    </div>
+    <h2>My Book Due Dates</h2>
 
-    <div class="book">
-        <h2>Java Programming</h2>
-        <p>Issue Date: 28 August 2026</p>
-        <p>Due Date: <span class="due">11 September 2026</span></p>
-    </div>
+    <table border="1" width="100%">
 
-    <a class="back" href="student-dashboard.html">
-        ← Back to Student Dashboard
-    </a>
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Book ID / ISBN</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="dueTable">
+        </tbody>
+
+    </table>
+
+    <p id="message"></p>
 
 </div>
+
+<br>
+
+<button type="button"
+onclick="window.location.href='student-dashboard.html'">
+    Back to Student Dashboard
+</button>
+
+<script>
+
+function loadDueDates() {
+
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let studentId =
+        localStorage.getItem("studentId");
+
+    let table =
+        document.getElementById("dueTable");
+
+    let message =
+        document.getElementById("message");
+
+    table.innerHTML = "";
+
+    if (!studentId) {
+        message.innerText =
+            "Please register/login as a student first.";
+        return;
+    }
+
+    let myBooks = issuedBooks.filter(function(book) {
+        return book.studentId === studentId;
+    });
+
+    if (myBooks.length === 0) {
+        message.innerText =
+            "No borrowed books found.";
+        return;
+    }
+
+    let today = new Date();
+
+    myBooks.forEach(function(book) {
+
+        let dueDate = new Date(book.dueDate);
+
+        let status;
+
+        if (dueDate < today) {
+            status = "⚠️ Overdue";
+        } else {
+            status = "✅ Not Due";
+        }
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText =
+            book.bookName;
+
+        row.insertCell(1).innerText =
+            book.bookId;
+
+        row.insertCell(2).innerText =
+            book.dueDate;
+
+        row.insertCell(3).innerText =
+            status;
+    });
+}
+
+loadDueDates();
+
+</script>
 
 </body>
 </html>
