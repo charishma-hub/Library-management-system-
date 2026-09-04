@@ -38,25 +38,51 @@ Check Due Date
 
 function checkDueDate() {
 
-let book = document.getElementById("bookName").value;
-let date = document.getElementById("dueDate").value;
+    let issuedBooks =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
 
-if (book === "" || date === "") {
-    alert("Please enter book name and due date");
-    return;
-}
+    let studentId =
+        localStorage.getItem("studentId");
 
-let today = new Date();
-let due = new Date(date);
+    let result =
+        document.getElementById("result");
 
-if (due < today) {
-    document.getElementById("result").innerText =
-        book + " is overdue!";
-} else {
-    document.getElementById("result").innerText =
-        book + " is due on " + date;
-}
+    if (!studentId) {
+        result.innerText =
+            "Please register/login as a student first.";
+        return;
+    }
 
+    let myBooks = issuedBooks.filter(function(book) {
+        return book.studentId === studentId;
+    });
+
+    if (myBooks.length === 0) {
+        result.innerText =
+            "No borrowed books found.";
+        return;
+    }
+
+    let today = new Date();
+    let message = "";
+
+    myBooks.forEach(function(book) {
+
+        let due = new Date(book.dueDate);
+
+        if (due < today) {
+            message +=
+                "⚠️ " + book.bookName +
+                " is overdue!<br>";
+        } else {
+            message +=
+                "📚 " + book.bookName +
+                " is due on " + book.dueDate +
+                "<br>";
+        }
+    });
+
+    result.innerHTML = message;
 }
 
 </script>
