@@ -106,6 +106,26 @@
 </div>
 
 <script>
+    window.onload = function() {
+
+    document.getElementById("fullName").value =
+        localStorage.getItem("studentName") || "";
+
+    document.getElementById("studentId").value =
+        localStorage.getItem("studentId") || "";
+
+    document.getElementById("course").value =
+        localStorage.getItem("course") || "";
+
+    document.getElementById("department").value =
+        localStorage.getItem("department") || "";
+
+    document.getElementById("email").value =
+        localStorage.getItem("email") || "";
+
+    document.getElementById("phone").value =
+        localStorage.getItem("phone") || "";
+}; 
 function saveProfile() {
 
     let name = document.getElementById("name").value;
