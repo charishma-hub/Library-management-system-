@@ -139,6 +139,44 @@ function returnBook() {
 
     if (index !== -1) {
         issuedBooks.splice(index, 1);
+        let returnedDate = new Date();
+let dueDate = new Date(issuedBooks[index].dueDate);
+
+if (returnedDate > dueDate) {
+
+    let daysLate =
+        Math.ceil(
+            (returnedDate - dueDate) /
+            (1000 * 60 * 60 * 24)
+        );
+
+    let settingsFine =
+        Number(localStorage.getItem("fine")) || 10;
+
+    let fineAmount = daysLate * settingsFine;
+
+    let fines =
+        JSON.parse(localStorage.getItem("fines")) || [];
+
+    fines.push({
+        studentId: studentId,
+        bookId: bookId,
+        amount: fineAmount,
+        reason: "Late Return",
+        status: "Pending",
+        paymentDate: ""
+    });
+
+    localStorage.setItem(
+        "fines",
+        JSON.stringify(fines)
+    );
+
+    alert(
+        "⚠️ Late return! Fine: ₹" +
+        fineAmount
+    );
+            }
         let borrowingHistory =
     JSON.parse(localStorage.getItem("borrowingHistory")) || [];
 
