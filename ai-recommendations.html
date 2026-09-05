@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>AI Book Recommendations</title>
-<link rel="stylesheet" href="style.css">
+    <title>AI Recommendations</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -11,66 +12,128 @@
 
 <div class="card">
 
-<h2>Find Books For You</h2>
+    <h2>Personalized Recommendations</h2>
 
-<input type="text" id="interest"
-placeholder="Enter your interest">
+    <p>
+        Get book recommendations based on your
+        previous borrowing history.
+    </p>
 
-<button type="button" onclick="recommendBooks()">
-Get Recommendations
-</button>
+    <button type="button"
+            onclick="getRecommendations()">
+        Get Recommendations
+    </button>
 
-<p id="result"></p>
+    <br><br>
+
+    <div id="result"></div>
 
 </div>
 
+<br>
+
+<button type="button"
+        onclick="window.location.href='student-dashboard.html'">
+    Back to Student Dashboard
+</button>
+
+
 <script>
 
-function recommendBooks() {
+function getRecommendations() {
 
-let interest =
-document.getElementById("interest").value.toLowerCase();
+    let studentId =
+        localStorage.getItem("studentId");
 
-let result =
-document.getElementById("result");
+    let history =
+        JSON.parse(
+            localStorage.getItem("borrowingHistory")
+        ) || [];
 
-if (interest === "") {
-alert("Please enter your interest");
-return;
-}
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
 
-if (interest.includes("java")) {
+    let result =
+        document.getElementById("result");
 
-result.innerText =
-"Recommended: Java Programming";
 
-} else if (interest.includes("database") ||
-           interest.includes("dbms")) {
+    if (!studentId) {
 
-result.innerText =
-"Recommended: Database Management Systems";
+        result.innerText =
+            "Please register/login as a student first.";
 
-} else if (interest.includes("network")) {
+        return;
+    }
 
-result.innerText =
-"Recommended: Computer Networks";
 
-} else {
+    let myHistory =
+        history.filter(function(book) {
 
-result.innerText =
-"Recommended: Operating System Concepts";
+            return book.studentId === studentId;
 
-}
+        });
+
+
+    if (myHistory.length === 0) {
+
+        result.innerText =
+            "No borrowing history yet. Try borrowing a book first.";
+
+        return;
+    }
+
+
+    let borrowedNames =
+        myHistory.map(function(book) {
+
+            return book.bookName;
+
+        });
+
+
+    let recommendations =
+        books.filter(function(book) {
+
+            return !borrowedNames.includes(book.name);
+
+        });
+
+
+    if (recommendations.length === 0) {
+
+        result.innerText =
+            "No new books available for recommendation.";
+
+        return;
+    }
+
+
+    let output =
+        "🤖 Recommended Books:<br><br>";
+
+
+    recommendations
+        .slice(0, 5)
+        .forEach(function(book) {
+
+            output +=
+                "📚 " +
+                book.name +
+                " — " +
+                book.author +
+                "<br>";
+
+        });
+
+
+    result.innerHTML = output;
 
 }
 
 </script>
 
-<br>
-
-<button onclick="window.location.href='student-dashboard.html'">
-Back to Student Dashboard
-</button>
-
 </body>
+
 </html>
