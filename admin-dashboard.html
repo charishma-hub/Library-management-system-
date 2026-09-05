@@ -1,147 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-        }
+<meta charset="UTF-8">
 
-        header {
-            background: #1e3a5f;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 25px;
-        }
+<title>Admin Dashboard</title>
 
-        .welcome {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
+<style>
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .card {
-            background: white;
-            padding: 25px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
 
-        .card h3 {
-            margin-bottom: 10px;
-        }
 
-        button {
-            background: #1e3a5f;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+/* HEADER */
 
-        button:hover {
-            opacity: 0.85;
-        }
+header {
+    background: linear-gradient(135deg, #102a43, #2563eb);
+    color: white;
+    padding: 28px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logout {
-            margin-top: 30px;
-            text-align: center;
-        }
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
 
-        .logout button {
-            background: #c62828;
-        }
-    </style>
+header p {
+    margin: 6px 0 0;
+    color: #dbeafe;
+}
+
+.admin-badge {
+    background: rgba(255,255,255,0.15);
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+
+/* CONTAINER */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 25px;
+}
+
+
+/* WELCOME */
+
+.welcome {
+    background: linear-gradient(135deg, #ffffff, #eef6ff);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 8px 25px rgba(15,23,42,0.07);
+}
+
+.welcome h2 {
+    margin: 0 0 8px;
+    color: #102a43;
+}
+
+.welcome p {
+    margin: 0;
+    color: #64748b;
+}
+
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 22px 15px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+}
+
+.stat-icon {
+    font-size: 32px;
+}
+
+.stat-card h2 {
+    margin: 8px 0 3px;
+    color: #102a43;
+}
+
+.stat-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* SECTION */
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.section-title h2 {
+    color: #102a43;
+    margin-bottom: 5px;
+}
+
+.section-title p {
+    color: #64748b;
+}
+
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 7px 22px rgba(15,23,42,0.07);
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(15,23,42,0.13);
+}
+
+.card-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    color: #102a43;
+    margin: 5px 0 8px;
+}
+
+.card p {
+    color: #64748b;
+    min-height: 40px;
+}
+
+
+/* BUTTON */
+
+button {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37,99,235,0.25);
+}
+
+
+/* LOGOUT */
+
+.logout {
+    text-align: center;
+    margin-top: 45px;
+}
+
+.logout button {
+    background: #dc2626;
+    padding: 12px 35px;
+}
+
+.logout button:hover {
+    background: #b91c1c;
+}
+
+
+/* FOOTER */
+
+footer {
+    background: #102a43;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+footer p {
+    color: #cbd5e1;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding: 25px 20px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 25px 18px;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <h1>👨‍💼 Admin Dashboard</h1>
-    <p>Library Management System</p>
+
+    <div>
+
+        <h1>👨‍💼 Admin Dashboard</h1>
+
+        <p>Library Management System</p>
+
+    </div>
+
+    <div class="admin-badge">
+        🔐 Administrator
+    </div>
+
 </header>
+
 
 <div class="container">
 
+
+    <!-- WELCOME -->
+
     <div class="welcome">
+
         <h2>Welcome, Admin! 👋</h2>
-        <p>Manage and monitor the library system from here.</p>
+
+        <p>
+            Monitor and manage the complete
+            library system from one place.
+        </p>
+
     </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">📚</div>
+
+            <h2 id="totalBooks">0</h2>
+
+            <p>Total Books</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">📖</div>
+
+            <h2 id="issuedBooks">0</h2>
+
+            <p>Issued Books</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">👨‍🎓</div>
+
+            <h2 id="totalStudents">0</h2>
+
+            <p>Students</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">⚠️</div>
+
+            <h2 id="overdueBooks">0</h2>
+
+            <p>Overdue Books</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">💰</div>
+
+            <h2>₹<span id="totalFines">0</span></h2>
+
+            <p>Total Fines</p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- MANAGEMENT -->
+
+    <div class="section-title">
+
+        <h2>⚙️ System Management</h2>
+
+        <p>Manage library users, settings and reports</p>
+
+    </div>
+
 
     <div class="cards">
 
+
         <div class="card">
-            <h3>👩‍💼 Manage Librarians</h3>
-            <p>Add, update and manage librarians.</p>
+
+            <div class="card-icon">👩‍💼</div>
+
+            <h3>Manage Librarians</h3>
+
+            <p>
+                Add, update and manage
+                library librarians.
+            </p>
+
             <button onclick="window.location.href='manage-librarians.html'">
-    Open
+                Manage Librarians →
             </button>
+
         </div>
 
+
         <div class="card">
-            <h3>👨‍🎓 Manage Students</h3>
-            <p>Manage student and user accounts.</p>
+
+            <div class="card-icon">👨‍🎓</div>
+
+            <h3>Manage Students</h3>
+
+            <p>
+                Manage student and
+                user accounts.
+            </p>
+
             <button onclick="window.location.href='manage-students.html'">
-    Open
+                Manage Students →
             </button>
+
         </div>
 
+
         <div class="card">
-            <h3>⚙️ System Settings</h3>
-            <p>Manage library system settings.</p>
+
+            <div class="card-icon">⚙️</div>
+
+            <h3>System Settings</h3>
+
+            <p>
+                Configure library system
+                settings and rules.
+            </p>
+
             <button onclick="window.location.href='system-settings.html'">
-    Open
+                Open Settings →
             </button>
+
         </div>
 
+
         <div class="card">
-            <h3>📊 Reports & Dashboard</h3>
-            <p>View library statistics and reports.</p>
+
+            <div class="card-icon">📊</div>
+
+            <h3>Reports & Analytics</h3>
+
+            <p>
+                View statistics, borrowing
+                reports and analytics.
+            </p>
+
             <button onclick="window.location.href='admin-reports.html'">
-    Open
+                View Reports →
             </button>
+
         </div>
+
 
     </div>
+
+
+    <!-- LOGOUT -->
 
     <div class="logout">
-        <button onclick="logout()">Logout</button>
+
+        <button onclick="logout()">
+            🚪 Logout
+        </button>
+
     </div>
+
 
 </div>
 
+
+<footer>
+
+    <h3>📚 Library Management System</h3>
+
+    <p>
+        Smart library management for
+        administrators and staff.
+    </p>
+
+</footer>
+
+
 <script>
 
-function showMessage(section) {
-    alert(section + " section will open here.");
-}
 
-function logout() {
-    window.location.href = "index.html";
-}
-
-</script>
-    <script>
+/* ADMIN STATISTICS */
 
 function updateAdminStatistics() {
 
@@ -157,15 +499,22 @@ function updateAdminStatistics() {
     let fines =
         JSON.parse(localStorage.getItem("fines")) || [];
 
+
     let totalBooks = 0;
 
+
     books.forEach(function(book) {
+
         totalBooks +=
             Number(book.totalCopies || book.copies);
+
     });
 
+
     let overdue = 0;
+
     let today = new Date();
+
 
     issued.forEach(function(book) {
 
@@ -175,17 +524,26 @@ function updateAdminStatistics() {
                 new Date(book.dueDate);
 
             if (dueDate < today) {
+
                 overdue++;
+
             }
+
         }
+
     });
+
 
     let totalFines = 0;
 
+
     fines.forEach(function(fine) {
+
         totalFines +=
             Number(fine.amount) || 0;
+
     });
+
 
     document.getElementById("totalBooks").innerText =
         totalBooks;
@@ -201,11 +559,24 @@ function updateAdminStatistics() {
 
     document.getElementById("totalFines").innerText =
         totalFines;
+
 }
+
 
 updateAdminStatistics();
 
-    </script>
+
+/* LOGOUT */
+
+function logout() {
+
+    window.location.href = "index.html";
+
+}
+
+</script>
+
 
 </body>
-  </html>
+
+</html>
