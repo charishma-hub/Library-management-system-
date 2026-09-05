@@ -154,6 +154,69 @@ function showMessage(section) {
     alert(section + " module will open here.");
 }
 </script>
+    <script>
+
+function updateStatistics() {
+
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    let issued =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+    let totalBooks = 0;
+    let availableBooks = 0;
+
+    books.forEach(function(book) {
+
+        totalBooks +=
+            Number(book.totalCopies || book.copies);
+
+        availableBooks +=
+            Number(book.copies);
+
+    });
+
+    let overdue = 0;
+
+    let today = new Date();
+
+    issued.forEach(function(book) {
+
+        if (book.dueDate) {
+
+            let dueDate =
+                new Date(book.dueDate);
+
+            if (dueDate < today) {
+                overdue++;
+            }
+        }
+    });
+
+
+    document.getElementById("totalBooks").innerText =
+        totalBooks;
+
+    document.getElementById("availableBooks").innerText =
+        availableBooks;
+
+    document.getElementById("issuedBooks").innerText =
+        issued.length;
+
+    document.getElementById("overdueBooks").innerText =
+        overdue;
+
+    document.getElementById("totalStudents").innerText =
+        students.length;
+}
+
+updateStatistics();
+
+    </script>
 
 </body>
 </html>
