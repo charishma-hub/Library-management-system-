@@ -29,9 +29,7 @@
         <div class="book">
 
             <h3>Database Management Systems</h3>
-
             <p>Author: Abraham Silberschatz</p>
-
             <p>Category: Database</p>
 
             <button type="button"
@@ -45,9 +43,7 @@
         <div class="book">
 
             <h3>Java Programming</h3>
-
             <p>Author: Herbert Schildt</p>
-
             <p>Category: Programming</p>
 
             <button type="button"
@@ -61,9 +57,7 @@
         <div class="book">
 
             <h3>Computer Networks</h3>
-
             <p>Author: Andrew S. Tanenbaum</p>
-
             <p>Category: Networks</p>
 
             <button type="button"
@@ -77,9 +71,7 @@
         <div class="book">
 
             <h3>Operating System Concepts</h3>
-
             <p>Author: Abraham Silberschatz</p>
-
             <p>Category: Operating Systems</p>
 
             <button type="button"
@@ -91,7 +83,21 @@
 
     </div>
 
-    <p id="message"></p>
+</div>
+
+
+<div class="card">
+
+    <h2 id="readingTitle">📖 Online Reading</h2>
+
+    <div id="readingContent">
+
+        <p>
+            Select an e-book above and click
+            <b>Open Book</b> to start reading.
+        </p>
+
+    </div>
 
 </div>
 
@@ -105,6 +111,7 @@
 
 
 <script>
+
 
 function searchBooks() {
 
@@ -139,21 +146,137 @@ function searchBooks() {
 
 function openBook(bookName) {
 
+    let title =
+        document.getElementById("readingTitle");
+
+    let content =
+        document.getElementById("readingContent");
+
+
+    title.innerText =
+        "📖 " + bookName;
+
+
     if (bookName === "Database Management Systems") {
-        window.open("dbms.pdf", "_blank");
+
+        content.innerHTML = `
+            <h3>Chapter 1: Introduction to DBMS</h3>
+
+            <p>
+                A Database Management System (DBMS) is
+                software used to create, store, organize
+                and manage data in a database.
+            </p>
+
+            <p>
+                A DBMS allows users to insert, update,
+                delete and retrieve information efficiently.
+            </p>
+
+            <h3>Important Concepts</h3>
+
+            <ul>
+                <li>Database</li>
+                <li>Tables</li>
+                <li>Records</li>
+                <li>Primary Key</li>
+                <li>Foreign Key</li>
+                <li>SQL</li>
+            </ul>
+
+            <p>
+                📚 This is sample educational content
+                for the Digital Library.
+            </p>
+        `;
+
     }
+
 
     else if (bookName === "Java Programming") {
-        window.open("java.pdf", "_blank");
+
+        content.innerHTML = `
+            <h3>Chapter 1: Introduction to Java</h3>
+
+            <p>
+                Java is a high-level, object-oriented
+                programming language.
+            </p>
+
+            <p>
+                Java programs are compiled into bytecode
+                which can run on the Java Virtual Machine.
+            </p>
+
+            <h3>Important Concepts</h3>
+
+            <ul>
+                <li>Classes and Objects</li>
+                <li>Inheritance</li>
+                <li>Polymorphism</li>
+                <li>Encapsulation</li>
+                <li>Abstraction</li>
+            </ul>
+        `;
+
     }
+
 
     else if (bookName === "Computer Networks") {
-        window.open("networks.pdf", "_blank");
+
+        content.innerHTML = `
+            <h3>Chapter 1: Introduction to Networks</h3>
+
+            <p>
+                A computer network connects computers and
+                other devices so that they can communicate
+                and share resources.
+            </p>
+
+            <h3>Important Concepts</h3>
+
+            <ul>
+                <li>LAN</li>
+                <li>MAN</li>
+                <li>WAN</li>
+                <li>IP Address</li>
+                <li>Protocols</li>
+                <li>Network Security</li>
+            </ul>
+        `;
+
     }
 
+
     else if (bookName === "Operating System Concepts") {
-        window.open("os.pdf", "_blank");
+
+        content.innerHTML = `
+            <h3>Chapter 1: Introduction to Operating Systems</h3>
+
+            <p>
+                An Operating System is system software
+                that manages computer hardware and provides
+                services to application programs.
+            </p>
+
+            <h3>Important Concepts</h3>
+
+            <ul>
+                <li>Process Management</li>
+                <li>Memory Management</li>
+                <li>File Management</li>
+                <li>Device Management</li>
+                <li>Security</li>
+            </ul>
+        `;
+
     }
+
+
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    });
 
 }
 
