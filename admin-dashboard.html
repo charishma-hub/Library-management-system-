@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Admin Dashboard</title>
+<title>Admin Control Center</title>
 
 <style>
 
@@ -19,243 +19,685 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f5f7fb;
+    background: #f4f7fb;
     color: #1f2937;
 }
 
 
-/* HEADER */
+/* ================= SIDEBAR ================= */
 
-header {
-    background: linear-gradient(135deg, #102a43, #2563eb);
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 240px;
+    height: 100vh;
+
+    background: #102a43;
+
     color: white;
-    padding: 28px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    padding: 25px 18px;
+
 }
 
-header h1 {
+
+.logo {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+}
+
+.logo h2 {
+
     margin: 0;
-    font-size: 30px;
+
+    font-size: 22px;
+
 }
 
-header p {
-    margin: 6px 0 0;
-    color: #dbeafe;
+.logo p {
+
+    color: #9fb3c8;
+
+    font-size: 12px;
+
 }
 
-.admin-badge {
-    background: rgba(255,255,255,0.15);
-    padding: 10px 18px;
-    border-radius: 20px;
+
+.menu-title {
+
+    color: #829ab1;
+
+    font-size: 11px;
+
+    margin: 20px 10px 8px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.sidebar a {
+
+    display: block;
+
+    color: #d9e2ec;
+
+    text-decoration: none;
+
+    padding: 13px 15px;
+
+    margin: 5px 0;
+
+    border-radius: 9px;
+
     font-size: 14px;
+
 }
 
 
-/* CONTAINER */
+.sidebar a:hover {
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 40px 25px;
+    background: #2563eb;
+
+    color: white;
+
 }
 
 
-/* WELCOME */
+/* ================= MAIN ================= */
+
+.main {
+
+    margin-left: 240px;
+
+    min-height: 100vh;
+
+}
+
+
+/* ================= TOP BAR ================= */
+
+.topbar {
+
+    background: white;
+
+    padding: 20px 35px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+.topbar h1 {
+
+    margin: 0;
+
+    color: #102a43;
+
+    font-size: 25px;
+
+}
+
+
+.topbar p {
+
+    margin: 5px 0 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+
+.admin-profile {
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+
+    padding: 10px 16px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+}
+
+
+/* ================= CONTENT ================= */
+
+.content {
+
+    padding: 30px 35px;
+
+}
+
+
+/* ================= WELCOME ================= */
 
 .welcome {
-    background: linear-gradient(135deg, #ffffff, #eef6ff);
+
+    background:
+        linear-gradient(135deg, #1d4ed8, #2563eb);
+
+    color: white;
+
     padding: 30px;
-    border-radius: 20px;
+
+    border-radius: 18px;
+
     margin-bottom: 30px;
-    border: 1px solid #dbeafe;
-    box-shadow: 0 8px 25px rgba(15,23,42,0.07);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
 }
+
 
 .welcome h2 {
+
     margin: 0 0 8px;
-    color: #102a43;
+
+    font-size: 27px;
+
 }
+
 
 .welcome p {
+
     margin: 0;
-    color: #64748b;
+
+    color: #dbeafe;
+
 }
 
 
-/* STATISTICS */
+.welcome-icon {
+
+    font-size: 65px;
+
+}
+
+
+/* ================= STATISTICS ================= */
 
 .stats {
+
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
     gap: 18px;
-    margin-bottom: 40px;
+
+    margin-bottom: 35px;
+
 }
 
-.stat-card {
+
+.stat {
+
     background: white;
-    padding: 22px 15px;
-    border-radius: 16px;
-    text-align: center;
+
+    padding: 22px;
+
+    border-radius: 15px;
+
     border: 1px solid #e5e7eb;
-    box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+
+    box-shadow:
+        0 5px 18px rgba(15,23,42,0.06);
+
 }
+
+
+.stat-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
 
 .stat-icon {
-    font-size: 32px;
+
+    width: 45px;
+
+    height: 45px;
+
+    background: #eff6ff;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
 }
 
-.stat-card h2 {
-    margin: 8px 0 3px;
+
+.stat h2 {
+
+    margin: 15px 0 3px;
+
     color: #102a43;
+
+    font-size: 25px;
+
 }
 
-.stat-card p {
+
+.stat p {
+
     margin: 0;
+
     color: #64748b;
+
     font-size: 13px;
+
 }
 
 
-/* SECTION */
+/* ================= SECTION ================= */
 
-.section-title {
-    margin-bottom: 20px;
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
 }
 
-.section-title h2 {
+
+.section-header h2 {
+
+    margin: 0;
+
     color: #102a43;
-    margin-bottom: 5px;
+
+    font-size: 21px;
+
 }
 
-.section-title p {
+
+.section-header span {
+
     color: #64748b;
+
+    font-size: 13px;
+
 }
 
 
-/* CARDS */
+/* ================= QUICK ACTIONS ================= */
 
-.cards {
+.actions {
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 35px;
+
 }
 
-.card {
+
+.action {
+
     background: white;
-    padding: 30px;
-    border-radius: 18px;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
     border: 1px solid #e5e7eb;
-    box-shadow: 0 7px 22px rgba(15,23,42,0.07);
+
     transition: 0.25s;
+
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(15,23,42,0.13);
+
+.action:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(15,23,42,0.12);
+
 }
 
-.card-icon {
-    font-size: 42px;
-    margin-bottom: 10px;
+
+.action-icon {
+
+    font-size: 35px;
+
+    margin-bottom: 12px;
+
 }
 
-.card h3 {
+
+.action h3 {
+
+    margin: 0 0 7px;
+
     color: #102a43;
-    margin: 5px 0 8px;
+
 }
 
-.card p {
+
+.action p {
+
     color: #64748b;
-    min-height: 40px;
+
+    font-size: 13px;
+
+    min-height: 35px;
+
 }
 
-
-/* BUTTON */
 
 button {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+
+    background: #2563eb;
+
     color: white;
+
     border: none;
-    padding: 11px 20px;
-    border-radius: 9px;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
+
+    font-weight: bold;
+
 }
+
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(37,99,235,0.25);
+
+    background: #1d4ed8;
+
 }
 
 
-/* LOGOUT */
+/* ================= LOWER SECTION ================= */
+
+.lower {
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr;
+
+    gap: 20px;
+
+}
+
+
+.panel {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 5px 18px rgba(15,23,42,0.05);
+
+}
+
+
+.panel h3 {
+
+    margin-top: 0;
+
+    color: #102a43;
+
+}
+
+
+/* LIBRARY STATUS */
+
+.status-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #edf2f7;
+
+}
+
+
+.status-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.status-label {
+
+    color: #475569;
+
+}
+
+
+.status-value {
+
+    font-weight: bold;
+
+    color: #2563eb;
+
+}
+
+
+/* SYSTEM STATUS */
+
+.system-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 0;
+
+}
+
+
+.dot {
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+}
+
+
+.system-item span {
+
+    color: #475569;
+
+    font-size: 14px;
+
+}
+
+
+/* ================= LOGOUT ================= */
 
 .logout {
+
+    margin-top: 35px;
+
     text-align: center;
-    margin-top: 45px;
+
 }
+
 
 .logout button {
+
     background: #dc2626;
+
     padding: 12px 35px;
+
 }
+
 
 .logout button:hover {
+
     background: #b91c1c;
+
 }
 
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer {
-    background: #102a43;
-    color: white;
+
     text-align: center;
+
     padding: 25px;
-    margin-top: 30px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
 }
 
-footer p {
-    color: #cbd5e1;
-}
 
+/* ================= MOBILE ================= */
 
-/* MOBILE */
-
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
     .stats {
-        grid-template-columns: repeat(2, 1fr);
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
     }
 
-    .cards {
+    .actions {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .lower {
+
         grid-template-columns: 1fr;
-    }
 
-    header {
-        padding: 25px 20px;
     }
 
 }
 
 
-@media (max-width: 550px) {
+@media (max-width: 700px) {
 
-    header {
+    .sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+
+    }
+
+    .main {
+
+        margin-left: 0;
+
+    }
+
+    .sidebar a {
+
+        display: inline-block;
+
+    }
+
+    .topbar {
+
+        padding: 18px;
+
         flex-direction: column;
+
+        gap: 12px;
+
         text-align: center;
+
+    }
+
+    .content {
+
+        padding: 20px;
+
+    }
+
+    .welcome {
+
+        text-align: center;
+
+        flex-direction: column;
+
         gap: 15px;
+
     }
 
-    .stats {
+    .stats,
+
+    .actions {
+
         grid-template-columns: 1fr;
-    }
 
-    .container {
-        padding: 25px 18px;
     }
 
 }
@@ -268,236 +710,539 @@ footer p {
 <body>
 
 
-<header>
+<!-- ================= SIDEBAR ================= -->
 
-    <div>
-
-        <h1>👨‍💼 Admin Dashboard</h1>
-
-        <p>Library Management System</p>
-
-    </div>
-
-    <div class="admin-badge">
-        🔐 Administrator
-    </div>
-
-</header>
+<div class="sidebar">
 
 
-<div class="container">
+    <div class="logo">
 
+        <h2>📚 Library</h2>
 
-    <!-- WELCOME -->
-
-    <div class="welcome">
-
-        <h2>Welcome, Admin! 👋</h2>
-
-        <p>
-            Monitor and manage the complete
-            library system from one place.
-        </p>
+        <p>ADMIN CONTROL CENTER</p>
 
     </div>
 
 
-    <!-- STATISTICS -->
-
-    <div class="stats">
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">📚</div>
-
-            <h2 id="totalBooks">0</h2>
-
-            <p>Total Books</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">📖</div>
-
-            <h2 id="issuedBooks">0</h2>
-
-            <p>Issued Books</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">👨‍🎓</div>
-
-            <h2 id="totalStudents">0</h2>
-
-            <p>Students</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">⚠️</div>
-
-            <h2 id="overdueBooks">0</h2>
-
-            <p>Overdue Books</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">💰</div>
-
-            <h2>₹<span id="totalFines">0</span></h2>
-
-            <p>Total Fines</p>
-
-        </div>
-
-
+    <div class="menu-title">
+        MAIN
     </div>
 
 
-    <!-- MANAGEMENT -->
+    <a href="admin-dashboard.html">
+        📊 Dashboard
+    </a>
 
-    <div class="section-title">
 
-        <h2>⚙️ System Management</h2>
-
-        <p>Manage library users, settings and reports</p>
-
+    <div class="menu-title">
+        MANAGEMENT
     </div>
 
 
-    <div class="cards">
+    <a href="manage-librarians.html">
+        👩‍💼 Librarians
+    </a>
 
 
-        <div class="card">
-
-            <div class="card-icon">👩‍💼</div>
-
-            <h3>Manage Librarians</h3>
-
-            <p>
-                Add, update and manage
-                library librarians.
-            </p>
-
-            <button onclick="window.location.href='manage-librarians.html'">
-                Manage Librarians →
-            </button>
-
-        </div>
+    <a href="manage-students.html">
+        👨‍🎓 Students
+    </a>
 
 
-        <div class="card">
-
-            <div class="card-icon">👨‍🎓</div>
-
-            <h3>Manage Students</h3>
-
-            <p>
-                Manage student and
-                user accounts.
-            </p>
-
-            <button onclick="window.location.href='manage-students.html'">
-                Manage Students →
-            </button>
-
-        </div>
+    <a href="system-settings.html">
+        ⚙️ Settings
+    </a>
 
 
-        <div class="card">
-
-            <div class="card-icon">⚙️</div>
-
-            <h3>System Settings</h3>
-
-            <p>
-                Configure library system
-                settings and rules.
-            </p>
-
-            <button onclick="window.location.href='system-settings.html'">
-                Open Settings →
-            </button>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">📊</div>
-
-            <h3>Reports & Analytics</h3>
-
-            <p>
-                View statistics, borrowing
-                reports and analytics.
-            </p>
-
-            <button onclick="window.location.href='admin-reports.html'">
-                View Reports →
-            </button>
-
-        </div>
-
-
+    <div class="menu-title">
+        ANALYTICS
     </div>
 
 
-    <!-- LOGOUT -->
+    <a href="admin-reports.html">
+        📈 Reports
+    </a>
 
-    <div class="logout">
 
-        <button onclick="logout()">
-            🚪 Logout
-        </button>
-
+    <div class="menu-title">
+        ACCOUNT
     </div>
+
+
+    <a href="#" onclick="logout()">
+        🚪 Logout
+    </a>
 
 
 </div>
 
 
-<footer>
+<!-- ================= MAIN ================= -->
 
-    <h3>📚 Library Management System</h3>
+<div class="main">
 
-    <p>
-        Smart library management for
-        administrators and staff.
-    </p>
 
-</footer>
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>Admin Dashboard</h1>
+
+            <p>
+                Library Management System
+            </p>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+            🔐 Administrator
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <div>
+
+                <h2>
+                    Good day, Admin! 👋
+                </h2>
+
+                <p>
+                    Here's an overview of your
+                    library system.
+                </p>
+
+            </div>
+
+
+            <div class="welcome-icon">
+                📊
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                </div>
+
+                <h2 id="totalBooks">
+                    0
+                </h2>
+
+                <p>
+                    Total Books
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        📖
+                    </div>
+
+                </div>
+
+                <h2 id="issuedBooks">
+                    0
+                </h2>
+
+                <p>
+                    Issued Books
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        👨‍🎓
+                    </div>
+
+                </div>
+
+                <h2 id="totalStudents">
+                    0
+                </h2>
+
+                <p>
+                    Students
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ⚠️
+                    </div>
+
+                </div>
+
+                <h2 id="overdueBooks">
+                    0
+                </h2>
+
+                <p>
+                    Overdue Books
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                </div>
+
+                <h2>
+                    ₹<span id="totalFines">0</span>
+                </h2>
+
+                <p>
+                    Total Fines
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    ⚡ Quick Actions
+                </h2>
+
+            </div>
+
+            <span>
+                Manage your library
+            </span>
+
+        </div>
+
+
+        <div class="actions">
+
+
+            <div class="action">
+
+                <div class="action-icon">
+                    👩‍💼
+                </div>
+
+                <h3>
+                    Librarians
+                </h3>
+
+                <p>
+                    Manage library staff.
+                </p>
+
+                <button onclick="window.location.href='manage-librarians.html'">
+                    Open →
+                </button>
+
+            </div>
+
+
+            <div class="action">
+
+                <div class="action-icon">
+                    👨‍🎓
+                </div>
+
+                <h3>
+                    Students
+                </h3>
+
+                <p>
+                    Manage student accounts.
+                </p>
+
+                <button onclick="window.location.href='manage-students.html'">
+                    Open →
+                </button>
+
+            </div>
+
+
+            <div class="action">
+
+                <div class="action-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Settings
+                </h3>
+
+                <p>
+                    Configure system settings.
+                </p>
+
+                <button onclick="window.location.href='system-settings.html'">
+                    Open →
+                </button>
+
+            </div>
+
+
+            <div class="action">
+
+                <div class="action-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Reports
+                </h3>
+
+                <p>
+                    View library analytics.
+                </p>
+
+                <button onclick="window.location.href='admin-reports.html'">
+                    Open →
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOWER PANELS -->
+
+        <div class="lower">
+
+
+            <!-- LIBRARY OVERVIEW -->
+
+            <div class="panel">
+
+                <h3>
+                    📚 Library Overview
+                </h3>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Total Books
+                    </span>
+
+                    <span class="status-value"
+                          id="overviewBooks">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Currently Issued
+                    </span>
+
+                    <span class="status-value"
+                          id="overviewIssued">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Registered Students
+                    </span>
+
+                    <span class="status-value"
+                          id="overviewStudents">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Overdue Books
+                    </span>
+
+                    <span class="status-value"
+                          id="overviewOverdue">
+                        0
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- SYSTEM STATUS -->
+
+            <div class="panel">
+
+                <h3>
+                    🖥️ System Status
+                </h3>
+
+
+                <div class="system-item">
+
+                    <div class="dot"></div>
+
+                    <span>
+                        Library System Online
+                    </span>
+
+                </div>
+
+
+                <div class="system-item">
+
+                    <div class="dot"></div>
+
+                    <span>
+                        Book Management Active
+                    </span>
+
+                </div>
+
+
+                <div class="system-item">
+
+                    <div class="dot"></div>
+
+                    <span>
+                        Student Management Active
+                    </span>
+
+                </div>
+
+
+                <div class="system-item">
+
+                    <div class="dot"></div>
+
+                    <span>
+                        Reports Available
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout">
+
+            <button onclick="logout()">
+                🚪 Logout
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <footer>
+
+        📚 Library Management System
+        © 2026
+
+    </footer>
+
+
+</div>
 
 
 <script>
 
 
-/* ADMIN STATISTICS */
-
 function updateAdminStatistics() {
 
+
     let books =
-        JSON.parse(localStorage.getItem("books")) || [];
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
 
     let issued =
-        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+        JSON.parse(
+            localStorage.getItem("issuedBooks")
+        ) || [];
+
 
     let students =
-        JSON.parse(localStorage.getItem("students")) || [];
+        JSON.parse(
+            localStorage.getItem("students")
+        ) || [];
+
 
     let fines =
-        JSON.parse(localStorage.getItem("fines")) || [];
+        JSON.parse(
+            localStorage.getItem("fines")
+        ) || [];
 
 
     let totalBooks = 0;
@@ -506,7 +1251,10 @@ function updateAdminStatistics() {
     books.forEach(function(book) {
 
         totalBooks +=
-            Number(book.totalCopies || book.copies);
+            Number(
+                book.totalCopies ||
+                book.copies
+            );
 
     });
 
@@ -522,6 +1270,7 @@ function updateAdminStatistics() {
 
             let dueDate =
                 new Date(book.dueDate);
+
 
             if (dueDate < today) {
 
@@ -545,20 +1294,53 @@ function updateAdminStatistics() {
     });
 
 
-    document.getElementById("totalBooks").innerText =
-        totalBooks;
+    /* MAIN STATISTICS */
 
-    document.getElementById("issuedBooks").innerText =
-        issued.length;
+    document.getElementById(
+        "totalBooks"
+    ).innerText = totalBooks;
 
-    document.getElementById("totalStudents").innerText =
-        students.length;
 
-    document.getElementById("overdueBooks").innerText =
-        overdue;
+    document.getElementById(
+        "issuedBooks"
+    ).innerText = issued.length;
 
-    document.getElementById("totalFines").innerText =
-        totalFines;
+
+    document.getElementById(
+        "totalStudents"
+    ).innerText = students.length;
+
+
+    document.getElementById(
+        "overdueBooks"
+    ).innerText = overdue;
+
+
+    document.getElementById(
+        "totalFines"
+    ).innerText = totalFines;
+
+
+    /* OVERVIEW */
+
+    document.getElementById(
+        "overviewBooks"
+    ).innerText = totalBooks;
+
+
+    document.getElementById(
+        "overviewIssued"
+    ).innerText = issued.length;
+
+
+    document.getElementById(
+        "overviewStudents"
+    ).innerText = students.length;
+
+
+    document.getElementById(
+        "overviewOverdue"
+    ).innerText = overdue;
 
 }
 
@@ -566,17 +1348,19 @@ function updateAdminStatistics() {
 updateAdminStatistics();
 
 
-/* LOGOUT */
-
 function logout() {
 
-    window.location.href = "index.html";
+    window.location.href =
+        "index.html";
 
 }
+
 
 </script>
 
 
 </body>
 
-</html>
+      </html>
+      
+      
