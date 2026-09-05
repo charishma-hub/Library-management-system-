@@ -139,11 +139,21 @@ function searchBooks() {
 
 function openBook(bookName) {
 
-    document.getElementById("message").innerHTML =
-        "📖 <b>" +
-        bookName +
-        "</b> selected.<br><br>" +
-        "📄 PDF reading can be connected here.";
+    if (bookName === "Database Management Systems") {
+        window.open("dbms.pdf", "_blank");
+    }
+
+    else if (bookName === "Java Programming") {
+        window.open("java.pdf", "_blank");
+    }
+
+    else if (bookName === "Computer Networks") {
+        window.open("networks.pdf", "_blank");
+    }
+
+    else if (bookName === "Operating System Concepts") {
+        window.open("os.pdf", "_blank");
+    }
 
 }
 
