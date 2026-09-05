@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+⁷<!DOCTYPE html>
 <html>
 
 <head>
@@ -46,90 +46,61 @@ function getRecommendations() {
         localStorage.getItem("studentId");
 
     let history =
-        JSON.parse(
-            localStorage.getItem("borrowingHistory")
-        ) || [];
+        JSON.parse(localStorage.getItem("borrowingHistory")) || [];
 
     let books =
-        JSON.parse(
-            localStorage.getItem("books")
-        ) || [];
+        JSON.parse(localStorage.getItem("books")) || [];
 
     let result =
         document.getElementById("result");
 
-
     if (!studentId) {
-
         result.innerText =
             "Please register/login as a student first.";
-
         return;
     }
-
 
     let myHistory =
         history.filter(function(book) {
-
             return book.studentId === studentId;
-
         });
-
-
-    if (myHistory.length === 0) {
-
-        result.innerText =
-            "No borrowing history yet. Try borrowing a book first.";
-
-        return;
-    }
-
 
     let borrowedNames =
         myHistory.map(function(book) {
-
             return book.bookName;
-
         });
-
 
     let recommendations =
         books.filter(function(book) {
 
-            return !borrowedNames.includes(book.name);
+            return Number(book.copies) > 0 &&
+                   !borrowedNames.includes(book.name);
 
         });
-
 
     if (recommendations.length === 0) {
 
         result.innerText =
-            "No new books available for recommendation.";
+            "No new available books for recommendation.";
 
         return;
     }
 
-
     let output =
         "🤖 Recommended Books:<br><br>";
-
 
     recommendations
         .slice(0, 5)
         .forEach(function(book) {
 
             output +=
-                "📚 " +
-                book.name +
-                " — " +
-                book.author +
+                "📚 " + book.name +
+                " — " + book.author +
                 "<br>";
 
         });
 
-
     result.innerHTML = output;
-
 }
 
 </script>
