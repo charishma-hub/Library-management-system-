@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>AI Recommendations</title>
     <link rel="stylesheet" href="style.css">
@@ -12,23 +11,23 @@
 
 <div class="card">
 
-    <h2>Get Book Recommendations</h2>
-
-    <p>Enter your interest:</p>
+    <h2>Personalized Book Recommendations</h2>
 
     <input type="text"
            id="interest"
-           placeholder="Example: Java, Database, Networks">
+           placeholder="Enter interest e.g. Java">
 
     <br><br>
 
-    <button type="button" onclick="getRecommendations()">
+    <button type="button" id="recommendButton">
         🤖 Get Recommendations
     </button>
 
     <br><br>
 
-    <div id="result"></div>
+    <div id="recommendationResult">
+        Enter an interest and click the button.
+    </div>
 
 </div>
 
@@ -42,7 +41,8 @@
 
 <script>
 
-function getRecommendations() {
+document.getElementById("recommendButton")
+    .addEventListener("click", function() {
 
     let interest =
         document.getElementById("interest")
@@ -50,87 +50,66 @@ function getRecommendations() {
         .trim()
         .toLowerCase();
 
+    let result =
+        document.getElementById("recommendationResult");
+
     let books =
         JSON.parse(localStorage.getItem("books")) || [];
 
-    let result =
-        document.getElementById("result");
-
-
-    /* If no books are added */
 
     if (books.length === 0) {
 
         result.innerHTML =
-            "❌ No books found in the library.<br>" +
+            "❌ No books are available in the library.<br><br>" +
             "Please add books from Book Management.";
 
         return;
     }
 
 
-    /* Find books based on interest */
+    let matches = books.filter(function(book) {
 
-    let recommendations =
-        books.filter(function(book) {
+        let bookText =
+            String(book.name || "") + " " +
+            String(book.author || "") + " " +
+            String(book.category || "") + " " +
+            String(book.publisher || "");
 
-            let text =
-                (
-                    book.name + " " +
-                    book.author + " " +
-                    book.category + " " +
-                    book.publisher
-                ).toLowerCase();
+        return interest === "" ||
+               bookText.toLowerCase().includes(interest);
 
-            return interest === "" ||
-                   text.includes(interest);
-
-        });
+    });
 
 
-    /* If interest doesn't match */
+    if (matches.length === 0) {
 
-    if (recommendations.length === 0) {
-
-        recommendations = books;
+        matches = books;
 
     }
 
 
     let output =
-        "🤖 Recommended Books:<br><br>";
+        "<h3>🤖 Recommended Books</h3>";
 
 
-    recommendations
-        .slice(0, 5)
-        .forEach(function(book) {
+    matches.slice(0, 5).forEach(function(book) {
 
-            output +=
-                "📚 <b>" +
-                book.name +
-                "</b><br>" +
+        output +=
+            "<p>" +
+            "📚 <b>" + book.name + "</b><br>" +
+            "Author: " + book.author + "<br>" +
+            "Category: " + book.category + "<br>" +
+            "Available Copies: " + book.copies +
+            "</p>";
 
-                "Author: " +
-                book.author +
-                "<br>" +
-
-                "Category: " +
-                book.category +
-                "<br>" +
-
-                "Available Copies: " +
-                book.copies +
-                "<br><br>";
-
-        });
+    });
 
 
     result.innerHTML = output;
 
-}
+});
 
 </script>
 
 </body>
-
 </html>
