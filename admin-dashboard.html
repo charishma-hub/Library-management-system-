@@ -141,6 +141,71 @@ function logout() {
 }
 
 </script>
+    <script>
+
+function updateAdminStatistics() {
+
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    let issued =
+        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+    let fines =
+        JSON.parse(localStorage.getItem("fines")) || [];
+
+    let totalBooks = 0;
+
+    books.forEach(function(book) {
+        totalBooks +=
+            Number(book.totalCopies || book.copies);
+    });
+
+    let overdue = 0;
+    let today = new Date();
+
+    issued.forEach(function(book) {
+
+        if (book.dueDate) {
+
+            let dueDate =
+                new Date(book.dueDate);
+
+            if (dueDate < today) {
+                overdue++;
+            }
+        }
+    });
+
+    let totalFines = 0;
+
+    fines.forEach(function(fine) {
+        totalFines +=
+            Number(fine.amount) || 0;
+    });
+
+    document.getElementById("totalBooks").innerText =
+        totalBooks;
+
+    document.getElementById("issuedBooks").innerText =
+        issued.length;
+
+    document.getElementById("totalStudents").innerText =
+        students.length;
+
+    document.getElementById("overdueBooks").innerText =
+        overdue;
+
+    document.getElementById("totalFines").innerText =
+        totalFines;
+}
+
+updateAdminStatistics();
+
+    </script>
 
 </body>
   </html>
