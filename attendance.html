@@ -1,70 +1,176 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Library Attendance</title>
-<link rel="stylesheet" href="style.css">
+    <title>Library Attendance</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🚪 Library Entry / Exit</h1>
+<h1>🚪 Library Attendance</h1>
 
 <div class="card">
 
-<h2>Student Entry</h2>
+    <h2>Student Entry / Exit</h2>
 
-<input type="text" id="studentId"
-placeholder="Enter Student ID">
+    <input type="text"
+           id="studentId"
+           placeholder="Enter Student ID">
 
-<button type="button" onclick="entry()">
-Record Entry
-</button>
+    <br><br>
 
-<button type="button" onclick="exitLibrary()">
-Record Exit
-</button>
+    <button type="button" onclick="entry()">
+        Record Entry
+    </button>
 
-<p id="result"></p>
+    <button type="button" onclick="exitLibrary()">
+        Record Exit
+    </button>
+
+    <p id="result"></p>
 
 </div>
 
-<script>
 
-function entry() {
+<div class="card">
 
-let id = document.getElementById("studentId").value;
+    <h2>📋 Attendance History</h2>
 
-if (id === "") {
-alert("Please enter Student ID");
-return;
-}
+    <table border="1" width="100%">
 
-document.getElementById("result").innerText =
-"Entry recorded for Student ID: " + id;
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
 
-}
+        <tbody id="attendanceTable"></tbody>
 
-function exitLibrary() {
+    </table>
 
-let id = document.getElementById("studentId").value;
+</div>
 
-if (id === "") {
-alert("Please enter Student ID");
-return;
-}
-
-document.getElementById("result").innerText =
-"Exit recorded for Student ID: " + id;
-
-}
-
-</script>
 
 <br>
 
-<button onclick="window.location.href='student-dashboard.html'">
-Back to Student Dashboard
+<button type="button"
+        onclick="window.location.href='student-dashboard.html'">
+    Back to Student Dashboard
 </button>
+
+
+<script>
+
+function saveAttendance(studentId, action) {
+
+    let attendance =
+        JSON.parse(
+            localStorage.getItem("attendance")
+        ) || [];
+
+    let now = new Date();
+
+    attendance.push({
+
+        studentId: studentId,
+
+        action: action,
+
+        date: now.toISOString().split("T")[0],
+
+        time: now.toLocaleTimeString()
+
+    });
+
+    localStorage.setItem(
+        "attendance",
+        JSON.stringify(attendance)
+    );
+
+    displayAttendance();
+}
+
+
+function entry() {
+
+    let id =
+        document.getElementById("studentId")
+        .value.trim();
+
+    if (id === "") {
+
+        alert("Please enter Student ID.");
+
+        return;
+    }
+
+    saveAttendance(id, "Entry");
+
+    document.getElementById("result").innerText =
+        "✅ Entry recorded for Student ID: " + id;
+
+}
+
+
+function exitLibrary() {
+
+    let id =
+        document.getElementById("studentId")
+        .value.trim();
+
+    if (id === "") {
+
+        alert("Please enter Student ID.");
+
+        return;
+    }
+
+    saveAttendance(id, "Exit");
+
+    document.getElementById("result").innerText =
+        "🚪 Exit recorded for Student ID: " + id;
+
+}
+
+
+function displayAttendance() {
+
+    let attendance =
+        JSON.parse(
+            localStorage.getItem("attendance")
+        ) || [];
+
+    let table =
+        document.getElementById("attendanceTable");
+
+    table.innerHTML = "";
+
+    attendance.forEach(function(record) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText =
+            record.studentId;
+
+        row.insertCell(1).innerText =
+            record.action;
+
+        row.insertCell(2).innerText =
+            record.date;
+
+        row.insertCell(3).innerText =
+            record.time;
+
+    });
+}
+
+
+displayAttendance();
+
+</script>
 
 </body>
 </html>
