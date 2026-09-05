@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,124 +9,334 @@
 <body>
 
 <header>
-    <h1>📚 Library Management System</h1>
-    <p>Smart Library Management Portal</p>
+
+    <div>
+        <h1>📚 Library Management System</h1>
+        <p>Smart • Simple • Digital Library Management</p>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#books">Books</a>
+        <a href="#login">Login</a>
+        <a href="#statistics">Statistics</a>
+    </nav>
+
 </header>
 
-<nav>
-    <a href="#home">Home</a>
-    <a href="#books">Books</a>
-    <a href="#login">Login</a>
-    <a href="#dashboard">Dashboard</a>
-</nav>
 
-<main>
+<!-- HERO SECTION -->
 
-<section id="home" class="welcome">
-    <h2>Welcome to Our Library</h2>
-    <p>
-        Manage books, students, borrowing, returns,
-        reservations and fines in one place.
-    </p>
+<section class="hero">
+
+    <div class="hero-text">
+
+        <span class="badge">📖 DIGITAL LIBRARY</span>
+
+        <h2>
+            Manage Your Library
+            <br>
+            <strong>Smarter & Faster</strong>
+        </h2>
+
+        <p>
+            Manage books, students, borrowing, returns,
+            reservations and fines from one simple system.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button type="button"
+                    onclick="document.getElementById('login').scrollIntoView({behavior:'smooth'})">
+                🔐 Get Started
+            </button>
+
+            <button type="button"
+                    onclick="document.getElementById('books').scrollIntoView({behavior:'smooth'})">
+                📚 Explore Books
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-icon">
+        📚
+    </div>
+
 </section>
+
+
+<!-- LOGIN -->
 
 <section id="login">
-    <h2>Login</h2>
 
-    <div class="cards">
+    <div class="section-title">
 
-        <div class="card">
-            <h3>👨‍💼 Admin</h3>
-            <p>Manage the complete library system.</p>
-            <button onclick="login('Admin')">Admin Login</button>
+        <span>ACCESS PORTAL</span>
+
+        <h2>Choose Your Login</h2>
+
+        <p>Select your role to continue</p>
+
+    </div>
+
+
+    <div class="login-grid">
+
+
+        <div class="login-card admin-card">
+
+            <div class="login-icon">👨‍💼</div>
+
+            <h3>Admin</h3>
+
+            <p>
+                Manage users, librarians,
+                settings and reports.
+            </p>
+
+            <button type="button"
+                    onclick="login('Admin')">
+                Login as Admin →
+            </button>
+
         </div>
 
-        <div class="card">
-            <h3>👨‍🎓 Student</h3>
-            <p>Search, borrow and reserve books.</p>
-            <button onclick="login('Student')">Student Login</button>
+
+        <div class="login-card student-card">
+
+            <div class="login-icon">🎓</div>
+
+            <h3>Student</h3>
+
+            <p>
+                Search books, borrow books,
+                reservations and fines.
+            </p>
+
+            <button type="button"
+                    onclick="login('Student')">
+                Login as Student →
+            </button>
+
         </div>
 
-        <div class="card">
-            <h3>👩‍💼 Librarian</h3>
-            <p>Issue, return and manage books.</p>
-            <button onclick="login('Librarian')">Librarian Login</button>
+
+        <div class="login-card librarian-card">
+
+            <div class="login-icon">📚</div>
+
+            <h3>Librarian</h3>
+
+            <p>
+                Manage books, issue, return
+                and renew books.
+            </p>
+
+            <button type="button"
+                    onclick="login('Librarian')">
+                Login as Librarian →
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- STATISTICS -->
+
+<section id="statistics">
+
+    <div class="section-title">
+
+        <span>LIBRARY OVERVIEW</span>
+
+        <h2>Everything Under Control</h2>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="stat-box">
+            <div>📚</div>
+            <h3>Books</h3>
+            <p>Manage your collection</p>
+        </div>
+
+        <div class="stat-box">
+            <div>👨‍🎓</div>
+            <h3>Students</h3>
+            <p>Manage library members</p>
+        </div>
+
+        <div class="stat-box">
+            <div>📖</div>
+            <h3>Borrowing</h3>
+            <p>Issue and return books</p>
+        </div>
+
+        <div class="stat-box">
+            <div>📊</div>
+            <h3>Reports</h3>
+            <p>Track library activity</p>
         </div>
 
     </div>
+
 </section>
+
+
+<!-- BOOK SEARCH -->
 
 <section id="books">
-    <h2>🔎 Search Books</h2>
 
-    <input
-        type="text"
-        id="searchBox"
-        placeholder="Search by book name, author or ISBN"
-        onkeyup="searchBooks()"
-    >
+    <div class="section-title">
 
-    <div id="bookList">
+        <span>BOOK COLLECTION</span>
+
+        <h2>Search Our Books</h2>
+
+        <p>Find books by name, author or category</p>
+
+    </div>
+
+
+    <div class="search-area">
+
+        <input type="text"
+               id="searchBox"
+               placeholder="🔍 Search for a book..."
+               onkeyup="searchBooks()">
+
+    </div>
+
+
+    <div class="book-grid">
+
 
         <div class="book">
+
+            <div class="book-cover">📘</div>
+
             <h3>Database Management Systems</h3>
-            <p>Author: Korth</p>
-            <p>ISBN: 123456</p>
-            <p>Status: <span class="available">Available</span></p>
+
+            <p>Learn databases, SQL and data management.</p>
+
+            <span>Database</span>
+
         </div>
 
+
         <div class="book">
+
+            <div class="book-cover">☕</div>
+
             <h3>Java Programming</h3>
-            <p>Author: Herbert Schildt</p>
-            <p>ISBN: 234567</p>
-            <p>Status: <span class="available">Available</span></p>
+
+            <p>Learn object-oriented programming with Java.</p>
+
+            <span>Programming</span>
+
         </div>
+
 
         <div class="book">
+
+            <div class="book-cover">🌐</div>
+
             <h3>Computer Networks</h3>
-            <p>Author: Andrew S. Tanenbaum</p>
-            <p>ISBN: 345678</p>
-            <p>Status: <span class="issued">Issued</span></p>
+
+            <p>Explore networking concepts and protocols.</p>
+
+            <span>Networks</span>
+
+        </div>
+
+
+        <div class="book">
+
+            <div class="book-cover">💻</div>
+
+            <h3>Operating Systems</h3>
+
+            <p>Understand processes, memory and file systems.</p>
+
+            <span>Operating Systems</span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section>
+
+    <div class="section-title">
+
+        <span>FEATURES</span>
+
+        <h2>Powerful Library Features</h2>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <div>🔍</div>
+            <h3>Smart Search</h3>
+            <p>Find books quickly and easily.</p>
+        </div>
+
+        <div class="feature">
+            <div>📅</div>
+            <h3>Due Date Tracking</h3>
+            <p>Track borrowed books and due dates.</p>
+        </div>
+
+        <div class="feature">
+            <div>💰</div>
+            <h3>Fine Management</h3>
+            <p>Automatically manage library fines.</p>
+        </div>
+
+        <div class="feature">
+            <div>🤖</div>
+            <h3>AI Recommendations</h3>
+            <p>Get personalized book recommendations.</p>
         </div>
 
     </div>
+
 </section>
 
-<section id="dashboard">
-    <h2>📊 Dashboard</h2>
-
-    <div class="dashboard">
-
-        <div class="stat">
-            <h3>500</h3>
-            <p>Total Books</p>
-        </div>
-
-        <div class="stat">
-            <h3>320</h3>
-            <p>Available Books</p>
-        </div>
-
-        <div class="stat">
-            <h3>180</h3>
-            <p>Issued Books</p>
-        </div>
-
-        <div class="stat">
-            <h3>25</h3>
-            <p>Overdue Books</p>
-        </div>
-
-    </div>
-</section>
-
-</main>
 
 <footer>
+
+    <h3>📚 Library Management System</h3>
+
+    <p>
+        Smart library management for students,
+        librarians and administrators.
+    </p>
+
     <p>© 2026 Library Management System</p>
+
 </footer>
+
 
 <script src="index.js"></script>
 
 </body>
+
 </html>
