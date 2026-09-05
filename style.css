@@ -11,10 +11,10 @@ body {
     line-height: 1.6;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 header {
-    background: linear-gradient(135deg, #102a43, #1d4ed8);
+    background: linear-gradient(135deg, #102a43, #2563eb);
     color: white;
     padding: 22px 7%;
     display: flex;
@@ -26,11 +26,11 @@ header {
 
 header h1 {
     color: white;
-    margin: 0;
+    margin-bottom: 3px;
 }
 
 header p {
-    opacity: 0.85;
+    color: #dbeafe;
 }
 
 nav {
@@ -51,16 +51,18 @@ nav a:hover {
 }
 
 
-/* HERO */
+/* ================= HERO ================= */
 
 .hero {
-    min-height: 430px;
-    padding: 70px 8%;
-    background: linear-gradient(135deg, #eaf3ff, #f8fbff);
+    min-height: 500px;
+    padding: 80px 8%;
+    background:
+        radial-gradient(circle at 85% 40%, #dbeafe 0, transparent 28%),
+        linear-gradient(135deg, #eef6ff, #ffffff);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 40px;
+    gap: 50px;
 }
 
 .hero-text {
@@ -71,18 +73,19 @@ nav a:hover {
     display: inline-block;
     background: #dbeafe;
     color: #1d4ed8;
-    padding: 7px 13px;
-    border-radius: 20px;
+    padding: 7px 14px;
+    border-radius: 30px;
     font-size: 12px;
     font-weight: bold;
-    margin-bottom: 15px;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
 }
 
 .hero h2 {
-    font-size: 48px;
-    line-height: 1.15;
+    font-size: 52px;
+    line-height: 1.1;
     color: #102a43;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .hero h2 strong {
@@ -91,57 +94,57 @@ nav a:hover {
 
 .hero p {
     font-size: 18px;
-    color: #526477;
+    color: #64748b;
     max-width: 580px;
-}
-
-.hero-icon {
-    width: 230px;
-    height: 230px;
-    border-radius: 50%;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 110px;
-    box-shadow: 0 15px 40px rgba(37,99,235,0.18);
-}
-
-
-/* BUTTONS */
-
-button {
-    border: none;
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    color: white;
-    padding: 11px 18px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 5px;
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 15px rgba(29,78,216,0.25);
 }
 
 .hero-buttons {
     margin-top: 25px;
 }
 
+.hero-icon {
+    width: 270px;
+    height: 270px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 125px;
+    box-shadow: 0 20px 50px rgba(37,99,235,0.18);
+}
 
-/* SECTIONS */
+
+/* ================= BUTTONS ================= */
+
+button {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px 3px;
+    transition: all 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37,99,235,0.25);
+}
+
+
+/* ================= SECTIONS ================= */
 
 section {
-    padding: 65px 7%;
+    padding: 70px 7%;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .section-title span {
@@ -152,7 +155,7 @@ section {
 }
 
 .section-title h2 {
-    font-size: 32px;
+    font-size: 34px;
     color: #102a43;
     margin: 5px 0;
 }
@@ -162,7 +165,7 @@ section {
 }
 
 
-/* LOGIN CARDS */
+/* ================= LOGIN ================= */
 
 .login-grid {
     display: grid;
@@ -174,58 +177,73 @@ section {
 
 .login-card {
     background: white;
-    padding: 32px 25px;
+    padding: 35px 25px;
     text-align: center;
-    border-radius: 18px;
+    border-radius: 20px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 8px 25px rgba(15,23,42,0.07);
+    box-shadow: 0 10px 30px rgba(15,23,42,0.08);
     transition: 0.25s;
 }
 
 .login-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 15px 35px rgba(15,23,42,0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(15,23,42,0.14);
 }
 
 .login-icon {
-    font-size: 48px;
-    margin-bottom: 12px;
+    width: 75px;
+    height: 75px;
+    margin: auto;
+    border-radius: 50%;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
 }
 
 .login-card h3 {
-    font-size: 22px;
     color: #102a43;
+    font-size: 23px;
+    margin-top: 15px;
 }
 
 .login-card p {
     color: #64748b;
-    min-height: 65px;
-    margin: 10px 0;
+    min-height: 70px;
+    margin: 10px 0 15px;
 }
 
 
-/* STATISTICS */
+/* ================= STATISTICS ================= */
 
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 22px;
 }
 
 .stat-box {
     background: white;
-    padding: 28px 18px;
+    padding: 30px 20px;
     text-align: center;
-    border-radius: 16px;
-    box-shadow: 0 7px 22px rgba(15,23,42,0.07);
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 25px rgba(15,23,42,0.07);
+    transition: 0.2s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
 }
 
 .stat-box div {
-    font-size: 38px;
+    font-size: 42px;
 }
 
 .stat-box h3 {
     color: #102a43;
+    font-size: 20px;
     margin-top: 8px;
 }
 
@@ -234,46 +252,53 @@ section {
 }
 
 
-/* SEARCH */
+/* ================= BOOK SEARCH ================= */
 
 .search-area {
-    max-width: 650px;
-    margin: 0 auto 30px;
+    max-width: 700px;
+    margin: 0 auto 35px;
 }
 
 .search-area input {
     width: 100%;
+    padding: 16px 20px;
+    border-radius: 30px;
+    border: 1px solid #d1d5db;
+    font-size: 16px;
+    box-shadow: 0 5px 18px rgba(15,23,42,0.06);
 }
 
 
-/* BOOKS */
+/* ================= BOOKS ================= */
 
 .book-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 22px;
 }
 
 .book {
     background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 7px 22px rgba(15,23,42,0.07);
-    transition: 0.2s;
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 25px rgba(15,23,42,0.07);
+    transition: 0.25s;
 }
 
 .book:hover {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(15,23,42,0.13);
 }
 
 .book-cover {
-    height: 130px;
-    background: linear-gradient(135deg, #dbeafe, #eff6ff);
-    border-radius: 12px;
+    height: 145px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #dbeafe, #f8fafc);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 55px;
+    font-size: 60px;
     margin-bottom: 18px;
 }
 
@@ -291,4 +316,159 @@ section {
     display: inline-block;
     margin-top: 12px;
     background: #eff6ff;
-    color: #2563eb
+    color: #2563eb;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ================= FEATURES ================= */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.feature {
+    background: white;
+    padding: 28px 20px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 7px 22px rgba(15,23,42,0.06);
+}
+
+.feature div {
+    font-size: 40px;
+}
+
+.feature h3 {
+    color: #102a43;
+    margin: 8px 0;
+}
+
+.feature p {
+    color: #64748b;
+}
+
+
+/* ================= GENERAL CARDS ================= */
+
+.card {
+    background: white;
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 15px;
+    max-width: 1100px;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.07);
+    border: 1px solid #e5e7eb;
+}
+
+
+/* ================= INPUTS ================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 7px 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 14px;
+    background: white;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+
+/* ================= TABLES ================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #102a43;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 11px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover td {
+    background: #f1f5f9;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #102a43;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+footer p {
+    color: #cbd5e1;
+    margin-top: 6px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .hero {
+        padding: 55px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h2 {
+        font-size: 38px;
+    }
+
+    .hero-icon {
+        width: 190px;
+        height: 190px;
+        font-size: 85px;
+    }
+
+    .login-grid,
+    .stats-grid,
+    .book-grid,
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 50px 18px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
