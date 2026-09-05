@@ -1,52 +1,151 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Barcode / QR</title>
-<link rel="stylesheet" href="style.css">
+    <title>Barcode & QR Code</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
 
 <body>
 
-<h1>📱 Barcode / QR Scanner</h1>
+<h1>🔳 Barcode / QR Code</h1>
 
 <div class="card">
 
-<h2>Scan Book</h2>
+    <h2>📚 Generate Book QR Code</h2>
 
-<input type="text" id="bookId"
-placeholder="Enter Book ID / ISBN">
+    <input type="text"
+           id="bookId"
+           placeholder="Enter Book ID / ISBN">
 
-<button type="button" onclick="scanBook()">
-Scan Book
-</button>
+    <br><br>
 
-<p id="result"></p>
+    <button type="button" onclick="generateQR()">
+        🔳 Generate QR Code
+    </button>
+
+    <button type="button" onclick="scanBook()">
+        🔍 Search Book
+    </button>
+
+    <div id="qrcode"></div>
+
+    <p id="result"></p>
 
 </div>
 
+
+<div class="card">
+
+    <h2>📖 Book Information</h2>
+
+    <div id="bookInfo">
+        Enter a Book ID / ISBN and search.
+    </div>
+
+</div>
+
+
+<br>
+
+<button type="button"
+        onclick="window.location.href='librarian-dashboard.html'">
+    Back to Librarian Dashboard
+</button>
+
+
 <script>
+
+function generateQR() {
+
+    let bookId =
+        document.getElementById("bookId")
+        .value
+        .trim();
+
+    let qr =
+        document.getElementById("qrcode");
+
+    qr.innerHTML = "";
+
+    if (bookId === "") {
+
+        alert("Please enter Book ID / ISBN.");
+
+        return;
+    }
+
+    new QRCode(qr, {
+        text: bookId,
+        width: 180,
+        height: 180
+    });
+
+    document.getElementById("result").innerText =
+        "✅ QR Code generated for Book ID: " + bookId;
+}
+
 
 function scanBook() {
 
-let id = document.getElementById("bookId").value;
+    let bookId =
+        document.getElementById("bookId")
+        .value
+        .trim();
 
-if (id === "") {
-alert("Please enter Book ID / ISBN");
-return;
-}
+    if (bookId === "") {
 
-document.getElementById("result").innerText =
-"Book found with ID / ISBN: " + id;
+        alert("Please enter Book ID / ISBN.");
+
+        return;
+    }
+
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
+
+    let book =
+        books.find(function(b) {
+            return b.isbn === bookId;
+        });
+
+
+    if (!book) {
+
+        document.getElementById("bookInfo").innerText =
+            "❌ Book not found!";
+
+        return;
+    }
+
+
+    document.getElementById("bookInfo").innerHTML =
+
+        "<h3>📚 " + book.name + "</h3>" +
+
+        "<p>Author: " + book.author + "</p>" +
+
+        "<p>ISBN: " + book.isbn + "</p>" +
+
+        "<p>Category: " + book.category + "</p>" +
+
+        "<p>Publisher: " + book.publisher + "</p>" +
+
+        "<p>Available Copies: " + book.copies + "</p>" +
+
+        "<p>Status: " +
+
+        (Number(book.copies) > 0
+            ? "✅ Available"
+            : "❌ Issued") +
+
+        "</p>";
 
 }
 
 </script>
 
-<br>
-
-<button onclick="window.location.href='librarian-dashboard.html'">
-Back to Librarian Dashboard
-</button>
-
 </body>
+
 </html>
