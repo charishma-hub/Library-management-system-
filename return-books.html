@@ -2,49 +2,266 @@
 <html>
 <head>
     <title>Return Books</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #263238;
+        }
+
+        header {
+            background: linear-gradient(135deg, #163b65, #2878bd);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 700px;
+            margin: 35px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #163b65;
+            margin-top: 0;
+        }
+
+        .description {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #37474f;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dce5;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2878bd;
+            box-shadow: 0 0 0 3px rgba(40,120,189,0.1);
+        }
+
+        .return-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #163b65;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .return-btn:hover {
+            background: #2878bd;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 16px;
+            background: #eaf7ee;
+            color: #216b3a;
+            border-radius: 8px;
+            line-height: 1.5;
+            font-weight: bold;
+            display: block;
+        }
+
+        .warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff7e6;
+            color: #7a5a00;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .back {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 13px;
+            border-radius: 8px;
+            background: #555;
+            color: white;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #333;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>📚 Return Books</h1>
+<header>
+    <h1>↩️ Return Books</h1>
+    <p>Process returned, lost, or damaged books</p>
+</header>
 
-<div class="card">
 
-    <h2>Return Book</h2>
+<div class="container">
 
-    <input type="text"
-           id="studentId"
-           placeholder="Enter Student ID">
+    <div class="card">
 
-    <input type="text"
-           id="bookId"
-           placeholder="Enter Book ID / ISBN">
+        <h2>📚 Return Book</h2>
 
-    <label>Return Type</label>
+        <p class="description">
+            Enter the student and book details to process the return.
+        </p>
 
-    <select id="returnType">
-        <option value="Normal">Normal Return</option>
-        <option value="Lost">Lost Book</option>
-        <option value="Damaged">Damaged Book</option>
-    </select>
 
-    <br><br>
+        <div class="field">
 
-    <button type="button" onclick="returnBook()">
-        Return Book
-    </button>
+            <label for="studentId">
+                👨‍🎓 Student ID
+            </label>
 
-    <p id="result"></p>
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Enter Student ID">
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="bookId">
+                📖 Book ID / ISBN
+            </label>
+
+            <input
+                type="text"
+                id="bookId"
+                placeholder="Enter Book ID or ISBN">
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="returnType">
+                📋 Return Type
+            </label>
+
+            <select id="returnType">
+
+                <option value="Normal">
+                    Normal Return
+                </option>
+
+                <option value="Lost">
+                    Lost Book
+                </option>
+
+                <option value="Damaged">
+                    Damaged Book
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="return-btn"
+            onclick="returnBook()">
+
+            ↩️ Return Book
+
+        </button>
+
+
+        <p id="result"></p>
+
+
+        <div class="warning">
+
+            💡 <strong>Important:</strong>
+            Lost and damaged books may generate additional fines.
+            Normal returned books are added back to available copies.
+
+        </div>
+
+
+        <a
+            class="back"
+            href="librarian-dashboard.html">
+
+            ← Back to Librarian Dashboard
+
+        </a>
+
+    </div>
 
 </div>
-
-<br>
-
-<button type="button"
-        onclick="window.location.href='librarian-dashboard.html'">
-    Back to Librarian Dashboard
-</button>
 
 
 <script>
@@ -61,8 +278,6 @@ function returnBook() {
         document.getElementById("returnType").value;
 
 
-    /* Validate input */
-
     if (studentId === "" || bookId === "") {
 
         alert("Please enter Student ID and Book ID.");
@@ -71,13 +286,9 @@ function returnBook() {
     }
 
 
-    /* Get books */
-
     let books =
         JSON.parse(localStorage.getItem("books")) || [];
 
-
-    /* Find book */
 
     let book = books.find(function(b) {
 
@@ -94,13 +305,9 @@ function returnBook() {
     }
 
 
-    /* Get issued books */
-
     let issuedBooks =
         JSON.parse(localStorage.getItem("issuedBooks")) || [];
 
-
-    /* Find issued record */
 
     let index =
         issuedBooks.findIndex(function(item) {
@@ -119,9 +326,7 @@ function returnBook() {
     }
 
 
-    /* =========================
-       BORROWING HISTORY
-       ========================= */
+    /* BORROWING HISTORY */
 
     let borrowingHistory =
         JSON.parse(
@@ -154,9 +359,7 @@ function returnBook() {
     );
 
 
-    /* =========================
-       FINE CALCULATION
-       ========================= */
+    /* FINE CALCULATION */
 
     let fines =
         JSON.parse(
@@ -175,8 +378,6 @@ function returnBook() {
     let reason = "";
 
 
-    /* LOST BOOK */
-
     if (returnType === "Lost") {
 
         fineAmount =
@@ -187,8 +388,6 @@ function returnBook() {
 
     }
 
-
-    /* DAMAGED BOOK */
 
     else if (returnType === "Damaged") {
 
@@ -201,13 +400,10 @@ function returnBook() {
     }
 
 
-    /* NORMAL RETURN */
-
     else {
 
         let returnedDate =
             new Date();
-
 
         let dueDate =
             new Date(
@@ -226,7 +422,6 @@ function returnBook() {
 
             fineAmount =
                 daysLate * settingsFine;
-
 
             reason =
                 "Late Return";
@@ -273,17 +468,7 @@ function returnBook() {
     }
 
 
-    /* =========================
-       UPDATE BOOK COPIES
-       ========================= */
-
-    /*
-       Normal return:
-       Increase available copies.
-
-       Lost/Damaged:
-       Do NOT increase copies.
-    */
+    /* UPDATE BOOK COPIES */
 
     if (returnType === "Normal") {
 
@@ -299,9 +484,7 @@ function returnBook() {
     );
 
 
-    /* =========================
-       REMOVE ISSUED RECORD
-       ========================= */
+    /* REMOVE ISSUED RECORD */
 
     issuedBooks.splice(index, 1);
 
@@ -312,11 +495,12 @@ function returnBook() {
     );
 
 
-    /* =========================
-       SUCCESS MESSAGE
-       ========================= */
+    /* SUCCESS MESSAGE */
 
-    document.getElementById("result").innerText =
+    let result =
+        document.getElementById("result");
+
+    result.innerText =
         "📚 Book " +
         book.name +
         " returned successfully.";
@@ -324,15 +508,14 @@ function returnBook() {
 
     if (returnType === "Lost") {
 
-        document.getElementById("result").innerText +=
+        result.innerText +=
             " Status: Lost Book.";
 
     }
 
-
     else if (returnType === "Damaged") {
 
-        document.getElementById("result").innerText +=
+        result.innerText +=
             " Status: Damaged Book.";
 
     }
@@ -342,4 +525,8 @@ function returnBook() {
 </script>
 
 </body>
-</html>
+    </html>
+        
+
+                
+    
