@@ -2,136 +2,194 @@
 <html>
 <head>
     <title>Manage Students</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-        }
-
-        header {
-            background: #1e3a5f;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        input {
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-        }
-
-        button {
-            padding: 10px 18px;
-            background: #1e3a5f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 25px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background: #1e3a5f;
-            color: white;
-        }
-
-        .back {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>Manage Students</h1>
-</header>
+<h1>👨‍🎓 Manage Students</h1>
 
-<div class="container">
+<div class="card">
 
     <h2>Add Student</h2>
 
-    <input type="text" id="name" placeholder="Student Name">
-    <input type="text" id="roll" placeholder="Roll Number">
-    <input type="email" id="email" placeholder="Email">
+    <input type="text"
+           id="name"
+           placeholder="Student Name">
 
-    <button onclick="addStudent()">Add Student</button>
+    <input type="text"
+           id="studentId"
+           placeholder="Roll Number / Student ID">
 
-    <h2>Student List</h2>
+    <input type="email"
+           id="email"
+           placeholder="Email">
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Roll Number</th>
-            <th>Email</th>
-        </tr>
-
-        <tbody id="studentList">
-            <tr>
-                <td>Charan Kumar</td>
-                <td>CSE001</td>
-                <td>charan@gmail.com</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button class="back"
-        onclick="window.location.href='admin-dashboard.html'">
-        Back to Admin Dashboard
+    <button type="button" onclick="addStudent()">
+        Add Student
     </button>
 
 </div>
 
+
+<div class="card">
+
+    <h2>Student List</h2>
+
+    <table border="1" width="100%">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="studentTable"></tbody>
+
+    </table>
+
+</div>
+
+
+<br>
+
+<button type="button"
+        onclick="window.location.href='admin-dashboard.html'">
+    Back to Admin Dashboard
+</button>
+
+
 <script>
+
+function displayStudents() {
+
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+    let table =
+        document.getElementById("studentTable");
+
+    table.innerHTML = "";
+
+    students.forEach(function(student, index) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText =
+            student.name;
+
+        row.insertCell(1).innerText =
+            student.studentId;
+
+        row.insertCell(2).innerText =
+            student.email;
+
+        let action =
+            row.insertCell(3);
+
+        let button =
+            document.createElement("button");
+
+        button.innerText = "Delete";
+
+        button.onclick = function() {
+
+            deleteStudent(index);
+
+        };
+
+        action.appendChild(button);
+
+    });
+}
+
+
 function addStudent() {
 
-    let name = document.getElementById("name").value;
-    let roll = document.getElementById("roll").value;
-    let email = document.getElementById("email").value;
+    let name =
+        document.getElementById("name")
+        .value.trim();
 
-    if (name === "" || roll === "" || email === "") {
-        alert("Please enter all details.");
+    let studentId =
+        document.getElementById("studentId")
+        .value.trim();
+
+    let email =
+        document.getElementById("email")
+        .value.trim();
+
+
+    if (name === "" ||
+        studentId === "" ||
+        email === "") {
+
+        alert("Please fill all fields.");
+
         return;
     }
 
-    let table = document.getElementById("studentList");
 
-    let row = table.insertRow();
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
 
-    row.insertCell(0).innerHTML = name;
-    row.insertCell(1).innerHTML = roll;
-    row.insertCell(2).innerHTML = email;
 
-    document.getElementById("name").value = "";
-    document.getElementById("roll").value = "";
-    document.getElementById("email").value = "";
+    students.push({
+
+        name: name,
+
+        studentId: studentId,
+
+        email: email
+
+    });
+
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+
 
     alert("Student added successfully!");
+
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("studentId").value = "";
+
+    document.getElementById("email").value = "";
+
+
+    displayStudents();
+
 }
+
+
+function deleteStudent(index) {
+
+    let students =
+        JSON.parse(localStorage.getItem("students")) || [];
+
+
+    students.splice(index, 1);
+
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+
+
+    displayStudents();
+
+}
+
+
+displayStudents();
+
 </script>
 
 </body>
