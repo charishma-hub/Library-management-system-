@@ -21,7 +21,7 @@
 
     <input type="date" id="reservationDate">
 
-    <button onclick="addReservation()">Reserve Book</button>
+    <<button type="button" onclick="reserveBook()">Reserve Book</button>
 
     <h2>Reservation List</h2>
 
@@ -63,17 +63,25 @@
 <script>
 function reserveBook() {
 
-    let studentId = document.getElementById("studentId").value.trim();
-    let bookId = document.getElementById("bookId").value.trim();
+    let studentId =
+        document.getElementById("studentId").value.trim();
+
+    let bookId =
+        document.getElementById("bookId").value.trim();
+
     let reservationDate =
         document.getElementById("reservationDate").value;
 
-    if (studentId === "" || bookId === "" || reservationDate === "") {
+    if (studentId === "" ||
+        bookId === "" ||
+        reservationDate === "") {
+
         alert("Please fill all fields.");
         return;
     }
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
+    let books =
+        JSON.parse(localStorage.getItem("books")) || [];
 
     let book = books.find(function(b) {
         return b.isbn === bookId;
@@ -92,23 +100,31 @@ function reserveBook() {
     let reservations =
         JSON.parse(localStorage.getItem("reservations")) || [];
 
+    let queuePosition =
+        reservations.filter(function(r) {
+            return r.bookId === bookId &&
+                   r.status === "Waiting";
+        }).length + 1;
+
     reservations.push({
-    studentId: studentId,
-    bookId: bookId,
-    bookName: book.name,
-    date: reservationDate,
-    status: "Waiting",
-    queuePosition: reservations.filter(function(r) {
-        return r.bookId === bookId;
-    }).length + 1
-});
+        studentId: studentId,
+        bookId: bookId,
+        bookName: book.name,
+        date: reservationDate,
+        status: "Waiting",
+        queuePosition: queuePosition
+    });
 
     localStorage.setItem(
         "reservations",
         JSON.stringify(reservations)
     );
 
-    alert("Book reserved successfully!");
+    alert(
+        "Book reserved successfully!\n" +
+        "Your queue position is: " +
+        queuePosition
+    );
 
     displayReservations();
 }
