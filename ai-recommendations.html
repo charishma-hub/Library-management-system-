@@ -1,51 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>AI Recommendations</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Recommendations | Library Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #123b68, #2878bd);
+            color: white;
+            padding: 28px 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .ai-banner {
+            background: linear-gradient(135deg, #eaf4ff, #f7fbff);
+            border-left: 5px solid #2878bd;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .ai-banner h2 {
+            color: #163b65;
+            margin-bottom: 8px;
+        }
+
+        .ai-banner p {
+            color: #52677d;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: #163b65;
+            margin-bottom: 20px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 12px;
+        }
+
+        input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #d4dce7;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2878bd;
+        }
+
+        button {
+            border: none;
+            background: #2878bd;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .recommendations {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .book-card {
+            border: 1px solid #e0e7ef;
+            border-radius: 13px;
+            padding: 20px;
+            background: #fbfdff;
+            transition: 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .book-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #e7f2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .book-card h3 {
+            color: #163b65;
+            margin-bottom: 10px;
+        }
+
+        .book-card p {
+            margin: 7px 0;
+            color: #53677b;
+        }
+
+        .ai-tag {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 7px 11px;
+            border-radius: 20px;
+            background: #e9f7ef;
+            color: #16803c;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .empty {
+            padding: 25px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .back {
+            display: inline-block;
+            text-decoration: none;
+            background: #163b65;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .recommendations {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🤖 AI Book Recommendations</h1>
-
-<div class="card">
-
-    <h2>Personalized Recommendations</h2>
-
-    <input type="text"
-           id="interest"
-           placeholder="Enter your interest e.g. Java">
-
-    <br><br>
-
-    <button type="button"
-            onclick="getRecommendations()">
-        🤖 Get Recommendations
-    </button>
-
-</div>
-
-
-<div class="card">
-
-    <h2>📚 Recommended Books</h2>
-
-    <div id="result">
-        Enter your interest and click
-        <b>Get Recommendations</b>.
+    <div class="header">
+        <h1>🤖 AI Book Recommendations</h1>
+        <p>Discover books based on your interests and borrowing history</p>
     </div>
 
-</div>
+
+    <div class="container">
+
+        <div class="ai-banner">
+            <h2>✨ Personalized Reading Assistant</h2>
+
+            <p>
+                Tell us what you are interested in. The system
+                will analyze your interest and previous borrowing
+                history to find suitable books.
+            </p>
+        </div>
 
 
-<br>
+        <!-- SEARCH -->
+        <div class="card">
 
-<button type="button"
-        onclick="window.location.href='student-dashboard.html'">
-    Back to Student Dashboard
-</button>
+            <h2>🎯 What would you like to read?</h2>
+
+            <div class="input-area">
+
+                <input
+                    type="text"
+                    id="interest"
+                    placeholder="Example: Java, Database, Networks">
+
+                <button
+                    type="button"
+                    onclick="getRecommendations()">
+                    🤖 Get Recommendations
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTS -->
+        <div class="card">
+
+            <h2>📚 Recommended For You</h2>
+
+            <div id="result" class="recommendations">
+
+                <div class="empty">
+                    Enter an interest above and click
+                    <b>Get Recommendations</b>.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="student-dashboard.html"
+            class="back">
+            ← Back to Student Dashboard
+        </a>
+
+    </div>
 
 
 <script>
@@ -76,13 +292,15 @@ function getRecommendations() {
     if (books.length === 0) {
 
         result.innerHTML =
-            "❌ No books available in the library.";
+            "<div class='empty'>" +
+            "❌ No books available in the library." +
+            "</div>";
 
         return;
     }
 
 
-    /* Student's borrowing history */
+    /* Student borrowing history */
 
     let myHistory =
         history.filter(function(book) {
@@ -96,8 +314,11 @@ function getRecommendations() {
 
     let interests = [];
 
+
     if (interest !== "") {
+
         interests.push(interest);
+
     }
 
 
@@ -127,6 +348,7 @@ function getRecommendations() {
 
             text = text.toLowerCase();
 
+
             return interests.some(function(item) {
 
                 return text.includes(item);
@@ -153,7 +375,9 @@ function getRecommendations() {
     if (recommendations.length === 0) {
 
         result.innerHTML =
-            "❌ No recommendations available.";
+            "<div class='empty'>" +
+            "❌ No recommendations available." +
+            "</div>";
 
         return;
     }
@@ -168,25 +392,29 @@ function getRecommendations() {
 
             output +=
 
-                "<div class='card'>" +
+                "<div class='book-card'>" +
 
-                "<h3>📖 " +
+                "<div class='book-icon'>📖</div>" +
+
+                "<h3>" +
                 book.name +
                 "</h3>" +
 
-                "<p>Author: " +
+                "<p><b>Author:</b> " +
                 book.author +
                 "</p>" +
 
-                "<p>Category: " +
+                "<p><b>Category:</b> " +
                 book.category +
                 "</p>" +
 
-                "<p>Available Copies: " +
+                "<p><b>Available Copies:</b> " +
                 book.copies +
                 "</p>" +
 
-                "<p>🤖 Recommended based on your interests/history.</p>" +
+                "<span class='ai-tag'>" +
+                "🤖 AI Recommended" +
+                "</span>" +
 
                 "</div>";
 
@@ -202,3 +430,4 @@ function getRecommendations() {
 </body>
 
 </html>
+         
