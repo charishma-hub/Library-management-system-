@@ -3,57 +3,165 @@
 <head>
     <title>Renew Books</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f7fb;
-            margin: 0;
+            color: #263238;
         }
 
         header {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #163b65, #2878bd);
             color: white;
-            padding: 20px;
+            padding: 28px 20px;
             text-align: center;
         }
 
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
         .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 30px auto;
+            width: 92%;
+            max-width: 700px;
+            margin: 35px auto;
+        }
+
+        .card {
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #163b65;
+            margin-top: 0;
+        }
+
+        .description {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #37474f;
+            margin-bottom: 7px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0 15px;
-            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #d5dce5;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
         }
 
-        button {
-            padding: 12px 20px;
-            background: #1e3a5f;
-            color: white;
+        input:focus {
+            border-color: #2878bd;
+            box-shadow: 0 0 0 3px rgba(40,120,189,0.1);
+        }
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .renew-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            background: #163b65;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
         }
 
-        .back {
-            background: #555;
+        .renew-btn:hover {
+            background: #2878bd;
         }
 
         #result {
+            margin-top: 20px;
+            padding: 16px;
+            background: #eaf7ee;
+            color: #216b3a;
+            border-radius: 8px;
+            line-height: 1.5;
+            font-weight: bold;
             display: none;
+        }
+
+        .info {
             margin-top: 20px;
             padding: 15px;
             background: #eef5ff;
+            color: #36536d;
             border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .back {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 13px;
+            border-radius: 8px;
+            background: #555;
+            color: white;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #333;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .date-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
         }
     </style>
 </head>
@@ -62,87 +170,206 @@
 
 <header>
     <h1>🔄 Renew Books</h1>
+    <p>Extend the borrowing period for a student</p>
 </header>
+
 
 <div class="container">
 
-    <h2>Renew Borrowed Book</h2>
+    <div class="card">
 
-    <label>Student ID</label>
-    <input type="text" id="studentId"
-           placeholder="Enter Student ID">
+        <h2>📚 Renew Borrowed Book</h2>
 
-    <label>Book ID / ISBN</label>
-    <input type="text" id="bookId"
-           placeholder="Enter Book ID or ISBN">
+        <p class="description">
+            Enter the student's book details and select a new due date.
+        </p>
 
-    <label>Current Due Date</label>
-    <input type="date" id="currentDueDate">
 
-    <label>New Due Date</label>
-    <input type="date" id="newDueDate">
+        <div class="field">
 
-    <button onclick="renewBook()">
-        Renew Book
-    </button>
+            <label for="studentId">
+                👨‍🎓 Student ID
+            </label>
 
-    <div id="result"></div>
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Enter Student ID">
 
-    <br>
+        </div>
 
-    <button class="back"
-        onclick="window.location.href='librarian-dashboard.html'">
-        Back to Librarian Dashboard
-    </button>
+
+        <div class="field">
+
+            <label for="bookId">
+                📖 Book ID / ISBN
+            </label>
+
+            <input
+                type="text"
+                id="bookId"
+                placeholder="Enter Book ID or ISBN">
+
+        </div>
+
+
+        <div class="date-row">
+
+            <div class="field">
+
+                <label for="currentDueDate">
+                    📅 Current Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="currentDueDate">
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="newDueDate">
+                    🔄 New Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="newDueDate">
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="renew-btn"
+            onclick="renewBook()">
+
+            🔄 Renew Book
+
+        </button>
+
+
+        <div id="result"></div>
+
+
+        <div class="info">
+            💡 <strong>Note:</strong>
+            The new due date must be later than the current due date.
+        </div>
+
+
+        <a
+            class="back"
+            href="librarian-dashboard.html">
+
+            ← Back to Librarian Dashboard
+
+        </a>
+
+    </div>
 
 </div>
 
+
 <script>
+
 function renewBook() {
 
-    let studentId = document.getElementById("studentId").value.trim();
-    let bookId = document.getElementById("bookId").value.trim();
-    let currentDueDate = document.getElementById("currentDueDate").value;
-    let newDueDate = document.getElementById("newDueDate").value;
+    let studentId =
+        document.getElementById("studentId").value.trim();
 
-    if (studentId === "" || bookId === "" ||
-        currentDueDate === "" || newDueDate === "") {
+    let bookId =
+        document.getElementById("bookId").value.trim();
+
+    let currentDueDate =
+        document.getElementById("currentDueDate").value;
+
+    let newDueDate =
+        document.getElementById("newDueDate").value;
+
+
+    if (
+        studentId === "" ||
+        bookId === "" ||
+        currentDueDate === "" ||
+        newDueDate === ""
+    ) {
 
         alert("Please fill all fields.");
+
         return;
     }
 
-    if (new Date(newDueDate) <= new Date(currentDueDate)) {
-        alert("New due date must be after current due date.");
+
+    if (
+        new Date(newDueDate) <=
+        new Date(currentDueDate)
+    ) {
+
+        alert(
+            "New due date must be after current due date."
+        );
+
         return;
     }
+
 
     let issuedBooks =
-        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+        JSON.parse(
+            localStorage.getItem("issuedBooks")
+        ) || [];
 
-    let book = issuedBooks.find(function(item) {
-        return item.studentId === studentId &&
-               item.bookId === bookId;
-    });
+
+    let book =
+        issuedBooks.find(function(item) {
+
+            return item.studentId === studentId &&
+                   item.bookId === bookId;
+
+        });
+
 
     if (!book) {
-        alert("Issued book record not found!");
+
+        alert(
+            "Issued book record not found!"
+        );
+
         return;
     }
 
+
     book.dueDate = newDueDate;
+
 
     localStorage.setItem(
         "issuedBooks",
         JSON.stringify(issuedBooks)
     );
 
-    alert("Book renewed successfully!");
 
-    document.getElementById("result").innerText =
-        "📚 Book " + bookId +
-        " renewed for Student ID: " + studentId +
-        ". New due date: " + newDueDate;
+    alert(
+        "Book renewed successfully!"
+    );
+
+
+    let result =
+        document.getElementById("result");
+
+    result.style.display = "block";
+
+    result.innerText =
+        "📚 Book " +
+        bookId +
+        " renewed for Student ID: " +
+        studentId +
+        ". New due date: " +
+        newDueDate;
+
 }
 
 </script>
