@@ -1,78 +1,301 @@
-   <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Admin Reports</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Reports & Analytics</title>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f2f55, #2563eb);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(15, 47, 85, 0.08);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0f2f55;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(15, 47, 85, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #0f2f55;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .report-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            min-height: 120px;
+        }
+
+        .report-box h3 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .report-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .report-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .update-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-height: 400px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #0f2f55;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #1e40af;
+        }
+
+        .empty {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 800px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .container {
+                width: 94%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>📊 Admin Reports & Dashboard</h1>
+<header>
+    <h1>📊 Admin Reports & Analytics</h1>
+    <p>Monitor library performance and activity</p>
+</header>
 
-<div class="card">
+<div class="container">
 
-    <h2>Library Statistics</h2>
+    <!-- STATISTICS -->
 
-    <label>Total Books</label>
-    <input type="text" id="totalBooks" readonly>
+    <div class="stats">
 
-    <label>Available Books</label>
-    <input type="text" id="available" readonly>
+        <div class="stat-card">
+            <h3>📚 Total Books</h3>
+            <div class="stat-number" id="totalBooks">0</div>
+        </div>
 
-    <label>Issued Books</label>
-    <input type="text" id="issued" readonly>
+        <div class="stat-card">
+            <h3>✅ Available Books</h3>
+            <div class="stat-number" id="available">0</div>
+        </div>
 
-    <label>Active Students</label>
-    <input type="text" id="students" readonly>
+        <div class="stat-card">
+            <h3>📖 Issued Books</h3>
+            <div class="stat-number" id="issued">0</div>
+        </div>
 
-    <label>Overdue Books</label>
-    <input type="text" id="overdue" readonly>
+        <div class="stat-card">
+            <h3>👨‍🎓 Active Students</h3>
+            <div class="stat-number" id="students">0</div>
+        </div>
 
-    <label>Total Fines (₹)</label>
-    <input type="text" id="fines" readonly>
+        <div class="stat-card">
+            <h3>⚠️ Overdue Books</h3>
+            <div class="stat-number" id="overdue">0</div>
+        </div>
 
-    <br><br>
+        <div class="stat-card">
+            <h3>💰 Total Fines</h3>
+            <div class="stat-number">₹<span id="fines">0</span></div>
+        </div>
 
-    <button type="button" onclick="showReport()">
-        Update Report
-    </button>
+    </div>
+
+
+    <!-- UPDATE -->
+
+    <div class="card">
+
+        <h2>📈 Library Statistics</h2>
+
+        <button class="update-btn" onclick="showReport()">
+            🔄 Update Report
+        </button>
+
+    </div>
+
+
+    <!-- REPORTS -->
+
+    <div class="card">
+
+        <h2>📋 Current Report</h2>
+
+        <div class="report-grid">
+
+            <div class="report-box">
+                <h3>📚 Library Overview</h3>
+                <div id="report"></div>
+            </div>
+
+            <div class="report-box">
+                <h3>📖 Most Borrowed Books</h3>
+                <div id="mostBorrowed"></div>
+            </div>
+
+            <div class="report-box">
+                <h3>👥 Active Members</h3>
+                <div id="activeMembers"></div>
+            </div>
+
+            <div class="report-box">
+                <h3>📅 Monthly Borrowing</h3>
+                <div id="borrowingReport"></div>
+            </div>
+
+            <div class="report-box">
+                <h3>📆 Yearly Borrowing</h3>
+                <div id="yearlyBorrowing"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHART -->
+
+    <div class="card">
+
+        <h2>📊 Borrowing Analytics</h2>
+
+        <div class="chart-container">
+            <canvas id="borrowingChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <a class="back-btn" href="admin-dashboard.html">
+        ← Back to Admin Dashboard
+    </a>
 
 </div>
-
-
-<div class="card">
-
-    <h2>📈 Current Report</h2>
-
-    <div id="report"></div>
-
-    <h3>📚 Most Borrowed Books</h3>
-    <div id="mostBorrowed"></div>
-
-    <h3>👥 Active Members</h3>
-    <div id="activeMembers"></div>
-
-    <h3>📅 Monthly Borrowing Report</h3>
-    <div id="borrowingReport"></div>
-
-    <h3>📆 Yearly Borrowing Report</h3>
-    <div id="yearlyBorrowing"></div>
-
-    <br>
-
-    <canvas id="borrowingChart"></canvas>
-
-</div>
-
-
-<br>
-
-<button type="button"
-onclick="window.location.href='admin-dashboard.html'">
-    Back to Admin Dashboard
-</button>
 
 
 <script>
@@ -104,20 +327,20 @@ function showReport() {
     let overdueBooks = 0;
 
 
-    /* TOTAL AND AVAILABLE BOOKS */
+    /* BOOK STATISTICS */
 
     books.forEach(function(book) {
 
         totalBooks +=
-            Number(book.totalCopies || book.copies);
+            Number(book.totalCopies || book.copies || 0);
 
         availableBooks +=
-            Number(book.copies);
+            Number(book.copies || 0);
 
     });
 
 
-    /* OVERDUE BOOKS */
+    /* OVERDUE */
 
     let today = new Date();
 
@@ -137,7 +360,7 @@ function showReport() {
     });
 
 
-    /* TOTAL FINES */
+    /* FINES */
 
     fines.forEach(function(fine) {
 
@@ -147,108 +370,125 @@ function showReport() {
     });
 
 
-    /* STATISTICS */
+    /* DISPLAY STATISTICS */
 
-    document.getElementById("totalBooks").value =
+    document.getElementById("totalBooks").innerText =
         totalBooks;
 
-    document.getElementById("available").value =
+    document.getElementById("available").innerText =
         availableBooks;
 
-    document.getElementById("issued").value =
+    document.getElementById("issued").innerText =
         issuedBooks.length;
 
-    document.getElementById("students").value =
+    document.getElementById("students").innerText =
         students.length;
 
-    document.getElementById("overdue").value =
+    document.getElementById("overdue").innerText =
         overdueBooks;
 
-    document.getElementById("fines").value =
+    document.getElementById("fines").innerText =
         totalFines;
 
 
     /* CURRENT REPORT */
 
-    document.getElementById("report").innerHTML =
+    document.getElementById("report").innerHTML = `
 
-        "📚 Total Books: " + totalBooks +
+        <div class="report-item">
+            📚 Total Books: <strong>${totalBooks}</strong>
+        </div>
 
-        "<br>✅ Available Books: " +
-        availableBooks +
+        <div class="report-item">
+            ✅ Available Books: <strong>${availableBooks}</strong>
+        </div>
 
-        "<br>📖 Issued Books: " +
-        issuedBooks.length +
+        <div class="report-item">
+            📖 Issued Books: <strong>${issuedBooks.length}</strong>
+        </div>
 
-        "<br>👨‍🎓 Active Students: " +
-        students.length +
+        <div class="report-item">
+            👨‍🎓 Active Students: <strong>${students.length}</strong>
+        </div>
 
-        "<br>⚠️ Overdue Books: " +
-        overdueBooks +
+        <div class="report-item">
+            ⚠️ Overdue Books: <strong>${overdueBooks}</strong>
+        </div>
 
-        "<br>💰 Total Fines: ₹" +
-        totalFines;
+        <div class="report-item">
+            💰 Total Fines: <strong>₹${totalFines}</strong>
+        </div>
+
+    `;
 
 
-    /* MOST BORROWED BOOKS */
+    /* MOST BORROWED */
 
     let borrowCount = {};
 
 
     history.forEach(function(book) {
 
-        if (borrowCount[book.bookName]) {
+        if (!book.bookName) return;
 
-            borrowCount[book.bookName]++;
-
-        } else {
-
-            borrowCount[book.bookName] = 1;
-
-        }
+        borrowCount[book.bookName] =
+            (borrowCount[book.bookName] || 0) + 1;
 
     });
 
 
     issuedBooks.forEach(function(book) {
 
-        if (borrowCount[book.bookName]) {
+        if (!book.bookName) return;
 
-            borrowCount[book.bookName]++;
-
-        } else {
-
-            borrowCount[book.bookName] = 1;
-
-        }
+        borrowCount[book.bookName] =
+            (borrowCount[book.bookName] || 0) + 1;
 
     });
+
+
+    let sortedBooks =
+        Object.entries(borrowCount)
+        .sort(function(a, b) {
+            return b[1] - a[1];
+        });
 
 
     let mostBorrowed = "";
 
 
-    for (let bookName in borrowCount) {
+    sortedBooks.slice(0, 5).forEach(function(item) {
 
-        mostBorrowed +=
-            "📖 " + bookName +
-            " — Borrowed " +
-            borrowCount[bookName] +
-            " time(s)<br>";
+        mostBorrowed += `
+            <div class="report-item">
+                📖 ${item[0]}
+                — <strong>${item[1]}</strong> time(s)
+            </div>
+        `;
 
-    }
+    });
 
 
     document.getElementById("mostBorrowed").innerHTML =
         mostBorrowed ||
-        "No borrowing records yet.";
+        "<span class='empty'>No borrowing records yet.</span>";
 
 
     /* ACTIVE MEMBERS */
 
-    document.getElementById("activeMembers").innerText =
-        "👥 Active Members: " +
-        students.length;
+    document.getElementById("activeMembers").innerHTML = `
+
+        <div class="report-item">
+            👥 Active Members:
+            <strong>${students.length}</strong>
+        </div>
+
+        <div class="report-item">
+            📖 Currently Borrowing:
+            <strong>${issuedBooks.length}</strong>
+        </div>
+
+    `;
 
 
     /* MONTHLY REPORT */
@@ -266,19 +506,10 @@ function showReport() {
         let month =
             date.getFullYear() +
             "-" +
-            String(date.getMonth() + 1)
-            .padStart(2, "0");
+            String(date.getMonth() + 1).padStart(2, "0");
 
-
-        if (monthlyBorrowing[month]) {
-
-            monthlyBorrowing[month]++;
-
-        } else {
-
-            monthlyBorrowing[month] = 1;
-
-        }
+        monthlyBorrowing[month] =
+            (monthlyBorrowing[month] || 0) + 1;
 
     });
 
@@ -293,19 +524,10 @@ function showReport() {
         let month =
             date.getFullYear() +
             "-" +
-            String(date.getMonth() + 1)
-            .padStart(2, "0");
+            String(date.getMonth() + 1).padStart(2, "0");
 
-
-        if (monthlyBorrowing[month]) {
-
-            monthlyBorrowing[month]++;
-
-        } else {
-
-            monthlyBorrowing[month] = 1;
-
-        }
+        monthlyBorrowing[month] =
+            (monthlyBorrowing[month] || 0) + 1;
 
     });
 
@@ -313,20 +535,24 @@ function showReport() {
     let borrowingReport = "";
 
 
-    for (let month in monthlyBorrowing) {
+    Object.keys(monthlyBorrowing)
+    .sort()
+    .forEach(function(month) {
 
-        borrowingReport +=
-            "📅 " + month +
-            " — " +
-            monthlyBorrowing[month] +
-            " book(s) borrowed<br>";
+        borrowingReport += `
+            <div class="report-item">
+                📅 ${month} —
+                <strong>${monthlyBorrowing[month]}</strong>
+                book(s)
+            </div>
+        `;
 
-    }
+    });
 
 
     document.getElementById("borrowingReport").innerHTML =
         borrowingReport ||
-        "No borrowing records yet.";
+        "<span class='empty'>No borrowing records yet.</span>";
 
 
     /* YEARLY REPORT */
@@ -338,22 +564,11 @@ function showReport() {
 
         if (!book.issueDate) return;
 
-        let date =
-            new Date(book.issueDate);
-
         let year =
-            date.getFullYear();
+            new Date(book.issueDate).getFullYear();
 
-
-        if (yearlyBorrowing[year]) {
-
-            yearlyBorrowing[year]++;
-
-        } else {
-
-            yearlyBorrowing[year] = 1;
-
-        }
+        yearlyBorrowing[year] =
+            (yearlyBorrowing[year] || 0) + 1;
 
     });
 
@@ -362,22 +577,11 @@ function showReport() {
 
         if (!book.issueDate) return;
 
-        let date =
-            new Date(book.issueDate);
-
         let year =
-            date.getFullYear();
+            new Date(book.issueDate).getFullYear();
 
-
-        if (yearlyBorrowing[year]) {
-
-            yearlyBorrowing[year]++;
-
-        } else {
-
-            yearlyBorrowing[year] = 1;
-
-        }
+        yearlyBorrowing[year] =
+            (yearlyBorrowing[year] || 0) + 1;
 
     });
 
@@ -385,34 +589,35 @@ function showReport() {
     let yearlyReport = "";
 
 
-    for (let year in yearlyBorrowing) {
+    Object.keys(yearlyBorrowing)
+    .sort()
+    .forEach(function(year) {
 
-        yearlyReport +=
-            "📅 " + year +
-            " — " +
-            yearlyBorrowing[year] +
-            " book(s) borrowed<br>";
+        yearlyReport += `
+            <div class="report-item">
+                📅 ${year} —
+                <strong>${yearlyBorrowing[year]}</strong>
+                book(s)
+            </div>
+        `;
 
-    }
+    });
 
 
     document.getElementById("yearlyBorrowing").innerHTML =
         yearlyReport ||
-        "No yearly records yet.";
+        "<span class='empty'>No yearly records yet.</span>";
 
 
     /* CHART */
 
-    let labels = [];
-    let data = [];
+    let labels =
+        Object.keys(yearlyBorrowing).sort();
 
-
-    for (let year in yearlyBorrowing) {
-
-        labels.push(year);
-        data.push(yearlyBorrowing[year]);
-
-    }
+    let data =
+        labels.map(function(year) {
+            return yearlyBorrowing[year];
+        });
 
 
     if (borrowingChart) {
@@ -424,7 +629,7 @@ function showReport() {
         document.getElementById("borrowingChart");
 
 
-    if (canvas && labels.length > 0) {
+    if (labels.length > 0) {
 
         borrowingChart = new Chart(canvas, {
 
@@ -448,12 +653,21 @@ function showReport() {
 
                 responsive: true,
 
+                plugins: {
+
+                    legend: {
+                        display: true
+                    }
+
+                },
+
                 scales: {
 
                     y: {
-
-                        beginAtZero: true
-
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
                     }
 
                 }
@@ -472,4 +686,4 @@ showReport();
 </script>
 
 </body>
-    </html>
+</html>                   
