@@ -1,57 +1,173 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fine Details</title>
+    <title>Fine Details - Library Management System</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
             margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
         }
 
         header {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #0f4c81, #1976d2);
             color: white;
             text-align: center;
-            padding: 25px;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 18px;
         }
 
-        .fine-box {
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .summary-card .icon {
+            font-size: 28px;
+        }
+
+        .summary-card h3 {
+            margin: 10px 0 5px;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .summary-card .value {
+            font-size: 25px;
+            font-weight: bold;
+            color: #0f4c81;
+        }
+
+        .card {
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
         }
 
-        .amount {
-            color: #c62828;
-            font-size: 24px;
+        .card h2 {
+            margin-top: 0;
+            color: #0f4c81;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th {
+            background: #eaf3ff;
+            color: #0f4c81;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f8fbff;
+        }
+
+        .pending {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #fee2e2;
+            color: #b91c1c;
             font-weight: bold;
         }
 
         .paid {
-            color: green;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
             font-weight: bold;
         }
 
+        .amount {
+            font-weight: bold;
+            color: #b91c1c;
+        }
+
+        .message {
+            text-align: center;
+            color: #64748b;
+            margin: 20px 0 5px;
+            font-weight: 500;
+        }
+
         .back {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 18px;
-            background: #1e3a5f;
+            display: block;
+            width: fit-content;
+            margin: 25px auto 0;
+            padding: 12px 22px;
+            background: #1976d2;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #0f4c81;
+        }
+
+        @media (max-width: 700px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 18px;
+            }
         }
     </style>
 </head>
@@ -65,18 +181,54 @@
 
 <div class="container">
 
-    <div class="fine-box">
-        <h2>Late Return Fine</h2>
-        <p>Book: Database Management Systems</p>
-        <p>Days Late: 2</p>
-        <p>Fine Amount: <span class="amount">₹20</span></p>
-        <p>Status: <strong>Pending</strong></p>
+    <div class="summary">
+
+        <div class="summary-card">
+            <div class="icon">💰</div>
+            <h3>Total Fines</h3>
+            <div class="value" id="totalFine">₹0</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="icon">⏳</div>
+            <h3>Pending</h3>
+            <div class="value" id="pendingFine">₹0</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="icon">✅</div>
+            <h3>Paid</h3>
+            <div class="value" id="paidFine">₹0</div>
+        </div>
+
     </div>
 
-    <div class="fine-box">
-        <h2>Payment History</h2>
-        <p>Previous Fine: ₹10</p>
-        <p>Status: <span class="paid">Paid</span></p>
+    <div class="card">
+
+        <h2>📋 My Fine Records</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Amount</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Payment Date</th>
+                    </tr>
+                </thead>
+
+                <tbody id="fineTable"></tbody>
+
+            </table>
+
+        </div>
+
+        <p id="message" class="message"></p>
+
     </div>
 
     <a class="back" href="student-dashboard.html">
@@ -84,7 +236,9 @@
     </a>
 
 </div>
+
 <script>
+
 function loadFines() {
 
     let fines =
@@ -99,37 +253,99 @@ function loadFines() {
     let message =
         document.getElementById("message");
 
+    let totalFine =
+        document.getElementById("totalFine");
+
+    let pendingFine =
+        document.getElementById("pendingFine");
+
+    let paidFine =
+        document.getElementById("paidFine");
+
     table.innerHTML = "";
 
+    totalFine.innerText = "₹0";
+    pendingFine.innerText = "₹0";
+    paidFine.innerText = "₹0";
+
     if (!studentId) {
+
         message.innerText =
             "Please register/login as a student first.";
+
         return;
     }
 
     let myFines = fines.filter(function(fine) {
+
         return fine.studentId === studentId;
+
     });
 
     if (myFines.length === 0) {
-        message.innerText = "No fines found.";
+
+        message.innerText =
+            "No fines found.";
+
         return;
     }
 
+    let total = 0;
+    let pending = 0;
+    let paid = 0;
+
     myFines.forEach(function(fine) {
+
+        let amount = Number(fine.amount) || 0;
+
+        total += amount;
+
+        if (String(fine.status).toLowerCase() === "paid") {
+            paid += amount;
+        } else {
+            pending += amount;
+        }
 
         let row = table.insertRow();
 
-        row.insertCell(0).innerText = fine.bookId;
-        row.insertCell(1).innerText = "₹" + fine.amount;
-        row.insertCell(2).innerText = fine.reason;
-        row.insertCell(3).innerText = fine.status;
+        row.insertCell(0).innerText =
+            fine.bookId || "-";
+
+        row.insertCell(1).innerHTML =
+            '<span class="amount">₹' + amount + '</span>';
+
+        row.insertCell(2).innerText =
+            fine.reason || "-";
+
+        let statusCell = row.insertCell(3);
+
+        let status = document.createElement("span");
+
+        if (String(fine.status).toLowerCase() === "paid") {
+
+            status.innerText = "Paid";
+            status.className = "paid";
+
+        } else {
+
+            status.innerText = "Pending";
+            status.className = "pending";
+        }
+
+        statusCell.appendChild(status);
+
         row.insertCell(4).innerText =
             fine.paymentDate || "-";
     });
+
+    totalFine.innerText = "₹" + total;
+    pendingFine.innerText = "₹" + pending;
+    paidFine.innerText = "₹" + paid;
 }
 
 loadFines();
-        </script>
+
+</script>
+
 </body>
 </html>
