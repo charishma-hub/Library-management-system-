@@ -2,93 +2,344 @@
 <html>
 <head>
     <title>Book Management</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #163b65, #2878bd);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #163b65;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dce5;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2878bd;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #2878bd;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #163b65;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            background: #163b65;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f5f9fd;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            margin: 2px;
+        }
+
+        .update-btn {
+            background: #2878bd;
+        }
+
+        .delete-btn {
+            background: #d9534f;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #163b65;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: #2878bd;
+        }
+
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>📚 Book Management</h1>
+<header>
+    <h1>📚 Book Management</h1>
+    <p>Add, update and manage library books</p>
+</header>
 
-<div class="card">
+<div class="container">
 
-    <h2>Add Book</h2>
+    <!-- ADD BOOK -->
+    <div class="card">
 
-    <input type="text" id="bookName" placeholder="Book Name">
-    <input type="text" id="author" placeholder="Author">
-    <input type="text" id="isbn" placeholder="ISBN">
-    <input type="text" id="category" placeholder="Category">
-    <input type="text" id="publisher" placeholder="Publisher">
-    <input type="number" id="copies" placeholder="Number of Copies">
+        <h2>➕ Add New Book</h2>
 
-    <button type="button" onclick="addBook()">Add Book</button>
+        <div class="form-grid">
 
-    <p id="message"></p>
+            <input type="text"
+                   id="bookName"
+                   placeholder="Book Name">
+
+            <input type="text"
+                   id="author"
+                   placeholder="Author">
+
+            <input type="text"
+                   id="isbn"
+                   placeholder="ISBN">
+
+            <input type="text"
+                   id="category"
+                   placeholder="Category">
+
+            <input type="text"
+                   id="publisher"
+                   placeholder="Publisher">
+
+            <input type="number"
+                   id="copies"
+                   placeholder="Number of Copies"
+                   min="1">
+
+        </div>
+
+        <button class="add-btn"
+                type="button"
+                onclick="addBook()">
+            ➕ Add Book
+        </button>
+
+        <p id="message"></p>
+
+    </div>
+
+
+    <!-- BOOK LIST -->
+    <div class="card">
+
+        <h2>📖 Library Books</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Category</th>
+                        <th>Publisher</th>
+                        <th>Copies</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <a href="librarian-dashboard.html"
+       class="back-btn">
+        ← Back to Librarian Dashboard
+    </a>
 
 </div>
-
-<div class="card">
-
-    <h2>Book List</h2>
-
-    <table border="1" width="100%">
-        <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>ISBN</th>
-                <th>Category</th>
-                <th>Publisher</th>
-                <th>Copies</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <tbody id="bookTable"></tbody>
-    </table>
-
-</div>
-
-<br>
-
-<button type="button"
-onclick="window.location.href='librarian-dashboard.html'">
-    Back to Librarian Dashboard
-</button>
 
 
 <script>
 
 function addBook() {
 
-    let name = document.getElementById("bookName").value.trim();
-    let author = document.getElementById("author").value.trim();
-    let isbn = document.getElementById("isbn").value.trim();
-    let category = document.getElementById("category").value.trim();
-    let publisher = document.getElementById("publisher").value.trim();
-    let copies = document.getElementById("copies").value.trim();
+    let name =
+        document.getElementById("bookName").value.trim();
 
-    if (name === "" || author === "" || isbn === "" ||
-        category === "" || publisher === "" || copies === "") {
+    let author =
+        document.getElementById("author").value.trim();
+
+    let isbn =
+        document.getElementById("isbn").value.trim();
+
+    let category =
+        document.getElementById("category").value.trim();
+
+    let publisher =
+        document.getElementById("publisher").value.trim();
+
+    let copies =
+        document.getElementById("copies").value.trim();
+
+
+    if (
+        name === "" ||
+        author === "" ||
+        isbn === "" ||
+        category === "" ||
+        publisher === "" ||
+        copies === ""
+    ) {
 
         alert("Please fill all fields.");
         return;
     }
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    if (Number(copies) <= 0) {
+
+        alert("Number of copies must be greater than 0.");
+        return;
+    }
+
+
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
 
     books.push({
+
         name: name,
+
         author: author,
+
         isbn: isbn,
+
         category: category,
+
         publisher: publisher,
+
         totalCopies: Number(copies),
-copies: Number(copies)
+
+        copies: Number(copies)
+
     });
 
-    localStorage.setItem("books", JSON.stringify(books));
+
+    localStorage.setItem(
+        "books",
+        JSON.stringify(books)
+    );
+
 
     alert("Book added successfully!");
+
 
     document.getElementById("bookName").value = "";
     document.getElementById("author").value = "";
@@ -97,107 +348,244 @@ copies: Number(copies)
     document.getElementById("publisher").value = "";
     document.getElementById("copies").value = "";
 
+
     displayBooks();
 }
+
 
 
 function displayBooks() {
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
 
-    let table = document.getElementById("bookTable");
+
+    let table =
+        document.getElementById("bookTable");
+
 
     table.innerHTML = "";
 
+
     books.forEach(function(book, index) {
 
-        let row = table.insertRow();
+        let row =
+            table.insertRow();
 
-        row.insertCell(0).innerText = book.name;
-        row.insertCell(1).innerText = book.author;
-        row.insertCell(2).innerText = book.isbn;
-        row.insertCell(3).innerText = book.category;
-        row.insertCell(4).innerText = book.publisher;
-        row.insertCell(5).innerText = book.copies;
 
-        let action = row.insertCell(6);
+        row.insertCell(0).innerText =
+            book.name;
 
-        let button = document.createElement("button");
+        row.insertCell(1).innerText =
+            book.author;
 
-        button.innerText = "Delete";
+        row.insertCell(2).innerText =
+            book.isbn;
 
-        button.onclick = function() {
-            deleteBook(index);
-        };
+        row.insertCell(3).innerText =
+            book.category;
 
-        action.appendChild(button);
-        let updateButton = document.createElement("button");
+        row.insertCell(4).innerText =
+            book.publisher;
 
-updateButton.innerText = "Update";
+        row.insertCell(5).innerText =
+            book.copies;
 
-updateButton.onclick = function() {
-    updateBook(index);
-};
 
-action.appendChild(updateButton);
+        let action =
+            row.insertCell(6);
+
+
+        let updateButton =
+            document.createElement("button");
+
+        updateButton.innerText =
+            "✏️ Update";
+
+        updateButton.className =
+            "action-btn update-btn";
+
+
+        updateButton.onclick =
+            function() {
+
+                updateBook(index);
+
+            };
+
+
+        action.appendChild(updateButton);
+
+
+        let deleteButton =
+            document.createElement("button");
+
+        deleteButton.innerText =
+            "🗑️ Delete";
+
+        deleteButton.className =
+            "action-btn delete-btn";
+
+
+        deleteButton.onclick =
+            function() {
+
+                deleteBook(index);
+
+            };
+
+
+        action.appendChild(deleteButton);
+
     });
+
 }
+
 
 
 function deleteBook(index) {
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
+
+    if (!confirm("Are you sure you want to delete this book?")) {
+        return;
+    }
+
 
     books.splice(index, 1);
 
-    localStorage.setItem("books", JSON.stringify(books));
+
+    localStorage.setItem(
+        "books",
+        JSON.stringify(books)
+    );
+
 
     displayBooks();
+
 }
-    function updateBook(index) {
 
-    let books = JSON.parse(localStorage.getItem("books")) || [];
 
-    let book = books[index];
 
-    let newName = prompt("Enter new book name:", book.name);
+function updateBook(index) {
+
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
+
+    let book =
+        books[index];
+
+
+    let newName =
+        prompt(
+            "Enter new book name:",
+            book.name
+        );
+
     if (newName === null) return;
 
-    let newAuthor = prompt("Enter new author:", book.author);
+
+    let newAuthor =
+        prompt(
+            "Enter new author:",
+            book.author
+        );
+
     if (newAuthor === null) return;
 
-    let newCategory = prompt("Enter new category:", book.category);
+
+    let newCategory =
+        prompt(
+            "Enter new category:",
+            book.category
+        );
+
     if (newCategory === null) return;
 
-    let newPublisher = prompt("Enter new publisher:", book.publisher);
+
+    let newPublisher =
+        prompt(
+            "Enter new publisher:",
+            book.publisher
+        );
+
     if (newPublisher === null) return;
 
-    let newCopies = prompt("Enter number of copies:", book.copies);
+
+    let newCopies =
+        prompt(
+            "Enter number of copies:",
+            book.copies
+        );
+
     if (newCopies === null) return;
 
-    if (newName.trim() === "" || newAuthor.trim() === "" ||
-        newCategory.trim() === "" || newPublisher.trim() === "" ||
-        newCopies.trim() === "") {
+
+    if (
+        newName.trim() === "" ||
+        newAuthor.trim() === "" ||
+        newCategory.trim() === "" ||
+        newPublisher.trim() === "" ||
+        newCopies.trim() === ""
+    ) {
+
         alert("All fields are required.");
         return;
     }
 
-    book.name = newName.trim();
-    book.author = newAuthor.trim();
-    book.category = newCategory.trim();
-    book.publisher = newPublisher.trim();
-    book.copies = Number(newCopies);
 
-    if (!book.totalCopies) {
-        book.totalCopies = Number(newCopies);
+    if (Number(newCopies) < 0) {
+
+        alert("Copies cannot be negative.");
+        return;
     }
 
-    localStorage.setItem("books", JSON.stringify(books));
+
+    book.name =
+        newName.trim();
+
+    book.author =
+        newAuthor.trim();
+
+    book.category =
+        newCategory.trim();
+
+    book.publisher =
+        newPublisher.trim();
+
+    book.copies =
+        Number(newCopies);
+
+
+    if (!book.totalCopies) {
+
+        book.totalCopies =
+            Number(newCopies);
+
+    }
+
+
+    localStorage.setItem(
+        "books",
+        JSON.stringify(books)
+    );
+
 
     alert("Book updated successfully!");
 
+
     displayBooks();
-    }
+
+}
 
 
 displayBooks();
@@ -206,3 +594,4 @@ displayBooks();
 
 </body>
 </html>
+        
