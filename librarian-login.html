@@ -1,102 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Librarian Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Librarian Login | Library Management System</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
 
-        header {
-            background: #1e3a5f;
-            color: white;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f2747, #1976d2);
             padding: 20px;
-            text-align: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
         }
 
         .login-box {
-            width: 90%;
-            max-width: 400px;
-            margin: 60px auto;
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .librarian-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #12395b;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin: 8px 0 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #d0d7de;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
         }
 
-        button {
+        input:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25,118,210,0.12);
+        }
+
+        .login-btn {
             width: 100%;
-            padding: 12px;
-            background: #1e3a5f;
-            color: white;
+            padding: 14px;
+            margin-top: 8px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1565c0, #1976d2);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
         }
 
-        .back {
-            background: #555;
+        .login-btn:hover {
+            opacity: 0.92;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 22px;
+            color: #1565c0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 7px 14px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 32px 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>📚 Librarian Login</h1>
-</header>
+<div class="login-container">
 
-<div class="login-box">
+    <div class="login-box">
 
-    <h2>Login</h2>
+        <div class="librarian-icon">📚</div>
 
-    <input type="text" id="username" placeholder="Username">
+        <h1>Librarian Login</h1>
 
-    <input type="password" id="password" placeholder="Password">
+        <p class="subtitle">
+            Library Management System
+        </p>
 
-    <button onclick="librarianLogin()">Login</button>
+        <div class="input-group">
+            <label for="username">Librarian Username</label>
 
-    <button class="back"
-        onclick="window.location.href='index.html'">
-        Back to Home
-    </button>
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+            >
+        </div>
+
+        <button class="login-btn" onclick="librarianLogin()">
+            Login to Librarian Panel
+        </button>
+
+        <a href="index.html" class="back-home">
+            ← Back to Home
+        </a>
+
+        <div class="badge">
+            🔒 Authorized Librarian Access
+        </div>
+
+    </div>
 
 </div>
 
 <script>
 
-
 function librarianLogin() {
 
-let username = document.getElementById("username").value;
-let password = document.getElementById("password").value;
+    let username =
+        document.getElementById("username").value;
 
-if (username === "librarian" && password === "lib123") {
+    let password =
+        document.getElementById("password").value;
 
-alert("Login successful!");
-window.location.href = "librarian-dashboard.html";
+    if (username === "librarian" && password === "lib123") {
 
-} else {
+        alert("Login successful!");
 
-alert("❌ Invalid username or password!");
+        window.location.href =
+            "librarian-dashboard.html";
 
-}
+    } else {
 
+        alert("❌ Invalid username or password!");
+
+    }
 }
 
 </script>
-
 
 </body>
 </html>
