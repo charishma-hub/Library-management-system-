@@ -2,65 +2,252 @@
 <html>
 <head>
     <title>Manage Reservations</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #163b65, #2878bd);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #163b65;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dce5;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2878bd;
+        }
+
+        .reserve-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #2878bd;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .reserve-btn:hover {
+            background: #163b65;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #163b65;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f5f9fd;
+        }
+
+        .cancel-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .cancel-btn:hover {
+            background: #b52b27;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #163b65;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: #2878bd;
+        }
+
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
     <h1>📖 Manage Reservations</h1>
+    <p>Reserve unavailable books and manage the waiting queue</p>
 </header>
 
 <div class="container">
 
-    <h2>Book Reservation</h2>
+    <!-- RESERVATION FORM -->
+    <div class="card">
 
-    <input type="text" id="studentId" placeholder="Student ID">
+        <h2>📌 Book Reservation</h2>
 
-    <input type="text" id="bookId" placeholder="Book ID / ISBN">
+        <div class="form-grid">
 
-    <input type="date" id="reservationDate">
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Student ID">
 
-    <<button type="button" onclick="reserveBook()">Reserve Book</button>
+            <input
+                type="text"
+                id="bookId"
+                placeholder="Book ID / ISBN">
 
-    <h2>Reservation List</h2>
+            <input
+                type="date"
+                id="reservationDate">
 
-    <table border="1" width="100%">
-        <thead>
-            <tr>
-                <th>Student ID</th>
-<th>Queue Position</th>
-<th>Book Name</th>
-<th>Book ID</th>
-            </tr>
-        </thead>
+        </div>
 
-        <tbody id="reservationTable">
+        <button
+            type="button"
+            class="reserve-btn"
+            onclick="reserveBook()">
+            📌 Reserve Book
+        </button>
 
-            <tr>
-                <td>CSE001</td>
-                <td>123456</td>
-                <td>02-09-2026</td>
-                <td>Waiting</td>
-                <td>
-                    <button onclick="this.parentElement.parentElement.remove()">
-                        Cancel
-                    </button>
-                </td>
-            </tr>
+    </div>
 
-        </tbody>
-    </table>
 
-    <br>
+    <!-- RESERVATION LIST -->
+    <div class="card">
 
-    <button onclick="window.location.href='librarian-dashboard.html'">
-        Back to Dashboard
-    </button>
+        <h2>📋 Reservation List</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Queue Position</th>
+                        <th>Book Name</th>
+                        <th>Book ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reservationTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="librarian-dashboard.html"
+        class="back-btn">
+        ← Back to Librarian Dashboard
+    </a>
 
 </div>
 
+
 <script>
+
 function reserveBook() {
 
     let studentId =
@@ -72,53 +259,82 @@ function reserveBook() {
     let reservationDate =
         document.getElementById("reservationDate").value;
 
-    if (studentId === "" ||
-        bookId === "" ||
-        reservationDate === "") {
 
+    if (
+        studentId === "" ||
+        bookId === "" ||
+        reservationDate === ""
+    ) {
         alert("Please fill all fields.");
         return;
     }
 
-    let books =
-        JSON.parse(localStorage.getItem("books")) || [];
 
-    let book = books.find(function(b) {
-        return b.isbn === bookId;
-    });
+    let books =
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
+
+    let book =
+        books.find(function(b) {
+            return b.isbn === bookId;
+        });
+
 
     if (!book) {
         alert("Book not found!");
         return;
     }
 
+
     if (Number(book.copies) > 0) {
-        alert("Book is available. You can issue it directly.");
+
+        alert(
+            "Book is available. You can issue it directly."
+        );
+
         return;
     }
 
+
     let reservations =
-        JSON.parse(localStorage.getItem("reservations")) || [];
+        JSON.parse(
+            localStorage.getItem("reservations")
+        ) || [];
+
 
     let queuePosition =
         reservations.filter(function(r) {
+
             return r.bookId === bookId &&
                    r.status === "Waiting";
+
         }).length + 1;
 
+
     reservations.push({
+
         studentId: studentId,
+
         bookId: bookId,
+
         bookName: book.name,
+
         date: reservationDate,
+
         status: "Waiting",
+
         queuePosition: queuePosition
+
     });
+
 
     localStorage.setItem(
         "reservations",
         JSON.stringify(reservations)
     );
+
 
     alert(
         "Book reserved successfully!\n" +
@@ -126,98 +342,202 @@ function reserveBook() {
         queuePosition
     );
 
+
+    document.getElementById("studentId").value = "";
+    document.getElementById("bookId").value = "";
+    document.getElementById("reservationDate").value = "";
+
+
     displayReservations();
 }
+
+
 
 function displayReservations() {
 
     let reservations =
-        JSON.parse(localStorage.getItem("reservations")) || [];
+        JSON.parse(
+            localStorage.getItem("reservations")
+        ) || [];
 
-    let table = document.getElementById("reservationTable");
+
+    let table =
+        document.getElementById(
+            "reservationTable"
+        );
+
 
     table.innerHTML = "";
 
-    reservations.forEach(function(reservation, index) {
 
-        let row = table.insertRow();
+    reservations.forEach(function(
+        reservation,
+        index
+    ) {
 
-        row.insertCell(0).innerText = reservation.studentId;
-        row.insertCell(1).innerText = reservation.queuePosition;
-        row.insertCell(2).innerText = reservation.bookName;
-        row.insertCell(3).innerText = reservation.bookId;
-        row.insertCell(4).innerText = reservation.date;
-        row.insertCell(5).innerText = reservation.status;
+        let row =
+            table.insertRow();
 
-        let action = row.insertCell(5);
 
-        let button = document.createElement("button");
+        row.insertCell(0).innerText =
+            reservation.studentId;
 
-        button.innerText = "Cancel";
 
-        button.onclick = function() {
-            cancelReservation(index);
-        };
+        row.insertCell(1).innerText =
+            reservation.queuePosition;
+
+
+        row.insertCell(2).innerText =
+            reservation.bookName;
+
+
+        row.insertCell(3).innerText =
+            reservation.bookId;
+
+
+        row.insertCell(4).innerText =
+            reservation.date;
+
+
+        let statusCell =
+            row.insertCell(5);
+
+        statusCell.innerText =
+            reservation.status;
+
+        statusCell.className =
+            "status";
+
+
+        let action =
+            row.insertCell(6);
+
+
+        let button =
+            document.createElement("button");
+
+
+        button.innerText =
+            "Cancel";
+
+
+        button.className =
+            "cancel-btn";
+
+
+        button.onclick =
+            function() {
+
+                cancelReservation(index);
+
+            };
+
 
         action.appendChild(button);
+
     });
+
 }
+
+
 
 function cancelReservation(index) {
 
     let reservations =
-        JSON.parse(localStorage.getItem("reservations")) || [];
+        JSON.parse(
+            localStorage.getItem("reservations")
+        ) || [];
+
+
+    if (
+        !confirm(
+            "Are you sure you want to cancel this reservation?"
+        )
+    ) {
+        return;
+    }
+
 
     reservations.splice(index, 1);
 
+
     localStorage.setItem(
         "reservations",
         JSON.stringify(reservations)
     );
+
 
     displayReservations();
 
+
     alert("Reservation cancelled.");
+
 }
 
-displayReservations();
-    function checkReservationAvailability() {
+
+
+function checkReservationAvailability() {
 
     let reservations =
-        JSON.parse(localStorage.getItem("reservations")) || [];
+        JSON.parse(
+            localStorage.getItem("reservations")
+        ) || [];
+
 
     let books =
-        JSON.parse(localStorage.getItem("books")) || [];
+        JSON.parse(
+            localStorage.getItem("books")
+        ) || [];
+
 
     reservations.forEach(function(reservation) {
 
-        let book = books.find(function(b) {
-            return b.isbn === reservation.bookId;
-        });
+        let book =
+            books.find(function(b) {
 
-        if (book && Number(book.copies) > 0 &&
-            reservation.status === "Waiting") {
+                return b.isbn ===
+                       reservation.bookId;
 
-            reservation.status = "📢 Available";
+            });
+
+
+        if (
+            book &&
+            Number(book.copies) > 0 &&
+            reservation.status === "Waiting"
+        ) {
+
+            reservation.status =
+                "📢 Available";
+
 
             alert(
-                "📢 " + reservation.bookName +
+                "📢 " +
+                reservation.bookName +
                 " is now available for Student ID: " +
                 reservation.studentId
             );
+
         }
+
     });
+
 
     localStorage.setItem(
         "reservations",
         JSON.stringify(reservations)
     );
+
 }
 
-checkReservationAvailability();
 
+displayReservations();
+
+checkReservationAvailability();
 
 </script>
 
 </body>
-</html>
+</html>        
+
+    
