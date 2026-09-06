@@ -1,97 +1,352 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Notifications</title>
-<link rel="stylesheet" href="style.css">
+    <title>Notifications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #163b65, #2878bd);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #163b65;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dce5;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2878bd;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #2878bd;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .check-btn:hover {
+            background: #163b65;
+        }
+
+        .notification-box {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f1f6fb;
+            line-height: 1.8;
+        }
+
+        .overdue-box {
+            padding: 18px;
+            border-radius: 10px;
+            background: #fff5f5;
+            line-height: 1.8;
+        }
+
+        .empty {
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #163b65;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: #2878bd;
+        }
+
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🔔 Notifications</h1>
+<header>
+    <h1>🔔 Notifications</h1>
+    <p>Stay updated about your borrowed books and due dates</p>
+</header>
 
-<div class="card">
+<div class="container">
 
-<h2>📅 Due Date Reminder</h2>
-
-<label>Book Name:</label>
-<input type="text" id="bookName" placeholder="Enter book name">
-
-<label>Due Date:</label>
-<input type="date" id="dueDate">
-
-<button type="button" onclick="checkDueDate()">
-Check Due Date
-</button>
-
-<p id="result"></p>
-
-</div>
+    <!-- DUE DATE -->
     <div class="card">
 
-<h2>⚠️ Overdue Check</h2>
+        <h2>📅 Due Date Reminder</h2>
 
-<p id="overdue"></p>
+        <p class="subtitle">
+            Check the due dates of your currently borrowed books.
+        </p>
+
+        <div class="field">
+            <label>Book Name</label>
+            <input
+                type="text"
+                id="bookName"
+                placeholder="Optional">
+        </div>
+
+        <div class="field">
+            <label>Due Date</label>
+            <input
+                type="date"
+                id="dueDate">
+        </div>
+
+        <button
+            type="button"
+            class="check-btn"
+            onclick="checkDueDate()">
+            🔍 Check Due Date
+        </button>
+
+        <div
+            id="result"
+            class="notification-box">
+            <span class="empty">
+                Your book notifications will appear here.
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- OVERDUE -->
+    <div class="card">
+
+        <h2>⚠️ Overdue Books</h2>
+
+        <p class="subtitle">
+            Books that have passed their due date will be shown here.
+        </p>
+
+        <div
+            id="overdue"
+            class="overdue-box">
+            <span class="empty">
+                Click "Check Due Date" to check your books.
+            </span>
+        </div>
+
+    </div>
+
+
+    <a
+        href="student-dashboard.html"
+        class="back-btn">
+        ← Back to Student Dashboard
+    </a>
 
 </div>
+
 
 <script>
 
 function checkDueDate() {
 
     let issuedBooks =
-        JSON.parse(localStorage.getItem("issuedBooks")) || [];
+        JSON.parse(
+            localStorage.getItem("issuedBooks")
+        ) || [];
+
 
     let studentId =
         localStorage.getItem("studentId");
 
+
     let result =
         document.getElementById("result");
 
+    let overdue =
+        document.getElementById("overdue");
+
+
     if (!studentId) {
-        result.innerText =
-            "Please register/login as a student first.";
+
+        result.innerHTML =
+            "⚠️ Please register/login as a student first.";
+
+        overdue.innerHTML =
+            "No student account detected.";
+
         return;
     }
 
-    let myBooks = issuedBooks.filter(function(book) {
-        return book.studentId === studentId;
-    });
+
+    let myBooks =
+        issuedBooks.filter(function(book) {
+
+            return book.studentId === studentId;
+
+        });
+
 
     if (myBooks.length === 0) {
-        result.innerText =
-            "No borrowed books found.";
+
+        result.innerHTML =
+            "📚 No borrowed books found.";
+
+        overdue.innerHTML =
+            "✅ You currently have no overdue books.";
+
         return;
     }
 
-    let today = new Date();
+
+    let today =
+        new Date();
+
     let message = "";
+
+    let overdueMessage = "";
+
+    let overdueCount = 0;
+
 
     myBooks.forEach(function(book) {
 
-        let due = new Date(book.dueDate);
+        let due =
+            new Date(book.dueDate);
+
 
         if (due < today) {
+
             message +=
-                "⚠️ " + book.bookName +
-                " is overdue!<br>";
-        } else {
-            message +=
-                "📚 " + book.bookName +
-                " is due on " + book.dueDate +
+                "⚠️ <b>" +
+                book.bookName +
+                "</b> is overdue!<br>";
+
+            overdueMessage +=
+                "⚠️ <b>" +
+                book.bookName +
+                "</b> — Due date: " +
+                book.dueDate +
                 "<br>";
+
+            overdueCount++;
+
+        } else {
+
+            message +=
+                "📚 <b>" +
+                book.bookName +
+                "</b> is due on " +
+                book.dueDate +
+                "<br>";
+
         }
+
     });
 
-    result.innerHTML = message;
+
+    result.innerHTML =
+        message;
+
+
+    if (overdueCount > 0) {
+
+        overdue.innerHTML =
+            "⚠️ You have <b>" +
+            overdueCount +
+            "</b> overdue book(s).<br><br>" +
+            overdueMessage;
+
+    } else {
+
+        overdue.innerHTML =
+            "✅ Great! You have no overdue books.";
+
+    }
+
 }
 
 </script>
 
-<br>
-
-<button onclick="window.location.href='student-dashboard.html'">
-Back to Dashboard
-</button>
-
 </body>
 </html>
+    
