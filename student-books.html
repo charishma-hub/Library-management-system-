@@ -1,66 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Books</title>
+
+    <title>Search Books | Library Management System</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f8fc;
+            color: #1f2937;
+        }
+
+        /* HEADER */
 
         header {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #0d2b4d, #1976d2);
             color: white;
+            padding: 35px 20px;
             text-align: center;
-            padding: 25px;
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* CONTAINER */
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: auto;
-            padding: 25px;
+            padding: 45px 20px;
         }
 
-        input {
+        /* SEARCH */
+
+        .search-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            margin-bottom: 35px;
+        }
+
+        .search-title {
+            color: #12395b;
+            margin: 0 0 15px;
+            font-size: 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
             width: 100%;
-            padding: 14px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
+            padding: 16px 20px 16px 45px;
+            border: 1px solid #d5dce5;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 17px;
+            top: 14px;
+            font-size: 18px;
+        }
+
+        /* BOOK GRID */
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
         .book {
             background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 7px 22px rgba(0, 0, 0, 0.06);
+            transition: 0.3s;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-icon {
+            width: 60px;
+            height: 70px;
+            background: #e5f2ff;
+            border-radius: 9px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .book h2 {
+            color: #12395b;
+            font-size: 19px;
+            margin: 0 0 15px;
+        }
+
+        .book-info {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .book-info strong {
+            color: #344054;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         .available {
-            color: green;
-            font-weight: bold;
+            background: #dcfce7;
+            color: #15803d;
         }
 
         .issued {
-            color: red;
-            font-weight: bold;
+            background: #fee2e2;
+            color: #dc2626;
         }
+
+        .no-books {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            color: #777;
+            display: none;
+        }
+
+        /* BACK BUTTON */
 
         .back {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 18px;
-            background: #1e3a5f;
+            margin-top: 40px;
+            padding: 13px 22px;
+            background: #1976d2;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #1565c0;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .book-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -68,50 +212,51 @@
 <body>
 
 <header>
+
     <h1>📚 Search Books</h1>
-    <p>Find books by name, author or ISBN</p>
+
+    <p>
+        Find books by name, author, ISBN, category or publisher
+    </p>
+
 </header>
+
 
 <div class="container">
 
-    <input
-        type="text"
-        id="search"
-        placeholder="Search book name, author or ISBN..."
-        onkeyup="searchBooks()"
-    >
+    <div class="search-card">
 
-    <div id="books">
+        <h2 class="search-title">
+            🔍 Find a Book
+        </h2>
 
-        <div class="book">
-            <h2>Database Management Systems</h2>
-            <p>Author: Korth</p>
-            <p>ISBN: 123456</p>
-            <p>Status: <span class="available">Available</span></p>
-        </div>
+        <div class="search-box">
 
-        <div class="book">
-            <h2>Java Programming</h2>
-            <p>Author: Herbert Schildt</p>
-            <p>ISBN: 234567</p>
-            <p>Status: <span class="available">Available</span></p>
-        </div>
+            <span class="search-icon">🔎</span>
 
-        <div class="book">
-            <h2>Computer Networks</h2>
-            <p>Author: Andrew S. Tanenbaum</p>
-            <p>ISBN: 345678</p>
-            <p>Status: <span class="issued">Issued</span></p>
-        </div>
+            <input
+                type="text"
+                id="searchBox"
+                placeholder="Search book name, author, ISBN, category..."
+                onkeyup="searchBooks()"
+            >
 
-        <div class="book">
-            <h2>Operating System Concepts</h2>
-            <p>Author: Abraham Silberschatz</p>
-            <p>ISBN: 456789</p>
-            <p>Status: <span class="available">Available</span></p>
         </div>
 
     </div>
+
+
+    <div class="book-grid" id="bookGrid">
+
+        <!-- Books will be loaded here -->
+
+    </div>
+
+
+    <div class="no-books" id="noBooks">
+        📚 No books found.
+    </div>
+
 
     <a class="back" href="student-dashboard.html">
         ← Back to Student Dashboard
@@ -119,57 +264,181 @@
 
 </div>
 
+
 <script>
-  function loadBooks() {
+
+function loadBooks() {
 
     let books =
         JSON.parse(localStorage.getItem("books")) || [];
 
-    let table =
-        document.getElementById("bookTable");
+    let bookGrid =
+        document.getElementById("bookGrid");
 
-    table.innerHTML = "";
+    bookGrid.innerHTML = "";
+
+    /*
+       If no books have been added by the librarian,
+       show sample books.
+    */
+
+    if (books.length === 0) {
+
+        books = [
+            {
+                name: "Database Management Systems",
+                author: "Korth",
+                isbn: "123456",
+                category: "Database",
+                publisher: "McGraw Hill",
+                copies: 3
+            },
+            {
+                name: "Java Programming",
+                author: "Herbert Schildt",
+                isbn: "234567",
+                category: "Programming",
+                publisher: "McGraw Hill",
+                copies: 2
+            },
+            {
+                name: "Computer Networks",
+                author: "Andrew S. Tanenbaum",
+                isbn: "345678",
+                category: "Networks",
+                publisher: "Pearson",
+                copies: 0
+            },
+            {
+                name: "Operating System Concepts",
+                author: "Abraham Silberschatz",
+                isbn: "456789",
+                category: "Operating Systems",
+                publisher: "Wiley",
+                copies: 4
+            }
+        ];
+    }
+
 
     books.forEach(function(book) {
 
-        let row = table.insertRow();
-
-        row.insertCell(0).innerText = book.name;
-        row.insertCell(1).innerText = book.author;
-        row.insertCell(2).innerText = book.isbn;
-        row.insertCell(3).innerText = book.category;
-        row.insertCell(4).innerText = book.publisher;
-        row.insertCell(5).innerText =
+        let status =
             Number(book.copies) > 0
                 ? "Available"
                 : "Issued";
+
+        let statusClass =
+            Number(book.copies) > 0
+                ? "available"
+                : "issued";
+
+
+        let card =
+            document.createElement("div");
+
+        card.className = "book";
+
+        card.innerHTML = `
+
+            <div class="book-icon">📖</div>
+
+            <h2>${book.name}</h2>
+
+            <div class="book-info">
+
+                <div>
+                    <strong>Author:</strong>
+                    ${book.author || "N/A"}
+                </div>
+
+                <div>
+                    <strong>ISBN:</strong>
+                    ${book.isbn || "N/A"}
+                </div>
+
+                <div>
+                    <strong>Category:</strong>
+                    ${book.category || "N/A"}
+                </div>
+
+                <div>
+                    <strong>Publisher:</strong>
+                    ${book.publisher || "N/A"}
+                </div>
+
+            </div>
+
+            <span class="status ${statusClass}">
+                ● ${status}
+            </span>
+        `;
+
+
+        bookGrid.appendChild(card);
+
     });
+
 }
+
 
 function searchBooks() {
 
     let search =
         document.getElementById("searchBox")
-        .value.trim().toLowerCase();
+        .value
+        .trim()
+        .toLowerCase();
 
-    let rows =
-        document.getElementById("bookTable")
-        .getElementsByTagName("tr");
 
-    rows = Array.from(rows);
+    let books =
+        document.querySelectorAll(".book");
 
-    rows.forEach(function(row) {
+    let found = 0;
+
+
+    books.forEach(function(book) {
 
         let text =
-            row.innerText.toLowerCase();
+            book.innerText.toLowerCase();
 
-        row.style.display =
-            text.includes(search) ? "" : "none";
+
+        if (text.includes(search)) {
+
+            book.style.display = "";
+
+            found++;
+
+        } else {
+
+            book.style.display = "none";
+
+        }
+
     });
+
+
+    let noBooks =
+        document.getElementById("noBooks");
+
+
+    if (found === 0) {
+
+        noBooks.style.display = "block";
+
+    } else {
+
+        noBooks.style.display = "none";
+
+    }
+
 }
 
-loadBooks();  
+
+loadBooks();
+
 </script>
 
 </body>
-</html>
+
+</html>        
