@@ -1,44 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Borrowing History</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowing History - Library Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f4c81, #1976d2);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .summary-card .icon {
+            font-size: 28px;
+        }
+
+        .summary-card h3 {
+            margin: 10px 0 5px;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .summary-card .value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #0f4c81;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #0f4c81;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #eaf3ff;
+            color: #0f4c81;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f8fbff;
+        }
+
+        .book-name {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .date {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .returned {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .message {
+            text-align: center;
+            color: #64748b;
+            margin: 20px 0 5px;
+            font-weight: 500;
+        }
+
+        .back-btn {
+            display: block;
+            width: fit-content;
+            margin: 25px auto 0;
+            padding: 12px 22px;
+            background: #1976d2;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #0f4c81;
+        }
+
+        @media (max-width: 600px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>📖 Borrowing History</h1>
+    <div class="header">
+        <h1>📖 Borrowing History</h1>
+        <p>View your previous library borrowing records</p>
+    </div>
 
-<div class="card">
+    <div class="container">
 
-    <h2>My Borrowing History</h2>
+        <div class="summary">
 
-    <table border="1" width="100%">
+            <div class="summary-card">
+                <div class="icon">📚</div>
+                <h3>Total Books Borrowed</h3>
+                <div class="value" id="totalBorrowed">0</div>
+            </div>
 
-        <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Book ID / ISBN</th>
-                <th>Issue Date</th>
-                <th>Return Date</th>
-            </tr>
-        </thead>
+            <div class="summary-card">
+                <div class="icon">🔄</div>
+                <h3>Books Returned</h3>
+                <div class="value" id="totalReturned">0</div>
+            </div>
 
-        <tbody id="historyTable">
-        </tbody>
+        </div>
 
-    </table>
+        <div class="card">
 
-    <p id="message"></p>
+            <h2>📋 My Borrowing History</h2>
 
-</div>
+            <div class="table-container">
 
-<br>
+                <table>
 
-<button type="button"
-onclick="window.location.href='student-dashboard.html'">
-    Back to Student Dashboard
-</button>
+                    <thead>
+                        <tr>
+                            <th>📚 Book Name</th>
+                            <th>🔖 Book ID / ISBN</th>
+                            <th>📅 Issue Date</th>
+                            <th>↩️ Return Date</th>
+                            <th>📌 Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historyTable"></tbody>
+
+                </table>
+
+            </div>
+
+            <p id="message" class="message"></p>
+
+        </div>
+
+        <a href="student-dashboard.html" class="back-btn">
+            ← Back to Student Dashboard
+        </a>
+
+    </div>
+
 
 <script>
 
@@ -56,39 +246,71 @@ function loadHistory() {
     let message =
         document.getElementById("message");
 
+    let totalBorrowed =
+        document.getElementById("totalBorrowed");
+
+    let totalReturned =
+        document.getElementById("totalReturned");
+
     table.innerHTML = "";
 
+    totalBorrowed.innerText = "0";
+    totalReturned.innerText = "0";
+    message.innerText = "";
+
     if (!studentId) {
+
         message.innerText =
             "Please register/login as a student first.";
+
         return;
     }
 
     let myHistory = history.filter(function(book) {
+
         return book.studentId === studentId;
+
     });
 
     if (myHistory.length === 0) {
+
         message.innerText =
             "No borrowing history found.";
+
         return;
     }
+
+    totalBorrowed.innerText = myHistory.length;
+    totalReturned.innerText = myHistory.length;
 
     myHistory.forEach(function(book) {
 
         let row = table.insertRow();
 
-        row.insertCell(0).innerText =
-            book.bookName;
+        let nameCell = row.insertCell(0);
+        nameCell.innerText = book.bookName;
+        nameCell.className = "book-name";
 
         row.insertCell(1).innerText =
-            book.bookId;
+            book.bookId || "-";
 
-        row.insertCell(2).innerText =
-            book.issueDate;
+        let issueCell = row.insertCell(2);
+        issueCell.innerText =
+            book.issueDate || "-";
+        issueCell.className = "date";
 
-        row.insertCell(3).innerText =
-            book.returnDate;
+        let returnCell = row.insertCell(3);
+        returnCell.innerText =
+            book.returnDate || "-";
+        returnCell.className = "date";
+
+        let statusCell = row.insertCell(4);
+
+        let status = document.createElement("span");
+        status.innerText = "Returned";
+        status.className = "returned";
+
+        statusCell.appendChild(status);
     });
 }
 
@@ -98,3 +320,4 @@ loadHistory();
 
 </body>
 </html>
+        
