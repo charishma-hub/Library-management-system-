@@ -3,111 +3,376 @@
 
 <head>
     <title>Digital Library</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #163b65, #2878bd);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #163b65;
+            margin-top: 0;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        #searchBox {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #d5dce5;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        #searchBox:focus {
+            outline: none;
+            border-color: #2878bd;
+        }
+
+        #bookList {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .book {
+            background: #f8fbff;
+            border: 1px solid #e0e8f1;
+            border-radius: 14px;
+            padding: 20px;
+            transition: 0.2s;
+        }
+
+        .book:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .book-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .book h3 {
+            color: #163b65;
+            margin: 5px 0 12px;
+        }
+
+        .book p {
+            margin: 7px 0;
+            color: #5f6b78;
+        }
+
+        .open-btn {
+            margin-top: 15px;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #2878bd;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .open-btn:hover {
+            background: #163b65;
+        }
+
+        #readingContent {
+            background: #f8fbff;
+            border-left: 5px solid #2878bd;
+            padding: 22px;
+            border-radius: 10px;
+            line-height: 1.7;
+        }
+
+        #readingContent h3 {
+            color: #163b65;
+        }
+
+        #readingContent li {
+            margin: 8px 0;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            background: #163b65;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            background: #2878bd;
+        }
+
+        @media (max-width: 700px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            #bookList {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<h1>📚 Digital Library</h1>
 
-<div class="card">
+<header>
 
-    <h2>📖 E-Books</h2>
+    <h1>📚 Digital Library</h1>
 
-    <input type="text"
-           id="searchBox"
-           placeholder="Search e-books"
-           onkeyup="searchBooks()">
+    <p>
+        Explore and read educational e-books online
+    </p>
 
-</div>
+</header>
 
 
-<div class="card">
+<div class="container">
 
-    <div id="bookList">
 
-        <div class="book">
+    <!-- SEARCH -->
 
-            <h3>Database Management Systems</h3>
-            <p>Author: Abraham Silberschatz</p>
-            <p>Category: Database</p>
+    <div class="card">
 
-            <button type="button"
+        <h2>🔍 Search E-Books</h2>
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search by book name, author or category..."
+            onkeyup="searchBooks()">
+
+    </div>
+
+
+    <!-- BOOKS -->
+
+    <div class="card">
+
+        <h2>📖 Available E-Books</h2>
+
+        <div id="bookList">
+
+
+            <div class="book">
+
+                <div class="book-icon">📘</div>
+
+                <h3>
+                    Database Management Systems
+                </h3>
+
+                <p>
+                    <b>Author:</b>
+                    Abraham Silberschatz
+                </p>
+
+                <p>
+                    <b>Category:</b>
+                    Database
+                </p>
+
+                <button
+                    class="open-btn"
+                    type="button"
                     onclick="openBook('Database Management Systems')">
-                📖 Open Book
-            </button>
 
-        </div>
+                    📖 Open Book
+
+                </button>
+
+            </div>
 
 
-        <div class="book">
+            <div class="book">
 
-            <h3>Java Programming</h3>
-            <p>Author: Herbert Schildt</p>
-            <p>Category: Programming</p>
+                <div class="book-icon">☕</div>
 
-            <button type="button"
+                <h3>
+                    Java Programming
+                </h3>
+
+                <p>
+                    <b>Author:</b>
+                    Herbert Schildt
+                </p>
+
+                <p>
+                    <b>Category:</b>
+                    Programming
+                </p>
+
+                <button
+                    class="open-btn"
+                    type="button"
                     onclick="openBook('Java Programming')">
-                📖 Open Book
-            </button>
 
-        </div>
+                    📖 Open Book
+
+                </button>
+
+            </div>
 
 
-        <div class="book">
+            <div class="book">
 
-            <h3>Computer Networks</h3>
-            <p>Author: Andrew S. Tanenbaum</p>
-            <p>Category: Networks</p>
+                <div class="book-icon">🌐</div>
 
-            <button type="button"
+                <h3>
+                    Computer Networks
+                </h3>
+
+                <p>
+                    <b>Author:</b>
+                    Andrew S. Tanenbaum
+                </p>
+
+                <p>
+                    <b>Category:</b>
+                    Networks
+                </p>
+
+                <button
+                    class="open-btn"
+                    type="button"
                     onclick="openBook('Computer Networks')">
-                📖 Open Book
-            </button>
 
-        </div>
+                    📖 Open Book
+
+                </button>
+
+            </div>
 
 
-        <div class="book">
+            <div class="book">
 
-            <h3>Operating System Concepts</h3>
-            <p>Author: Abraham Silberschatz</p>
-            <p>Category: Operating Systems</p>
+                <div class="book-icon">💻</div>
 
-            <button type="button"
+                <h3>
+                    Operating System Concepts
+                </h3>
+
+                <p>
+                    <b>Author:</b>
+                    Abraham Silberschatz
+                </p>
+
+                <p>
+                    <b>Category:</b>
+                    Operating Systems
+                </p>
+
+                <button
+                    class="open-btn"
+                    type="button"
                     onclick="openBook('Operating System Concepts')">
-                📖 Open Book
-            </button>
+
+                    📖 Open Book
+
+                </button>
+
+            </div>
+
 
         </div>
 
     </div>
 
-</div>
 
+    <!-- READING -->
 
-<div class="card">
+    <div class="card">
 
-    <h2 id="readingTitle">📖 Online Reading</h2>
+        <h2 id="readingTitle">
+            📖 Online Reading
+        </h2>
 
-    <div id="readingContent">
+        <div id="readingContent">
 
-        <p>
-            Select an e-book above and click
-            <b>Open Book</b> to start reading.
-        </p>
+            <p>
+                Select an e-book above and click
+                <b>Open Book</b> to start reading.
+            </p>
+
+        </div>
 
     </div>
 
+
+    <a
+        href="student-dashboard.html"
+        class="back-btn">
+
+        ← Back to Student Dashboard
+
+    </a>
+
+
 </div>
-
-
-<br>
-
-<button type="button"
-        onclick="window.location.href='student-dashboard.html'">
-    Back to Student Dashboard
-</button>
 
 
 <script>
@@ -116,18 +381,22 @@
 function searchBooks() {
 
     let search =
-        document.getElementById("searchBox")
+        document
+        .getElementById("searchBox")
         .value
         .trim()
         .toLowerCase();
 
+
     let books =
         document.querySelectorAll(".book");
+
 
     books.forEach(function(book) {
 
         let text =
             book.innerText.toLowerCase();
+
 
         if (text.includes(search)) {
 
@@ -144,10 +413,12 @@ function searchBooks() {
 }
 
 
+
 function openBook(bookName) {
 
     let title =
         document.getElementById("readingTitle");
+
 
     let content =
         document.getElementById("readingContent");
@@ -157,131 +428,189 @@ function openBook(bookName) {
         "📖 " + bookName;
 
 
-    if (bookName === "Database Management Systems") {
+
+    if (
+        bookName ===
+        "Database Management Systems"
+    ) {
 
         content.innerHTML = `
-            <h3>Chapter 1: Introduction to DBMS</h3>
+
+            <h3>
+                Chapter 1: Introduction to DBMS
+            </h3>
 
             <p>
-                A Database Management System (DBMS) is
-                software used to create, store, organize
-                and manage data in a database.
+                A Database Management System (DBMS)
+                is software used to create, store,
+                organize and manage data in a database.
             </p>
 
             <p>
-                A DBMS allows users to insert, update,
-                delete and retrieve information efficiently.
+                A DBMS allows users to insert,
+                update, delete and retrieve
+                information efficiently.
             </p>
 
-            <h3>Important Concepts</h3>
+            <h3>
+                Important Concepts
+            </h3>
 
             <ul>
+
                 <li>Database</li>
                 <li>Tables</li>
                 <li>Records</li>
                 <li>Primary Key</li>
                 <li>Foreign Key</li>
                 <li>SQL</li>
+
             </ul>
 
             <p>
-                📚 This is sample educational content
-                for the Digital Library.
+                📚 This is sample educational
+                content for the Digital Library.
             </p>
+
         `;
 
     }
 
 
-    else if (bookName === "Java Programming") {
+    else if (
+        bookName ===
+        "Java Programming"
+    ) {
 
         content.innerHTML = `
-            <h3>Chapter 1: Introduction to Java</h3>
+
+            <h3>
+                Chapter 1: Introduction to Java
+            </h3>
 
             <p>
-                Java is a high-level, object-oriented
-                programming language.
+                Java is a high-level,
+                object-oriented programming language.
             </p>
 
             <p>
-                Java programs are compiled into bytecode
-                which can run on the Java Virtual Machine.
+                Java programs are compiled into
+                bytecode which can run on the
+                Java Virtual Machine.
             </p>
 
-            <h3>Important Concepts</h3>
+            <h3>
+                Important Concepts
+            </h3>
 
             <ul>
+
                 <li>Classes and Objects</li>
                 <li>Inheritance</li>
                 <li>Polymorphism</li>
                 <li>Encapsulation</li>
                 <li>Abstraction</li>
+
             </ul>
+
         `;
 
     }
 
 
-    else if (bookName === "Computer Networks") {
+    else if (
+        bookName ===
+        "Computer Networks"
+    ) {
 
         content.innerHTML = `
-            <h3>Chapter 1: Introduction to Networks</h3>
+
+            <h3>
+                Chapter 1: Introduction to Networks
+            </h3>
 
             <p>
-                A computer network connects computers and
-                other devices so that they can communicate
-                and share resources.
+                A computer network connects
+                computers and other devices so
+                that they can communicate and
+                share resources.
             </p>
 
-            <h3>Important Concepts</h3>
+            <h3>
+                Important Concepts
+            </h3>
 
             <ul>
+
                 <li>LAN</li>
                 <li>MAN</li>
                 <li>WAN</li>
                 <li>IP Address</li>
                 <li>Protocols</li>
                 <li>Network Security</li>
+
             </ul>
+
         `;
 
     }
 
 
-    else if (bookName === "Operating System Concepts") {
+    else if (
+        bookName ===
+        "Operating System Concepts"
+    ) {
 
         content.innerHTML = `
-            <h3>Chapter 1: Introduction to Operating Systems</h3>
+
+            <h3>
+                Chapter 1: Introduction to
+                Operating Systems
+            </h3>
 
             <p>
-                An Operating System is system software
-                that manages computer hardware and provides
-                services to application programs.
+                An Operating System is system
+                software that manages computer
+                hardware and provides services
+                to application programs.
             </p>
 
-            <h3>Important Concepts</h3>
+            <h3>
+                Important Concepts
+            </h3>
 
             <ul>
+
                 <li>Process Management</li>
                 <li>Memory Management</li>
                 <li>File Management</li>
                 <li>Device Management</li>
                 <li>Security</li>
+
             </ul>
+
         `;
 
     }
 
 
     window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
+
+        top:
+            document.body.scrollHeight,
+
+        behavior:
+            "smooth"
+
     });
 
 }
 
+
 </script>
+
 
 </body>
 
-</html>
+</html>            
+            
