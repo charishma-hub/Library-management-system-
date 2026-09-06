@@ -1,9 +1,466 @@
-<!DOCTYPE html>
-<html>
+            <!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Library Management System</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f8fc;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        header {
+            background: linear-gradient(135deg, #0d2b4d, #1976d2);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            opacity: 0.85;
+            font-size: 13px;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 480px;
+            padding: 70px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(135deg, #e8f3ff, #ffffff);
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #dceeff;
+            color: #1565c0;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            line-height: 1.15;
+            margin: 20px 0;
+            color: #12395b;
+        }
+
+        .hero h2 strong {
+            color: #1976d2;
+        }
+
+        .hero p {
+            color: #5f6b7a;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 580px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .primary-btn {
+            background: #1976d2;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #1565c0;
+            border: 1px solid #1976d2 !important;
+        }
+
+        .hero-icon {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1976d2, #64b5f6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 110px;
+            box-shadow: 0 20px 45px rgba(25,118,210,0.25);
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title span {
+            color: #1976d2;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            color: #12395b;
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        .section-title p {
+            color: #6b7280;
+        }
+
+        /* LOGIN */
+
+        #login {
+            background: white;
+        }
+
+        .login-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .login-card {
+            padding: 30px;
+            border-radius: 18px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: 0.3s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .login-icon {
+            width: 70px;
+            height: 70px;
+            margin: auto;
+            border-radius: 50%;
+            background: #e8f3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 34px;
+        }
+
+        .login-card h3 {
+            color: #12395b;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .login-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            min-height: 50px;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #1976d2;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* STATISTICS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 28px 20px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-box > div {
+            font-size: 35px;
+        }
+
+        .stat-box h3 {
+            color: #12395b;
+            margin: 12px 0 6px;
+        }
+
+        .stat-box p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* BOOKS */
+
+        #books {
+            background: white;
+        }
+
+        .search-area {
+            max-width: 650px;
+            margin: 0 auto 35px;
+        }
+
+        .search-area input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid #d5dce5;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-area input:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25,118,210,0.1);
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .book {
+            background: #f8fbff;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e0e8f0;
+            transition: 0.3s;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .book-cover {
+            width: 55px;
+            height: 65px;
+            background: #1976d2;
+            color: white;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .book h3 {
+            color: #12395b;
+            font-size: 17px;
+        }
+
+        .book p {
+            color: #6b7280;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .book span {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* FEATURES */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 28px 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .feature > div {
+            font-size: 35px;
+        }
+
+        .feature h3 {
+            color: #12395b;
+        }
+
+        .feature p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0d2b4d;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer h3 {
+            margin: 0 0 10px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                margin: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .login-grid,
+            .stats-grid,
+            .book-grid,
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero-icon {
+                width: 190px;
+                height: 190px;
+                font-size: 75px;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .login-grid,
+            .stats-grid,
+            .book-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -25,7 +482,7 @@
 </header>
 
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 
 <section class="hero">
 
@@ -46,20 +503,19 @@
 
         <div class="hero-buttons">
 
-            <button type="button"
-                    onclick="document.getElementById('login').scrollIntoView({behavior:'smooth'})">
+            <button class="primary-btn"
+                onclick="document.getElementById('login').scrollIntoView({behavior:'smooth'})">
                 🔐 Get Started
             </button>
 
-            <button type="button"
-                    onclick="document.getElementById('books').scrollIntoView({behavior:'smooth'})">
+            <button class="secondary-btn"
+                onclick="document.getElementById('books').scrollIntoView({behavior:'smooth'})">
                 📚 Explore Books
             </button>
 
         </div>
 
     </div>
-
 
     <div class="hero-icon">
         📚
@@ -82,11 +538,9 @@
 
     </div>
 
-
     <div class="login-grid">
 
-
-        <div class="login-card admin-card">
+        <div class="login-card">
 
             <div class="login-icon">👨‍💼</div>
 
@@ -97,15 +551,14 @@
                 settings and reports.
             </p>
 
-            <button type="button"
-                    onclick="login('Admin')">
+            <button onclick="login('Admin')">
                 Login as Admin →
             </button>
 
         </div>
 
 
-        <div class="login-card student-card">
+        <div class="login-card">
 
             <div class="login-icon">🎓</div>
 
@@ -116,15 +569,14 @@
                 reservations and fines.
             </p>
 
-            <button type="button"
-                    onclick="login('Student')">
+            <button onclick="login('Student')">
                 Login as Student →
             </button>
 
         </div>
 
 
-        <div class="login-card librarian-card">
+        <div class="login-card">
 
             <div class="login-icon">📚</div>
 
@@ -135,13 +587,11 @@
                 and renew books.
             </p>
 
-            <button type="button"
-                    onclick="login('Librarian')">
+            <button onclick="login('Librarian')">
                 Login as Librarian →
             </button>
 
         </div>
-
 
     </div>
 
@@ -158,8 +608,9 @@
 
         <h2>Everything Under Control</h2>
 
-    </div>
+        <p>Powerful tools for efficient library management</p>
 
+    </div>
 
     <div class="stats-grid">
 
@@ -206,19 +657,18 @@
 
     </div>
 
-
     <div class="search-area">
 
-        <input type="text"
-               id="searchBox"
-               placeholder="🔍 Search for a book..."
-               onkeyup="searchBooks()">
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="🔍 Search for a book..."
+            onkeyup="searchBooks()"
+        >
 
     </div>
 
-
     <div class="book-grid">
-
 
         <div class="book">
 
@@ -226,7 +676,9 @@
 
             <h3>Database Management Systems</h3>
 
-            <p>Learn databases, SQL and data management.</p>
+            <p>
+                Learn databases, SQL and data management.
+            </p>
 
             <span>Database</span>
 
@@ -239,7 +691,9 @@
 
             <h3>Java Programming</h3>
 
-            <p>Learn object-oriented programming with Java.</p>
+            <p>
+                Learn object-oriented programming with Java.
+            </p>
 
             <span>Programming</span>
 
@@ -252,7 +706,9 @@
 
             <h3>Computer Networks</h3>
 
-            <p>Explore networking concepts and protocols.</p>
+            <p>
+                Explore networking concepts and protocols.
+            </p>
 
             <span>Networks</span>
 
@@ -265,12 +721,13 @@
 
             <h3>Operating Systems</h3>
 
-            <p>Understand processes, memory and file systems.</p>
+            <p>
+                Understand processes, memory and file systems.
+            </p>
 
             <span>Operating Systems</span>
 
         </div>
-
 
     </div>
 
@@ -287,8 +744,9 @@
 
         <h2>Powerful Library Features</h2>
 
-    </div>
+        <p>Everything you need in one platform</p>
 
+    </div>
 
     <div class="feature-grid">
 
@@ -339,4 +797,4 @@
 
 </body>
 
-</html>
+        </html>
