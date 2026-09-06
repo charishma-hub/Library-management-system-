@@ -1,159 +1,489 @@
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Student Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | Library Management System</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f4f7fb;
-            margin: 0;
+            color: #1e293b;
         }
 
-        header {
-            background: #1e3a5f;
+        .header {
+            background: linear-gradient(135deg, #123b68, #2878bd);
             color: white;
-            padding: 20px;
+            padding: 28px 20px;
             text-align: center;
         }
 
-        .register-box {
-            width: 90%;
-            max-width: 500px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
         }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 15px;
-            box-sizing: border-box;
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .register-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .title-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #e8f3ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .title h2 {
+            color: #163b65;
+            margin-bottom: 6px;
+        }
+
+        .title p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / -1;
         }
 
         label {
             font-weight: bold;
+            margin-bottom: 7px;
+            color: #334155;
         }
 
-        button {
+        input {
             width: 100%;
-            padding: 12px;
-            background: #1e3a5f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+            padding: 13px;
+            border: 1px solid #d4dce7;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
         }
 
-        .back {
-            background: #555;
+        input:focus {
+            border-color: #2878bd;
+            box-shadow: 0 0 0 3px rgba(40, 120, 189, 0.1);
+        }
+
+        .account-title {
+            grid-column: 1 / -1;
+            margin-top: 5px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5eaf0;
+            color: #163b65;
+            font-size: 18px;
+        }
+
+        .register-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            margin-top: 22px;
+            border-radius: 9px;
+            background: #2878bd;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            opacity: 0.9;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            padding: 13px;
+            border-radius: 9px;
+            background: #edf2f7;
+            color: #163b65;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link:hover {
+            background: #e2eaf2;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 9px;
+            background: #eef6ff;
+            color: #45617b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .register-card {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .account-title {
+                grid-column: auto;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>📚 Student Registration</h1>
-</header>
+    <div class="header">
+        <h1>📚 Student Registration</h1>
+        <p>Create your library account</p>
+    </div>
 
-<div class="register-box">
 
-    <h2>Create Student Account</h2>
+    <div class="container">
 
-    <label>Full Name</label>
-    <input type="text" id="name" placeholder="Enter your name">
+        <div class="register-card">
 
-    <label>Student ID</label>
-    <input type="text" id="studentId" placeholder="Enter student ID">
+            <div class="title">
 
-    <label>Course</label>
-    <input type="text" id="course" placeholder="Enter course">
+                <div class="title-icon">
+                    🧑‍🎓
+                </div>
 
-    <label>Department</label>
-    <input type="text" id="department" placeholder="Enter department">
+                <h2>Create Student Account</h2>
 
-    <label>Email</label>
-    <input type="email" id="email" placeholder="Enter email">
+                <p>
+                    Enter your details to register with the library
+                </p>
 
-    <label>Phone Number</label>
-    <input type="tel" id="phone" placeholder="Enter phone number">
+            </div>
 
-    <label>Username</label>
-    <input type="text" id="username" placeholder="Create username">
 
-    <label>Password</label>
-    <input type="password" id="password" placeholder="Create password">
+            <div class="form-grid">
 
-    <button onclick="registerStudent()">
-        Register
-    </button>
+                <!-- PERSONAL DETAILS -->
 
-    <button class="back"
-        onclick="window.location.href='student-login.html'">
-        Back to Login
-    </button>
+                <div class="form-group full">
 
-</div>
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Student ID</label>
+
+                    <input
+                        type="text"
+                        id="studentId"
+                        placeholder="Enter student ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Course</label>
+
+                    <input
+                        type="text"
+                        id="course"
+                        placeholder="Enter course">
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Department</label>
+
+                    <input
+                        type="text"
+                        id="department"
+                        placeholder="Enter department">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Phone Number</label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter phone number">
+
+                </div>
+
+
+                <!-- ACCOUNT DETAILS -->
+
+                <div class="account-title">
+                    🔐 Account Details
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Create username">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create password">
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="register-btn"
+                type="button"
+                onclick="registerStudent()">
+
+                ✅ Create Student Account
+
+            </button>
+
+
+            <a
+                href="student-login.html"
+                class="login-link">
+
+                ← Already have an account? Login
+
+            </a>
+
+
+            <div class="info">
+                🔒 Your registration details are stored locally
+                for this Library Management System demo.
+            </div>
+
+        </div>
+
+    </div>
+
 
 <script>
+
 function registerStudent() {
 
-    let name = document.getElementById("name").value.trim();
-    let studentId = document.getElementById("studentId").value.trim();
-    let course = document.getElementById("course").value.trim();
-    let department = document.getElementById("department").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value;
+    let name =
+        document.getElementById("name").value.trim();
 
-    if (name === "" || studentId === "" || course === "" ||
-        department === "" || email === "" || phone === "" ||
-        username === "" || password === "") {
+    let studentId =
+        document.getElementById("studentId").value.trim();
+
+    let course =
+        document.getElementById("course").value.trim();
+
+    let department =
+        document.getElementById("department").value.trim();
+
+    let email =
+        document.getElementById("email").value.trim();
+
+    let phone =
+        document.getElementById("phone").value.trim();
+
+    let username =
+        document.getElementById("username").value.trim();
+
+    let password =
+        document.getElementById("password").value;
+
+
+    if (
+        name === "" ||
+        studentId === "" ||
+        course === "" ||
+        department === "" ||
+        email === "" ||
+        phone === "" ||
+        username === "" ||
+        password === ""
+    ) {
 
         alert("Please fill all fields.");
+
         return;
     }
 
-    // Save login details
-    localStorage.setItem("studentName", name);
-    localStorage.setItem("studentId", studentId);
-    localStorage.setItem("course", course);
-    localStorage.setItem("department", department);
-    localStorage.setItem("email", email);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("studentUsername", username);
-    localStorage.setItem("studentPassword", password);
-    
 
-    // Save student in student list
+    /* Save login details */
+
+    localStorage.setItem(
+        "studentName",
+        name
+    );
+
+    localStorage.setItem(
+        "studentId",
+        studentId
+    );
+
+    localStorage.setItem(
+        "course",
+        course
+    );
+
+    localStorage.setItem(
+        "department",
+        department
+    );
+
+    localStorage.setItem(
+        "email",
+        email
+    );
+
+    localStorage.setItem(
+        "phone",
+        phone
+    );
+
+    localStorage.setItem(
+        "studentUsername",
+        username
+    );
+
+    localStorage.setItem(
+        "studentPassword",
+        password
+    );
+
+
+    /* Save student in student list */
+
     let students =
-        JSON.parse(localStorage.getItem("students")) || [];
+        JSON.parse(
+            localStorage.getItem("students")
+        ) || [];
+
 
     students.push({
+
         name: name,
+
         studentId: studentId,
+
         course: course,
+
         department: department,
+
         email: email,
+
         phone: phone
+
     });
+
 
     localStorage.setItem(
         "students",
         JSON.stringify(students)
     );
 
-    alert("Student registered successfully!");
 
-    window.location.href = "student-login.html";
+    alert(
+        "Student registered successfully!"
+    );
+
+
+    window.location.href =
+        "student-login.html";
 }
+
 </script>
 
 </body>
+
 </html>
