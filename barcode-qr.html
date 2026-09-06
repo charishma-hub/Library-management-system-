@@ -1,59 +1,262 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Barcode & QR Code</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode & QR Code | Library Management System</title>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #123b68, #2878bd);
+            color: white;
+            padding: 25px 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            color: #163b65;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d4dce7;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2878bd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            background: #2878bd;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .secondary {
+            background: #163b65;
+        }
+
+        #qrcode {
+            margin: 25px auto 10px;
+            width: 180px;
+            min-height: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #result {
+            text-align: center;
+            color: #16803c;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .book-info {
+            line-height: 1.8;
+        }
+
+        .book-info h3 {
+            color: #2878bd;
+            margin-bottom: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #e8f7ee;
+            color: #16803c;
+            font-weight: bold;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            background: #eef6ff;
+            padding: 15px;
+            border-radius: 10px;
+            color: #31506d;
+            line-height: 1.6;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            background: #163b65;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🔳 Barcode / QR Code</h1>
-
-<div class="card">
-
-    <h2>📚 Generate Book QR Code</h2>
-
-    <input type="text"
-           id="bookId"
-           placeholder="Enter Book ID / ISBN">
-
-    <br><br>
-
-    <button type="button" onclick="generateQR()">
-        🔳 Generate QR Code
-    </button>
-
-    <button type="button" onclick="scanBook()">
-        🔍 Search Book
-    </button>
-
-    <div id="qrcode"></div>
-
-    <p id="result"></p>
-
-</div>
-
-
-<div class="card">
-
-    <h2>📖 Book Information</h2>
-
-    <div id="bookInfo">
-        Enter a Book ID / ISBN and search.
+    <div class="header">
+        <h1>🔳 Barcode & QR Code</h1>
+        <p>Generate QR codes and quickly search library books</p>
     </div>
 
-</div>
+    <div class="container">
+
+        <div class="grid">
+
+            <!-- QR GENERATOR -->
+            <div class="card">
+
+                <h2>📚 Generate Book QR Code</h2>
+
+                <label class="label">
+                    Book ID / ISBN
+                </label>
+
+                <input
+                    type="text"
+                    id="bookId"
+                    placeholder="Enter Book ID or ISBN">
+
+                <div class="buttons">
+
+                    <button type="button" onclick="generateQR()">
+                        🔳 Generate QR
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        onclick="scanBook()">
+                        🔍 Search Book
+                    </button>
+
+                </div>
+
+                <div id="qrcode"></div>
+
+                <p id="result"></p>
+
+                <div class="info-box">
+                    💡 Enter the ISBN of a book to generate a QR code.
+                    The QR code can be used to identify the book quickly.
+                </div>
+
+            </div>
 
 
-<br>
+            <!-- BOOK INFORMATION -->
+            <div class="card">
 
-<button type="button"
-        onclick="window.location.href='librarian-dashboard.html'">
-    Back to Librarian Dashboard
-</button>
+                <h2>📖 Book Information</h2>
+
+                <div id="bookInfo" class="book-info">
+
+                    <p>
+                        Enter a Book ID / ISBN and click
+                        <b>Search Book</b>.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="librarian-dashboard.html"
+            class="back">
+            ← Back to Librarian Dashboard
+        </a>
+
+    </div>
 
 
 <script>
@@ -70,6 +273,8 @@ function generateQR() {
 
     qr.innerHTML = "";
 
+    document.getElementById("result").innerText = "";
+
     if (bookId === "") {
 
         alert("Please enter Book ID / ISBN.");
@@ -78,13 +283,17 @@ function generateQR() {
     }
 
     new QRCode(qr, {
+
         text: bookId,
+
         width: 180,
+
         height: 180
+
     });
 
     document.getElementById("result").innerText =
-        "✅ QR Code generated for Book ID: " + bookId;
+        "✅ QR Code generated for: " + bookId;
 }
 
 
@@ -105,42 +314,66 @@ function scanBook() {
     let books =
         JSON.parse(localStorage.getItem("books")) || [];
 
+
     let book =
         books.find(function(b) {
-            return b.isbn === bookId;
+
+            return String(b.isbn) === String(bookId);
+
         });
+
+
+    let bookInfo =
+        document.getElementById("bookInfo");
 
 
     if (!book) {
 
-        document.getElementById("bookInfo").innerText =
-            "❌ Book not found!";
+        bookInfo.innerHTML =
+
+            "<p style='color:#d32f2f;font-weight:bold;'>" +
+            "❌ Book not found!" +
+            "</p>";
 
         return;
     }
 
 
-    document.getElementById("bookInfo").innerHTML =
+    let available =
+        Number(book.copies) > 0;
+
+
+    bookInfo.innerHTML =
 
         "<h3>📚 " + book.name + "</h3>" +
 
-        "<p>Author: " + book.author + "</p>" +
+        "<p><b>Author:</b> " +
+        book.author +
+        "</p>" +
 
-        "<p>ISBN: " + book.isbn + "</p>" +
+        "<p><b>ISBN:</b> " +
+        book.isbn +
+        "</p>" +
 
-        "<p>Category: " + book.category + "</p>" +
+        "<p><b>Category:</b> " +
+        book.category +
+        "</p>" +
 
-        "<p>Publisher: " + book.publisher + "</p>" +
+        "<p><b>Publisher:</b> " +
+        book.publisher +
+        "</p>" +
 
-        "<p>Available Copies: " + book.copies + "</p>" +
+        "<p><b>Available Copies:</b> " +
+        book.copies +
+        "</p>" +
 
-        "<p>Status: " +
+        "<div class='status'>" +
 
-        (Number(book.copies) > 0
+        (available
             ? "✅ Available"
-            : "❌ Issued") +
+            : "❌ Currently Issued") +
 
-        "</p>";
+        "</div>";
 
 }
 
@@ -149,3 +382,6 @@ function scanBook() {
 </body>
 
 </html>
+    
+
+        
