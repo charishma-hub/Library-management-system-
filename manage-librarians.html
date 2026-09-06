@@ -1,66 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Librarians</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f7fb;
-            margin: 0;
+            color: #1e293b;
         }
 
         header {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #0f2f55, #2563eb);
             color: white;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
         }
 
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
         .container {
-            width: 90%;
-            max-width: 900px;
+            width: 92%;
+            max-width: 1100px;
             margin: 30px auto;
+        }
+
+        .card {
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(15, 47, 85, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #0f2f55;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         input {
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dbe3ef;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
         }
 
-        button {
-            padding: 10px 18px;
-            background: #1e3a5f;
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            padding: 13px 22px;
+            background: #2563eb;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
-            margin-top: 25px;
             border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: center;
+            min-width: 600px;
         }
 
         th {
-            background: #1e3a5f;
+            background: #0f2f55;
             color: white;
+            padding: 15px;
+            text-align: left;
         }
 
-        .back {
-            margin-top: 20px;
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f8fbff;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #0f2f55;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #1e40af;
+        }
+
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .container {
+                width: 94%;
+            }
         }
     </style>
 </head>
@@ -69,81 +178,151 @@
 
 <header>
     <h1>Manage Librarians</h1>
+    <p>Add, view, and manage library staff members</p>
 </header>
 
 <div class="container">
 
-    <h2>Add Librarian</h2>
+    <div class="card">
+        <h2>👤 Add New Librarian</h2>
 
-    <input type="text" id="name" placeholder="Librarian Name">
-    <input type="email" id="email" placeholder="Email">
-    <input type="text" id="phone" placeholder="Phone">
+        <div class="form-grid">
+            <div>
+                <label for="name">Librarian Name</label>
+                <input type="text" id="name" placeholder="Enter name">
+            </div>
 
-    <button onclick="addLibrarian()">Add Librarian</button>
+            <div>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter email">
+            </div>
 
-    <h2>Librarian List</h2>
+            <div>
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" placeholder="Enter phone number">
+            </div>
+        </div>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
+        <button class="add-btn" onclick="addLibrarian()">
+            + Add Librarian
+        </button>
+    </div>
 
-        <tbody id="librarianList">
-            <tr>
-                <td>Ravi Kumar</td>
-                <td>ravi@gmail.com</td>
-                <td>9876543210</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card">
+        <h2>📋 Librarian List</h2>
 
-    <button class="back" onclick="window.location.href='admin-dashboard.html'">
-        Back to Admin Dashboard
-    </button>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="librarianList"></tbody>
+            </table>
+        </div>
+
+        <div id="emptyMessage" class="empty">
+            No librarians added yet.
+        </div>
+    </div>
+
+    <a class="back-btn" href="admin-dashboard.html">
+        ← Back to Admin Dashboard
+    </a>
 
 </div>
 
 <script>
-function addLibrarian() {
+function loadLibrarians() {
+    let librarians =
+        JSON.parse(localStorage.getItem("librarians")) || [];
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
+    let table = document.getElementById("librarianList");
+    let emptyMessage = document.getElementById("emptyMessage");
+
+    table.innerHTML = "";
+
+    if (librarians.length === 0) {
+        emptyMessage.style.display = "block";
+        return;
+    }
+
+    emptyMessage.style.display = "none";
+
+    librarians.forEach(function(librarian, index) {
+        let row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${librarian.name}</td>
+            <td>${librarian.email}</td>
+            <td>${librarian.phone}</td>
+            <td>
+                <button class="delete-btn"
+                    onclick="deleteLibrarian(${index})">
+                    Delete
+                </button>
+            </td>
+        `;
+    });
+}
+
+function addLibrarian() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
 
     if (name === "" || email === "" || phone === "") {
         alert("Please enter all details.");
         return;
     }
 
-    let table = document.getElementById("librarianList");
-
-    let row = table.insertRow();
     let librarians =
-    JSON.parse(localStorage.getItem("librarians")) || [];
+        JSON.parse(localStorage.getItem("librarians")) || [];
 
-librarians.push({
-    name: name,
-    email: email,
-    phone: phone
-});
+    librarians.push({
+        name: name,
+        email: email,
+        phone: phone
+    });
 
-localStorage.setItem(
-    "librarians",
-    JSON.stringify(librarians)
-);
-
-    row.insertCell(0).innerHTML = name;
-    row.insertCell(1).innerHTML = email;
-    row.insertCell(2).innerHTML = phone;
+    localStorage.setItem(
+        "librarians",
+        JSON.stringify(librarians)
+    );
 
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("phone").value = "";
 
+    loadLibrarians();
+
     alert("Librarian added successfully!");
 }
+
+function deleteLibrarian(index) {
+    if (confirm("Are you sure you want to delete this librarian?")) {
+        let librarians =
+            JSON.parse(localStorage.getItem("librarians")) || [];
+
+        librarians.splice(index, 1);
+
+        localStorage.setItem(
+            "librarians",
+            JSON.stringify(librarians)
+        );
+
+        loadLibrarians();
+    }
+}
+
+window.onload = loadLibrarians;
 </script>
 
 </body>
